@@ -69,6 +69,7 @@ import NavCmp from './NavCmp.vue';
                     })
                     const data = await response.json()
                     if (data.success){
+                        localStorage.setItem('spicetoken', data.token)
                         this.$router.push('/')
                     } else {
                         this.errorMessage = data.message
