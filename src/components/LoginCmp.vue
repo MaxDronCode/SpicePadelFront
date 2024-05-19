@@ -42,7 +42,7 @@ export default {
                 })
                 const data = await response.json()
                 if (data.success) {
-                    localStorage.setItem('spicetoken', JSON.stringify({'usu_mail': data.user_mail, 'token': data.token}))
+                    localStorage.setItem('spicetoken', JSON.stringify({'user_mail': data.user_mail, 'token': data.token}))
                     this.$router.push('/') 
                 } else {
                     this.errorMessage = data.message
