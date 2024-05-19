@@ -69,7 +69,7 @@ import NavCmp from './NavCmp.vue';
                     })
                     const data = await response.json()
                     if (data.success){
-                        localStorage.setItem('spicetoken', data.token)
+                        localStorage.setItem('spicetoken', JSON.stringify({'token' : data.token, 'user_mail' : data.user_mail}));
                         this.$router.push('/')
                     } else {
                         this.errorMessage = data.message
@@ -85,10 +85,7 @@ import NavCmp from './NavCmp.vue';
 
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-*{
-    font-family: "Montserrat", sans-serif;
-}
+
 body{
     background-color: #f4f4f4;
     display: flex;

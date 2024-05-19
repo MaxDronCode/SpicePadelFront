@@ -42,7 +42,7 @@ export default {
                 })
                 const data = await response.json()
                 if (data.success) {
-                    localStorage.setItem('spicetoken', data.token)
+                    localStorage.setItem('spicetoken', JSON.stringify({'usu_mail': data.user_mail, 'token': data.token}))
                     this.$router.push('/') 
                 } else {
                     this.errorMessage = data.message
@@ -58,10 +58,7 @@ export default {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-*{
-    font-family: "Montserrat", sans-serif;
-}
+
 body{
     background-color: #f4f4f4;
     display: flex;

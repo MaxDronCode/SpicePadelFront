@@ -5,6 +5,8 @@ import HomeCmp from '@/components/HomeCmp.vue';
 import LoginCmp from '@/components/LoginCmp.vue';
 import LogoutCmp from '@/components/LogoutCmp.vue';
 import RegisterCmp from '@/components/RegisterCmp.vue';
+import TournamentsCmp from '@/components/TournamentsCmp.vue';
+import JoinTournamentCmp from '@/components/JoinTournamentCmp.vue';
 
 const router = createRouter({
     history: createWebHistory(),
@@ -12,7 +14,9 @@ const router = createRouter({
         { path: '/', component: HomeCmp },
         { path: '/login', component: LoginCmp},
         { path: '/logout', component: LogoutCmp},
-        { path: '/register', component: RegisterCmp}
+        { path: '/register', component: RegisterCmp},
+        { path: '/tournaments', component: TournamentsCmp},
+        { path: '/joinTournament', component: JoinTournamentCmp}
     ],
 });
 

@@ -8,7 +8,7 @@
         <li><router-link to="/">Home</router-link></li>
         <li><a>Club</a></li>
         <li><a>Calendario</a></li>
-        <li><a>Torneo</a></li>
+        <li><router-link to="/tournaments">Torneos</router-link></li>
         <li><a>Contacto</a></li>
         <li v-if="!existsToken"><router-link to="/login" class="nav-login-li">Login</router-link></li>
         <li v-else><router-link to="/logout" class="nav-login-li">Logout</router-link></li>
