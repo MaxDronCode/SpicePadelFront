@@ -11,7 +11,7 @@
         <li><a>Torneo</a></li>
         <li><a>Contacto</a></li>
         <li><router-link to="" class="nav-login-li">Login</router-link></li>
-        <li><router-link to="" class="nav-login-li">Registro</router-link></li>
+        <!-- <li><router-link to="" class="nav-login-li">Registro</router-link></li> -->
       </ul>
       <div class="hamburger" @click="toggleNav">
         <span></span>
