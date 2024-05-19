@@ -43,7 +43,7 @@ export default {
                 const data = await response.json()
                 if (data.success) {
                     localStorage.setItem('spicetoken', data.token)
-                    /this.$router.push('/') 
+                    this.$router.push('/') 
                 } else {
                     this.errorMessage = data.message
                 }
