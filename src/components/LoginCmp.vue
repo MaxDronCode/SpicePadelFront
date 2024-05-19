@@ -1,15 +1,15 @@
 <template>
     <NavCmp/>
     <h1>Login</h1>
-    <form action="" method="get">
+    <form @submit.prevent="login">
         <label for="dni">DNI/NIF: </label>
-        <input type="text" name="dni" id="dni"><br>
+        <input type="text" v-model="dni" id="dni" required><br>
         <label for="password">Contraseña: </label>
-        <input type="text" name="password" id="password"><br>
+        <input type="text" v-model="password" id="password" required><br>
         <button type="submit">Iniciar Sesión</button>
         <router-link to="/register" class="register-link">Inscríbete</router-link>
     </form>
-
+    <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
 </template>
 
 <script>
@@ -19,6 +19,40 @@ export default {
     name: "LoginCmp",
     components: {
         NavCmp
+    },
+    data(){
+        return {
+            dni: "",
+            password: "",
+            errorMessage: ""
+        }
+    },
+    methods:{
+        async login() {
+            try {
+                const response = await fetch ('http://localhost/spicepadel_api/api/login.php', {
+                    method: 'POST',
+                    headers : {
+                        'Content-Type' : 'application/json'
+                    },
+                    body: JSON.stringify({
+                        dni: this.dni,
+                        password: this.password
+                    })
+                })
+                const data = await response.json()
+                if (data.success) {
+                    localStorage.setItem('spicetoken', data.token)
+                    this.errorMessage = data.message
+                    // this.$router.push('/') Redirigir al usuario - para luego
+                } else {
+                    this.errorMessage = data.message
+                }
+            } catch (error) {
+                this.errorMessage = "Error en la conexión con el servidor"
+            }
+        }
+        
     }
 }
 
@@ -92,6 +126,10 @@ button:hover{
 }
 .register-link:hover{
     color: #09f;
+}
+.error {
+    color: red;
+    text-align: center;
 }
 
 </style>
