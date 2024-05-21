@@ -38,6 +38,7 @@ export default {
         },
         async getUser2() {
             try {
+                // ruta Martí: http://localhost/PROYECTO_FINAL/SpicePadelApi/spicepadel_api/api/getUsers.php
                 const response = await fetch ('http://localhost/PROYECTO_FINAL/SpicePadelApi/spicepadel_api/api/getUsers.php')
                 const data = await response.json()
                 this.users2 = data
