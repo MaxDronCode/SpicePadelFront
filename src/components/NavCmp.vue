@@ -148,8 +148,9 @@ a {
   border-radius: 2px;
 }
 img{
-  width: 50px;
+  width: 100px;
   height: auto;
+  margin-left:-30px;
 }
 
 @media (max-width: 768px) {
