@@ -30,7 +30,7 @@ export default {
     methods:{
         async login() {
             try {
-                const response = await fetch ('http://localhost/PROYECTO_FINAL/SpicePadelApi/spicepadel_api/api/login.php', {
+                const response = await fetch ('http://localhost/spicepadel_api/api/login.php', {
                     method: 'POST',
                     headers : {
                         'Content-Type' : 'application/json'

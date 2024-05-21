@@ -14,9 +14,9 @@
         <input type="text" v-model="email" required><br>
         <label for="address">Dirección:</label>
         <input type="text" v-model="address" required><br>
-        <label for="birthday">Dirección:</label>
-        <input type="text" v-model="birthday" required><br>
-        <label for="bank_account">Dirección:</label>
+        <label for="birthday">Fecha de Nacimiento:</label>
+        <input type="date" v-model="birthday" required><br><br>
+        <label for="bank_account">IBAN:</label>
         <input type="text" v-model="bank_account" required><br>
         <br>
         <br>
@@ -28,6 +28,7 @@
 
     </form>
     <p class="error">{{ errorMessage }}</p>
+
 </template>
 
 
@@ -56,9 +57,9 @@ import NavCmp from './NavCmp.vue';
         methods:{
             async register(){
                 try {
-                    // ruta Max: http://localhost/spicepadel_api/api/createTeam.php
+                    // ruta Max: http://localhost/spicepadel_api/api/register.php
                     // ruta Martí: http://localhost/PROYECTO_FINAL/SpicePadelApi/spicepadel_api/api/register.php
-                    const response = await fetch ('http://localhost/spicepadel_api/api/register.php', {
+                    const response = await fetch ('http://localhost/spicepadel_api/api/registerChat.php', {
                         method: 'POST',
                         headers: {
                             'Content-Type' : 'application/json'
@@ -78,14 +79,16 @@ import NavCmp from './NavCmp.vue';
                     })
                     const data = await response.json()
                     if (data.success){
+                        console.log(data)
                         localStorage.setItem('spicetoken', JSON.stringify({'token' : data.token, 'user_mail' : data.user_mail}));
                         this.$router.push('/')
                     } else {
+                        console.log(data)
                         this.errorMessage = data.message
                         alert(data.message)
                     }
                 } catch (error) {
-                    this.errorMessage = "Error en la conexión con el servidor"
+                    this.errorMessage = "Error en la conexión con el servidor ERROR : " + error
                 }
             }
         }
