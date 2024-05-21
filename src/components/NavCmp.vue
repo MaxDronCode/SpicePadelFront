@@ -2,7 +2,8 @@
 <nav>
     <div class="nav-container">
       <div class="logo">
-        <router-link to="/">Logo</router-link>
+        <!-- <router-link to="/">Logo</router-link> -->
+        <router-link to="/"><img :src=logo alt="Logo"></router-link>
       </div>
       <div class="nav-main-routes">
       <ul class="nav-main-ul" :class="{ 'nav-active': isNavActive }">
@@ -26,12 +27,15 @@
 </template>
 
 <script>
+import Logo from '@/assets/LogoSpiceGirls.png';
+
 export default {
     name: "NavCmp",
     data() {
         return {
             isNavActive : false,
-            existsToken : false
+            existsToken : false,
+            logo : Logo
         }
     },
     methods: {
@@ -142,6 +146,10 @@ a {
   background-color: #fff;
   margin: 4px;
   border-radius: 2px;
+}
+img{
+  width: 50px;
+  height: auto;
 }
 
 @media (max-width: 768px) {
