@@ -13,7 +13,7 @@
         <li><a>Contacto</a></li>
         <li v-if="!existsToken"><router-link to="/login" class="nav-login-li">Login</router-link></li>
         <li v-else><router-link to="/logout" class="nav-login-li">Logout</router-link></li>
-        <!-- <li><router-link to="" class="nav-login-li">Registro</router-link></li> -->
+        <li v-if="existsToken"><router-link to="myAccount" class="nav-login-li">Mi Cuenta</router-link></li>
       </ul>
       </div>
       <div class="hamburger" @click="toggleNav">
