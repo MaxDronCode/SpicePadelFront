@@ -57,6 +57,7 @@ import NavCmp from './NavCmp.vue';
             async register(){
                 try {
                     // ruta Max: http://localhost/spicepadel_api/api/createTeam.php
+                    // ruta Martí: http://localhost/PROYECTO_FINAL/SpicePadelApi/spicepadel_api/api/register.php
                     const response = await fetch ('http://localhost/spicepadel_api/api/register.php', {
                         method: 'POST',
                         headers: {

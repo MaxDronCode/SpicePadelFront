@@ -40,7 +40,7 @@ export default {
             try {
                 // ruta Martí: http://localhost/PROYECTO_FINAL/SpicePadelApi/spicepadel_api/api/getUsers.php
                 // ruta Max: http://localhost/spicepadel_api/api/createTeam.php
-                const response = await fetch ('http://localhost/spicepadel_api/api/getUsers.php')
+                const response = await fetch ('http://localhost/PROYECTO_FINAL/SpicePadelApi/spicepadel_api/api/getUsers.php')
                 const data = await response.json()
                 this.users2 = data
             } catch (error) {
@@ -49,7 +49,7 @@ export default {
         },
         async createTeam() {
             const selectedUser2 = this.$refs.users2.value;
-
+            // ruta Martí: http://localhost/PROYECTO_FINAL/SpicePadelApi/spicepadel_api/api/createTeam.php
             const response = await fetch('http://localhost/spicepadel_api/api/createTeam.php', {
                 method: 'POST',
                 headers: {
