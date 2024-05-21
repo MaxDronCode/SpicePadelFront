@@ -84,8 +84,9 @@ h1 {
     max-height: 40px;
     min-height: 40px;
     max-width: 100px;
-    display: grid;
-    place-items: center;
+    display: flex;
+    align-items: center;
+    
 }
 
 
@@ -99,7 +100,10 @@ h1 {
     text-decoration: none;
     font-size: 14px;
     transition: color 0.3s ease;
-    width: min-content;
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
 }
 
 .join-link:hover {

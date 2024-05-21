@@ -20,7 +20,7 @@ export default {
         }
     },
     mounted(){
-        fetch('http://localhost/spicepadel_api/api.php')
+        fetch('http://localhost/PROYECTO_FINAL/SpicePadelApi/spicepadel_api/api.php')
             .then(response => response.json())
             .then(data => {
                 this.users = data; 

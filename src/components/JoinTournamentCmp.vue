@@ -38,7 +38,7 @@ export default {
         },
         async getUser2() {
             try {
-                const response = await fetch('http://localhost/spicepadel_api/api/getUsers.php')
+                const response = await fetch ('http://localhost/PROYECTO_FINAL/SpicePadelApi/spicepadel_api/api/getUsers.php')
                 const data = await response.json()
                 this.users2 = data
             } catch (error) {
@@ -77,9 +77,8 @@ export default {
 
 
 <style scoped>
-h1 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
-}
+    h1{
+        color:blueviolet;
+    }
+    
 </style>

@@ -4,6 +4,7 @@
       <div class="logo">
         <router-link to="/">Logo</router-link>
       </div>
+      <div class="nav-main-routes">
       <ul class="nav-main-ul" :class="{ 'nav-active': isNavActive }">
         <li><router-link to="/">Home</router-link></li>
         <li><a>Club</a></li>
@@ -14,6 +15,7 @@
         <li v-else><router-link to="/logout" class="nav-login-li">Logout</router-link></li>
         <!-- <li><router-link to="" class="nav-login-li">Registro</router-link></li> -->
       </ul>
+      </div>
       <div class="hamburger" @click="toggleNav">
         <span></span>
         <span></span>
@@ -58,6 +60,8 @@ nav {
   padding: 0 20px;
 }
 
+
+
 .nav-container {
   display: flex;
   justify-content: space-between;
@@ -69,6 +73,7 @@ nav {
   color: #fff;
   text-decoration: none;
   font-size: 1.5rem;
+  position:absolute; 
 }
 
 ul {
@@ -115,6 +120,7 @@ li:hover::before {
 a {
   text-decoration: none;
   color: #fff;
+
 }
 
 .nav-login-ul {
