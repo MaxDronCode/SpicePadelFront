@@ -55,11 +55,11 @@ export default {
 </script>
 
 <style scoped>
+
 nav {
   background-color: #333;
   padding: 0 20px;
 }
-
 
 
 .nav-container {
@@ -73,7 +73,6 @@ nav {
   color: #fff;
   text-decoration: none;
   font-size: 1.5rem;
-  position:absolute; 
 }
 
 ul {
