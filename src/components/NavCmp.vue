@@ -8,7 +8,7 @@
       <div class="nav-main-routes">
       <ul class="nav-main-ul" :class="{ 'nav-active': isNavActive }">
         <li><router-link to="/">Home</router-link></li>
-        <li><a>Club</a></li>
+        <li><router-link to="/club">Club</router-link></li>
         <li><a>Calendario</a></li>
         <li><router-link to="/tournaments">Torneos</router-link></li>
         <li><a>Contacto</a></li>
