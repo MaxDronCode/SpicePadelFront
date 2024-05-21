@@ -14,6 +14,10 @@
         <input type="text" v-model="email" required><br>
         <label for="address">Dirección:</label>
         <input type="text" v-model="address" required><br>
+        <label for="birthday">Dirección:</label>
+        <input type="text" v-model="birthday" required><br>
+        <label for="bank_account">Dirección:</label>
+        <input type="text" v-model="bank_account" required><br>
         <br>
         <br>
         <label for="dni">DNI/NIF: </label>
@@ -43,7 +47,8 @@ import NavCmp from './NavCmp.vue';
                 surename2: "",
                 phone: "",
                 email: "",
-                address: "",
+                birthday: "",
+                bank_account: "",
                 password: "",
                 errorMessage: ""
             }
@@ -64,6 +69,8 @@ import NavCmp from './NavCmp.vue';
                             surename2 : this.surename2,
                             phone : this.phone,
                             email: this.email,
+                            birthday: this.birthday,
+                            bank_account: this.bank_account,
                             address: this.address,
                             password: this.password,
                         })
