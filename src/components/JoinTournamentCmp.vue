@@ -1,7 +1,7 @@
 <template>
     <NavCmp />
     <h1>Apuntarse a Torneo</h1>
-    <form @submit.prevent="createTeam">
+    <form @submit.prevent="createTeam" v-if="!alreadyInTeam">
         <p>Próximo Torneo</p>
         <p>{{ nextTournamentDate }}</p>
         <p>Usted: {{ user1 }}</p>
@@ -13,7 +13,6 @@
         <p>{{ errorMessage }}</p>
     </form>
 </template>
-
 
 <script>
 import NavCmp from './NavCmp.vue'
@@ -27,7 +26,8 @@ export default {
             nextTournamentDate: "2024-06-04", // Fecha hardcodeada de forma temporal
             user1: "",
             users2: [],
-            errorMessage: ""
+            errorMessage: "",
+            alreadyInTeam: false
         }
     },
     methods: {
@@ -38,9 +38,7 @@ export default {
         },
         async getUser2() {
             try {
-                // ruta Martí: http://localhost/PROYECTO_FINAL/SpicePadelApi/spicepadel_api/api/getUsers.php
-                // ruta Max: http://localhost/spicepadel_api/api/createTeam.php
-                const response = await fetch ('http://localhost/spicepadel_api/api/getUsers.php')
+                const response = await fetch('http://localhost/spicepadel_api/api/getUsers.php')
                 const data = await response.json()
                 this.users2 = data
             } catch (error) {
@@ -49,38 +47,61 @@ export default {
         },
         async createTeam() {
             const selectedUser2 = this.$refs.users2.value;
-            // ruta Martí: http://localhost/PROYECTO_FINAL/SpicePadelApi/spicepadel_api/api/createTeam.php
-            const response = await fetch('http://localhost/spicepadel_api/api/createTeam.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    user_mail1: this.user1,
-                    user_mail2: selectedUser2
+            try {
+                const response = await fetch('http://localhost/spicepadel_api/api/createTeam.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        user_mail1: this.user1,
+                        user_mail2: selectedUser2
+                    })
                 })
-            })
-            const data = await response.json()
-            if (data.success) {
+                const data = await response.json()
                 this.errorMessage = data.message
-                // this.$router.push('/')
-            } else {
-                this.errorMessage = data.message
+                if (data.success) {
+                    this.alreadyInTeam = true; // Actualizar el estado para ocultar el formulario
+                }
+            } catch (error) {
+                console.log("Error en la conexión con el servidor")
+                this.errorMessage = "Error en la conexión con el servidor"
+            }
+        },
+        async checkIfInTeam() {
+            try {
+                const response = await fetch('http://localhost/spicepadel_api/api/checkIfInTeam.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        user_mail: this.user1
+                    })
+                })
+                const data = await response.json()
+                this.alreadyInTeam = data.alreadyInTeam
+            } catch (error) {
+                console.log("Error en la conexión con el servidor")
+                this.errorMessage = "Error en la conexión con el servidor"
             }
         }
     },
     created() {
         this.getUser1()
         this.getUser2()
+        this.checkIfInTeam()
     },
-
+    watch: {
+        '$route'() { // Observar cambios en la ruta
+            this.checkIfInTeam();
+        }
+    }
 }
 </script>
 
-
 <style scoped>
-    h1{
-        color:blueviolet;
+    h1 {
+        color: blueviolet;
     }
-    
 </style>

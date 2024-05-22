@@ -20,7 +20,8 @@ const router = createRouter({
         { path: '/tournaments', component: TournamentsCmp},
         { path: '/joinTournament', component: JoinTournamentCmp},
         { path: '/myAccount', component: MyAccountCmp},
-        { path: '/club', component: ClubCmp}
+        { path: '/club', component: ClubCmp},
+        
     ],
 });
 

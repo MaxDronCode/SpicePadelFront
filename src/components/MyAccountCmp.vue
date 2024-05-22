@@ -16,6 +16,7 @@ import NavCmp from './NavCmp.vue';
         data(){
             return {
                 usuMail:"",
+               
             }
         },
         methods:{
