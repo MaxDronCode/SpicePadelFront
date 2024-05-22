@@ -4,19 +4,18 @@
         <button v-if="!isPaired" @click="pairTeams">{{ buttonText }}</button>
         <div class="teams">
             <div v-for="(pair, index) in pairedTeams" :key="index" class="pair">
-                <TeamCmp
-                    :team_id="pair.team1.id"
-                    :player1_name="pair.team1.player1_name"
-                    :player2_name="pair.team1.player2_name">
+                <TeamCmp :class="{ winner: pair.team1 && pair.team1.winner }" :team_id="pair.team1.id"
+                    :player1_name="pair.team1.player1_name" :player2_name="pair.team1.player2_name">
                 </TeamCmp>
-                <span class="versus">VS</span>
-                <TeamCmp
-                    :team_id="pair.team2.id"
-                    :player1_name="pair.team2.player1_name"
-                    :player2_name="pair.team2.player2_name">
+                <span class="versus" v-if="pair.team2">VS</span>
+                <TeamCmp v-if="pair.team2" :class="{ winner: pair.team2 && pair.team2.winner }" :team_id="pair.team2.id"
+                    :player1_name="pair.team2.player1_name" :player2_name="pair.team2.player2_name">
                 </TeamCmp>
-                <button @click="checkWinner(pair.team1.id, pair.team2.id)">Actualizar</button>
+                <button v-if="pair.team2" @click="checkWinner(pair.team1.id, pair.team2.id)">Actualizar</button>
+                <p v-else-if="!pair.team2">Ganador</p>
+                <!-- Agregado para mostrar "Ganador" cuando solo queda un equipo -->
             </div>
+
         </div>
         <p v-if="errorMessage">{{ errorMessage }}</p>
     </div>
@@ -27,7 +26,7 @@ import TeamCmp from './TeamCmp.vue'
 
 export default {
     name: 'TournamentTreeCmp',
-    components:{
+    components: {
         TeamCmp
     },
     data() {
@@ -37,7 +36,7 @@ export default {
             pairedTeams: [],
             buttonText: "Emparejar",
             isPaired: false,
-            winnersIds: []
+            winnerIds: [], // Almacenar los IDs de los ganadores
         }
     },
     methods: {
@@ -48,6 +47,7 @@ export default {
                 if (response.ok) {
                     this.teams = data;
                     this.loadPairedTeams(); // Intentar cargar los equipos emparejados desde localStorage
+                    this.paintWinner(); // Pintar los ganadores
                 } else {
                     this.errorMessage = data.error || 'Error desconocido al obtener equipos';
                 }
@@ -66,34 +66,30 @@ export default {
                 await this.insertMatch(pair.team1.id, pair.team2.id); // Insertar el match en la BD
             }
             this.savePairedTeams();
-            // this.buttonText = "Actualizar";
             this.isPaired = true;
         },
-        // handleButtonClick() {
-        //     if (!this.isPaired) {
-        //         this.pairTeams();
-        //     } else {
-        //         this.updateMatches();
-        //     }
-        // },
+
         updateMatches() {
             // Aquí iría tu lógica para actualizar los partidos
         },
         savePairedTeams() {
             localStorage.setItem('pairedTeams', JSON.stringify(this.pairedTeams));
             localStorage.setItem('isPaired', JSON.stringify(this.isPaired));
-            // localStorage.setItem('buttonText', this.buttonText);
+            localStorage.setItem('winnerIds', JSON.stringify(this.winnerIds));
         },
+
         loadPairedTeams() {
             const pairedTeams = localStorage.getItem('pairedTeams');
             const isPaired = localStorage.getItem('isPaired');
-            // const buttonText = localStorage.getItem('buttonText');
+            const winnerIds = localStorage.getItem('winnerIds');
             if (pairedTeams && isPaired) {
                 this.pairedTeams = JSON.parse(pairedTeams);
                 this.isPaired = JSON.parse(isPaired);
-                // this.buttonText = buttonText;
+                this.winnerIds = winnerIds ? JSON.parse(winnerIds) : [];
+                this.paintWinner(); // Pintar los ganadores
             }
         },
+
         async insertMatch(team1_id, team2_id) {
             try {
                 const response = await fetch('http://localhost/spicepadel_api/api/insertMatch.php', {
@@ -111,53 +107,89 @@ export default {
                 this.errorMessage = "Error de conexión con el servidor: " + error;
             }
         },
-        async checkWinner(team1_id, team2_id){
+        async checkWinner(team1_id, team2_id) {
             try {
                 const response = await fetch('http://localhost/spicepadel_api/api/checkWinner.php', {
                     method: 'POST',
-                    headers : {'Content-Type': 'application/json'},
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        'team1_id': team1_id, 
+                        'team1_id': team1_id,
                         'team2_id': team2_id
                     })
-                })
-                const data = await response.json()
-                
-                if (data.success){
-                    this.winner_id = data.winner_id
-                    console.log("Winner id = " + this.winner_id)
+                });
+                const data = await response.json();
+                if (data.success) {
+                    this.winnerIds.push(data.winner_id);
+                    this.updatePairings();
+                    this.savePairedTeams();
+                    console.log("Winner id = " + data.winner_id);
                 } else {
                     this.errorMessage = data.message;
                 }
             } catch (error) {
                 this.errorMessage = "Error de conexión con el servidor: " + error;
             }
+        },
+        async updatePairings() {
+            if (this.winnerIds.length === this.pairedTeams.length) { // Verificar que todos los ganadores de la ronda actual han sido seleccionados
+                const newPairings = [];
+                for (let i = 0; i < this.winnerIds.length; i += 2) {
+                    const team1 = this.teams.find(team => team.id === this.winnerIds[i]);
+                    const team2 = this.teams.find(team => team.id === this.winnerIds[i + 1]);
+                    if (team1 && team2) { // Verificar que ambos equipos existan antes de emparejar
+                        newPairings.push({ team1, team2 });
+                        await this.insertMatch(team1.id, team2.id); // Insertar el nuevo emparejamiento en la BD
+                    }
+                }
+                this.pairedTeams = newPairings;
+                this.winnerIds = []; // Resetear los winner ids
+                this.paintWinner(); // Pintar los ganadores después de actualizar los emparejamientos
+            } else if (this.winnerIds.length === 1 && this.pairedTeams.length === 1) {
+                // Solo queda un equipo, es el ganador final
+                this.pairedTeams = [{ team1: this.teams.find(team => team.id === this.winnerIds[0]), team2: null }];
+                this.winnerIds = [];
+                this.paintWinner(); // Pintar el ganador final
+            }
+        },
 
+        paintWinner() {
+            this.pairedTeams.forEach(pair => {
+                if (pair.team1) pair.team1.winner = this.winnerIds.includes(pair.team1.id);
+                if (pair.team2) pair.team2.winner = this.winnerIds.includes(pair.team2.id);
+            });
         }
     },
     created() {
         this.getAllTeams();
+    },
+    watch: {
+        '$route'() { // Observar cambios en la ruta
+            this.paintWinner();
+        }
     }
 }
 </script>
 
 <style scoped>
-.teams{
+.teams {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.pair{
+
+.pair {
     display: flex;
     align-items: center;
     margin: 10px 0;
 }
+
 .versus {
     margin: 0 10px;
     font-size: 24px;
     font-weight: bold;
 }
-button{
+
+button {
     width: 50%;
     padding: 10px;
     margin: 10px;
@@ -169,7 +201,13 @@ button{
     font-size: 16px;
     transition: background-color 0.3s ease-in-out;
 }
-button:hover{
+
+button:hover {
     background-color: #555;
+}
+
+.winner {
+    background-color: green;
+    color: white;
 }
 </style>
