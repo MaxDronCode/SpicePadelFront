@@ -11,7 +11,8 @@
                 <TeamCmp v-if="pair.team2" :class="{ winner: pair.team2 && pair.team2.winner }" :team_id="pair.team2.id"
                     :player1_name="pair.team2.player1_name" :player2_name="pair.team2.player2_name">
                 </TeamCmp>
-                <button v-if="pair.team2" @click="checkWinner(pair.team1.id, pair.team2.id)">Actualizar</button>
+                <button v-if="pair.team2 && !pair.team1.winner && !pair.team2.winner"
+                    @click="checkWinner(pair.team1.id, pair.team2.id)">Actualizar</button>
                 <p v-else-if="!pair.team2">Ganador</p>
                 <!-- Agregado para mostrar "Ganador" cuando solo queda un equipo -->
             </div>
@@ -47,7 +48,7 @@ export default {
                 if (response.ok) {
                     this.teams = data;
                     this.loadPairedTeams(); // Intentar cargar los equipos emparejados desde localStorage
-                    this.paintWinner(); // Pintar los ganadores
+                    // this.paintWinner(); // Pintar los ganadores
                 } else {
                     this.errorMessage = data.error || 'Error desconocido al obtener equipos';
                 }
@@ -90,6 +91,7 @@ export default {
             }
         },
 
+
         async insertMatch(team1_id, team2_id) {
             try {
                 const response = await fetch('http://localhost/spicepadel_api/api/insertMatch.php', {
@@ -120,8 +122,9 @@ export default {
                 const data = await response.json();
                 if (data.success) {
                     this.winnerIds.push(data.winner_id);
-                    this.updatePairings();
+                    this.paintWinner();
                     this.savePairedTeams();
+                    this.updatePairings();
                     console.log("Winner id = " + data.winner_id);
                 } else {
                     this.errorMessage = data.message;
