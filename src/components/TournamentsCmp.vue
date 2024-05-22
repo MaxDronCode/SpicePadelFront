@@ -2,10 +2,19 @@
     <NavCmp />
     <h1>Torneos</h1>
     <div class="general-container">
-        <div class="calendar">
+        <TournamentTreeCmp class="calendar" v-if="alreadyInTeam"/>
+        <div class="calendar" v-else>
             Calendar
         </div>
-        <div>
+        <div v-if="alreadyInTeam">
+            <p><b>Tu Equipo</b></p>
+            <p>{{ nextTournamentDate }}</p>
+            <p>Jugador 1 : {{ name_player1 }}</p>
+            <p>Jugador 2 : {{ name_player2 }}</p>
+            <p>Equipo : {{ team_id }}</p>
+            <p>{{ errorMessage }}</p>
+        </div>
+        <div v-else>
 
             <p>Inscribirse</p>
             <div class="btn-join">
@@ -20,25 +29,87 @@
 
 <script>
 import NavCmp from './NavCmp.vue';
+import TournamentTreeCmp from './TournamentTreeCmp.vue';
 
 export default {
     name: 'TournamentsCmp.vue',
     components: {
-        NavCmp
+        NavCmp,
+        TournamentTreeCmp
     },
     data() {
         return {
-            existsToken: false
+            existsToken: false,
+            alreadyInTeam: false,
+            name_player1: "",
+            name_player2: "",
+            team_id : "",
+            errorMessage: "",
+            user1: "",
         }
     },
     methods: {
         checkToken() {
             this.existsToken = localStorage.getItem('spicetoken') !== null
+        },
+        async checkIfInTeam() {
+            try {
+                const response = await fetch('http://localhost/spicepadel_api/api/checkIfInTeam.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        user_mail: this.user1
+                    })
+                })
+                const data = await response.json()
+                this.alreadyInTeam = data.alreadyInTeam
+            } catch (error) {
+                console.log("Error en la conexión con el servidor")
+                this.errorMessage = "Error en la conexión con el servidor, ERROR : " + error
+            }
+        },
+        getUser1() {
+            const spicetokenString = localStorage.getItem('spicetoken')
+            const spicetoken = JSON.parse(spicetokenString)
+            this.user1 = spicetoken.user_mail
+        },
+        async getTeamNames(){
+            
+            try{
+                const response = await fetch('http://localhost/spicepadel_api/api/getTeamNames.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type' : 'application/json'
+                    },
+                    body: JSON.stringify({
+                        user_email: this.user1
+                    })
+                })
+                const data = await response.json()
+                this.name_player1 = data.name_player1
+                this.name_player2 = data.name_player2
+                this.team_id = data.team_id
+            } catch (error) {
+                this.errorMessage = "Error en la conexión con el servidor, ERROR : " + error
+            }
         }
     },
     created() {
         this.checkToken() // COmprueba que exista token
+        this.getUser1()
+        this.checkIfInTeam()
+        this.getTeamNames()
     },
+    watch: {
+        '$route'() { // Observar cambios en la ruta
+            this.checkToken() // COmprueba que exista token
+            this.getUser1()
+            this.checkIfInTeam()
+            this.getTeamNames()
+        }
+    }
    
 }
 </script>
