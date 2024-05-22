@@ -131,7 +131,7 @@ export default {
             }
         },
         async updatePairings() {
-            if (this.winnerIds.length === this.pairedTeams.length) { // Verificar que todos los ganadores de la ronda actual han sido seleccionados
+            if (this.winnerIds.length === this.pairedTeams.length && this.winnerIds.length > 1) { // Verificar que todos los ganadores de la ronda actual han sido seleccionados
                 const newPairings = [];
                 for (let i = 0; i < this.winnerIds.length; i += 2) {
                     const team1 = this.teams.find(team => team.id === this.winnerIds[i]);
