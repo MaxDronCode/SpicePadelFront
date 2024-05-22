@@ -102,7 +102,7 @@ form {
     align-items:baseline;
     width: 20%;
     justify-content:center;
-    border-radius: 5rem;
+    border-radius: 2rem;
 }
 
 #bookingForm {
