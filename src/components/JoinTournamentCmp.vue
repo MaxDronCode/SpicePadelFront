@@ -12,6 +12,13 @@
         <button type="submit">Apuntarse</button>
         <p>{{ errorMessage }}</p>
     </form>
+    <div v-else>
+        <p>Próximo Torneo</p>
+        <p>{{ nextTournamentDate }}</p>
+        <p>Jugador 1 : {{ name_player1 }}</p>
+        <p>Jugador 2 : {{ name_player2 }}</p>
+        <p>Equipo : {{ team_id }}</p>
+    </div>
 </template>
 
 <script>
@@ -27,7 +34,10 @@ export default {
             user1: "",
             users2: [],
             errorMessage: "",
-            alreadyInTeam: false
+            alreadyInTeam: false,
+            name_player1: "",
+            name_player2: "",
+            team_id : ""
         }
     },
     methods: {
@@ -62,6 +72,7 @@ export default {
                 this.errorMessage = data.message
                 if (data.success) {
                     this.alreadyInTeam = true; // Actualizar el estado para ocultar el formulario
+                    this.getTeamNames()
                 }
             } catch (error) {
                 console.log("Error en la conexión con el servidor")
@@ -83,7 +94,27 @@ export default {
                 this.alreadyInTeam = data.alreadyInTeam
             } catch (error) {
                 console.log("Error en la conexión con el servidor")
-                this.errorMessage = "Error en la conexión con el servidor"
+                this.errorMessage = "Error en la conexión con el servidor, ERROR : " + error
+            }
+        },
+        async getTeamNames(){
+            
+            try{
+                const response = await fetch('http://localhost/spicepadel_api/api/getTeamNames.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type' : 'application/json'
+                    },
+                    body: JSON.stringify({
+                        user_email: this.user1
+                    })
+                })
+                const data = await response.json()
+                this.name_player1 = data.name_player1
+                this.name_player2 = data.name_player2
+                this.team_id = data.team_id
+            } catch (error) {
+                this.errorMessage = "Error en la conexión con el servidor, ERROR : " + error
             }
         }
     },
@@ -91,6 +122,7 @@ export default {
         this.getUser1()
         this.getUser2()
         this.checkIfInTeam()
+        this.getTeamNames()
     },
     watch: {
         '$route'() { // Observar cambios en la ruta
