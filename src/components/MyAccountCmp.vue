@@ -7,7 +7,6 @@
 
 <script>
 import NavCmp from './NavCmp.vue';
-
     export default {
         name: 'MyAccountCmp',
         components : {
@@ -16,6 +15,7 @@ import NavCmp from './NavCmp.vue';
         data(){
             return {
                 usuMail:"",
+               
             }
         },
         methods:{
@@ -25,6 +25,7 @@ import NavCmp from './NavCmp.vue';
                 this.usuMail=spiceToken.user_mail;
             },
             getTeam(){
+                
 
             },
         },

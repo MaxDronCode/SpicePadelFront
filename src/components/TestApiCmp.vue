@@ -10,7 +10,6 @@
 </template>
 
 
-
 <script>
 export default {
     name: "TestCmp",
@@ -34,5 +33,6 @@ export default {
 
 
 <style scoped>
-/* Estilos para tu componente */
+
+
 </style>
