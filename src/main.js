@@ -9,6 +9,9 @@ import TournamentsCmp from '@/components/TournamentsCmp.vue';
 import JoinTournamentCmp from '@/components/JoinTournamentCmp.vue';
 import MyAccountCmp from '@/components/MyAccountCmp.vue';
 import ClubCmp from '@/components/ClubCmp.vue';
+import CalendarCmp from '@/components/CalendarCmp.vue';
+import BookingForm from './components/BookingForm.vue';
+
 
 const router = createRouter({
     history: createWebHistory(),
@@ -20,7 +23,9 @@ const router = createRouter({
         { path: '/tournaments', component: TournamentsCmp},
         { path: '/joinTournament', component: JoinTournamentCmp},
         { path: '/myAccount', component: MyAccountCmp},
-        { path: '/club', component: ClubCmp}
+        { path: '/club', component: ClubCmp},
+        { path: '/calendar', component: CalendarCmp},
+        { path: '/reserve', component: BookingForm}
     ],
 });
 

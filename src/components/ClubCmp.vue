@@ -1,15 +1,15 @@
-
 <template>
-<NavCmp/>
+  <NavCmp/>
   <div v-if="existsToken" id="bookingForm">
     <h1>Reservar Pista</h1>
     <form @submit.prevent="submitReservation">
       <div>
-        <label for="field_id">Pista: </label>
-
-        <!-- He puesto que maximo hayan 5 pistas x ahora -->
-
-        <input type="number" v-model="reservation.field_id" required max=5>
+        <label for="field_id">Pistas disponibles: </label>
+        <select v-model="reservation.field_id" required>
+          <option v-for="field in availableFields" :key="field.id" :value="field.id">
+            {{ field.name }}
+          </option>
+        </select>
       </div>
       <div>
         <label for="date">Fecha: </label>
@@ -26,7 +26,7 @@
           ?
         </span>
       </div>
-    
+
       <button type="submit">Reservar</button>
     </form>
     <div v-if="message">{{ message }}</div>
@@ -39,7 +39,7 @@ export default {
   name: 'ClubCmp',
   components: {
     NavCmp
-    },
+  },
   data() {
     return {
       reservation: {
@@ -49,8 +49,14 @@ export default {
         member_id: ''
       },
       message: '',
-      existsToken: false
+      existsToken: false,
+      availableFields: [],
     };
+  },
+  computed: {
+    availableFieldIds() {
+      return this.availableFields.map(field => field.id);
+    }
   },
   methods: {
     async submitReservation() {
@@ -83,10 +89,22 @@ export default {
     },
     checkToken() {
       this.existsToken = localStorage.getItem('spicetoken') !== null;
+    },
+    async getAvailableFields() {
+      try {
+        const response = await fetch ('http://localhost/spicepadel_api/api/getAvailableFields.php')
+        const data = await response.json()
+        this.availableFields = data
+      } catch (error) {
+        console.log("Error en la conexión con el servidor")
+      }
     }
   },
   mounted() {
     this.checkToken();
+  },
+  created() {
+    this.getAvailableFields();
   }
 };
 </script>
@@ -100,7 +118,7 @@ form {
     gap: 1rem;
     border: 1px solid black;
     align-items:baseline;
-    width: 20%;
+    width: auto;
     justify-content:center;
     border-radius: 5rem;
 }
