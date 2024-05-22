@@ -24,9 +24,7 @@ export default {
         return {
             dni: "",
             password: "",
-            errorMessage: "",
-            availableFields: []
-            
+            errorMessage: ""
         }
     },
     methods:{
@@ -61,121 +59,73 @@ export default {
 
 <style scoped>
 
-.time-section{
-        padding: 10px;
-        .sec-search{
-            display: flex;
-        }
-        .sea-left{
-            flex: 1;
-            display: flex;
-        }
-        .sea-right{
-            display: flex;
-        }
-        .calendar-cont{
-            border: 1px solid rgb(235, 238, 245);
-            padding: 5px 10px;
-            margin-top: 10px;
-            .calendar-header{
-                display: flex;
-                padding-bottom: 5px;
-                .ehader-left{
-                    flex: 1;
-                    display: flex;
-                    align-items: center;
-                    span{
-                        color: #000;
-                    }
-                }
-                .ehader-right{
-                    .select-month{
-                        display: flex;
-                        > div{
-                            border: 1px solid rgb(235, 238, 245);
-                            cursor: pointer;
-                        }
-                        :nth-child(2){
-                            border-left: 0;
-                            border-right: 0;
-                        }
-                    }
-                }
-            }
-            .calendar-body{
-                border: 1px solid rgb(235, 238, 245);
-                .calendar-table{
-                    table{
-                        width: 100%;
-                        th{
-                            padding: 10px 0;
-                            color: rgb(96, 98, 102);    
-                        }
-                        tr{
-                            .is-selected{
-                                background-color: rgb(242, 248, 254);
-                                color: rgb(64, 158, 255);;
-                            }
-                            .is-today{
-                                color: rgb(64, 158, 255);;
-                            }
-                            .prev{
-                                color: rgb(192, 196, 204);
-                            }
-                            .current{
-                                color: rgb(192, 196, 204);
-                            }
-                            td{
-                                vertical-align: top;
-                                border-top: 1px solid rgb(235, 238, 245);
-                                border-right: 1px solid rgb(235, 238, 245);
-                                transition: background-color 0.2s ease 0s;
-                                div{
-                                    height: 85px;
-                                    padding: 8px;
-                                    display: flex;
-                                    span:first-child{
-                                        flex: 1;
-                                    }
-                                    .xiu{
-                                        color: #198FFF;
-                                    }
-                                    .work{
-                                        color:red;
-                                    }
-                                }
-                                &:hover{
-                                    cursor: pointer;
-                                    background-color: rgb(242, 248, 254);
-                                }
-                            }
-                            
-                        }
-                    }
-                    
-                }
-            }
-        }
-    }
-    .dialog-set{
-        position: fixed;
-        left: 50%;
-        top: 50%;
-        ul{
-            border-radius: 8px;
-            border: 1px solid rgb(228, 231, 237);
-            overflow: hidden;
-            li{
-                padding: 10px 15px;
-                cursor: pointer;
-                background: #fff;
-                &:hover{
-                    background: rgb(245, 247, 250);
-                }
-                span{
-                    color: rgb(96, 98, 102);
-                }
-            }
-        }
-    }
+body{
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+form{
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: auto;
+}
+h1{
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+label{
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: bold;
+}
+input[type="text"], input[type="password"]{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 999px;
+    box-sizing: border-box;
+}
+button{
+    width: 100%;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease-in-out;
+}
+button:hover{
+    background-color: #555;
+}
+.register-link{
+    display: block;
+    margin-top: 20px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+    width: min-content;
+}
+.register-link:hover{
+    color: #09f;
+}
+.error {
+    color: red;
+    text-align: center;
+}
+
 </style>
