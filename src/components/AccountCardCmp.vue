@@ -40,16 +40,18 @@ export default {
             this.usuMail = spiceToken.user_mail;
         },
         async obtainName(){
+          
             try{
-                const response = await fetch('http:localhost/spicepadel_api/api/getName.php', {
+                const response = await fetch('http://localhost/spicepadel_api/api/getName.php', {
                     method: 'POST',
                     headers : {'Content-Type' : 'application/json'},
                     body: JSON.stringify({
                         'user_email' : this.usuMail
                     })
                 })
-                const data = response.json()
-                console.log(data)
+                const data = await response.json()
+                console.log("nombre:")
+                console.log(data.user_name)
                 this.user_name = data.user_name
 
             } catch (error){
@@ -59,12 +61,11 @@ export default {
 
 
     },
-    created(){
-        this.obtainName()
-    },
-    mounted() {
-        this.obtainEmail();
+    mounted(){
+      this.obtainEmail()
+      this.obtainName()
     }
+    
 };
 </script>
 
