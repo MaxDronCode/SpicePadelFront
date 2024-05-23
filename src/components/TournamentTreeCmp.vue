@@ -41,14 +41,14 @@ export default {
         }
     },
     methods: {
-        async getAllTeams() {
+        async getAllTeams() { // primera funcion en ejecutarse, rellena this.teams con todos los EQUIPOS que hay en la bd
             try {
                 const response = await fetch('http://localhost/spicepadel_api/api/getAllTeams.php');
                 const data = await response.json();
                 if (response.ok) {
                     this.teams = data;
                     this.loadPairedTeams(); // Intentar cargar los equipos emparejados desde localStorage
-                    // this.paintWinner(); // Pintar los ganadores
+                    this.paintWinner(); // Pintar los ganadores
                 } else {
                     this.errorMessage = data.error || 'Error desconocido al obtener equipos';
                 }
@@ -56,22 +56,23 @@ export default {
                 this.errorMessage = "Error de conexión con el servidor: " + error;
             }
         },
-        async pairTeams() {
-            this.pairedTeams = [];
-            for (let i = 0; i < this.teams.length; i += 2) {
+        async pairTeams() { // segunda funcion en ejecutarse, al pulsar "emparejar"
+
+            this.pairedTeams = []; // vacio el this.pairedTeams
+            for (let i = 0; i < this.teams.length; i += 2) { // recorro this.teams de 2 en 2
                 const pair = {
                     team1: this.teams[i],
                     team2: this.teams[i + 1]
                 };
-                this.pairedTeams.push(pair);
-                await this.insertMatch(pair.team1.id, pair.team2.id); // Insertar el match en la BD
+                this.pairedTeams.push(pair); // los cojo de 2 en 2 y los meto en this.pairedTeams
+                await this.insertMatch(pair.team1.id, pair.team2.id); // Inserto el match en la BD
             }
-            this.savePairedTeams();
-            this.isPaired = true;
+            this.isPaired = true; // Para quitar el boton de "Emparejar"
+            this.savePairedTeams(); // Guardo en LocalStorage
         },
 
         updateMatches() {
-            // Aquí iría tu lógica para actualizar los partidos
+            // Aquí iría la logica para actualizar los partidos
         },
         savePairedTeams() {
             localStorage.setItem('pairedTeams', JSON.stringify(this.pairedTeams));
@@ -111,7 +112,7 @@ export default {
         },
         async checkWinner(team1_id, team2_id) {
             try {
-                const response = await fetch('http://localhost/spicepadel_api/api/checkWinner.php', {
+                const response = await fetch('http://localhost/spicepadel_api/api/checkWinner.php', { // devuelve el team_id del winner
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -121,11 +122,11 @@ export default {
                 });
                 const data = await response.json();
                 if (data.success) {
-                    this.winnerIds.push(data.winner_id);
-                    this.paintWinner();
-                    this.savePairedTeams();
-                    this.updatePairings();
-                    console.log("Winner id = " + data.winner_id);
+                    this.winnerIds.push(data.winner_id); // lo meto en winnerIds    
+                    this.paintWinner(); // le damos la el atributo winner
+                    this.savePairedTeams(); // guardamos en localStorage
+                    this.updatePairings(); // actualizamos los pairings para los nuevos enfrentamientos
+                    // console.log("Winner id = " + data.winner_id);
                 } else {
                     this.errorMessage = data.message;
                 }
@@ -135,7 +136,8 @@ export default {
         },
         async updatePairings() {
             if (this.winnerIds.length === this.pairedTeams.length && this.winnerIds.length > 1) { // Verificar que todos los ganadores de la ronda actual han sido seleccionados
-                const newPairings = [];
+                const newPairings = []; // array auxiliar
+                //recorremos los winnerIDs de 2 en 2, creamos los nuevos equipos en base a si tienen su id en winnerIds
                 for (let i = 0; i < this.winnerIds.length; i += 2) {
                     const team1 = this.teams.find(team => team.id === this.winnerIds[i]);
                     const team2 = this.teams.find(team => team.id === this.winnerIds[i + 1]);
@@ -144,19 +146,25 @@ export default {
                         await this.insertMatch(team1.id, team2.id); // Insertar el nuevo emparejamiento en la BD
                     }
                 }
-                this.pairedTeams = newPairings;
+                this.pairedTeams = newPairings; // tenemos el nuevo this.pairedTeams
                 this.winnerIds = []; // Resetear los winner ids
                 this.paintWinner(); // Pintar los ganadores después de actualizar los emparejamientos
+                this.savePairedTeams(); // guardamos en localStorage
+
             } else if (this.winnerIds.length === 1 && this.pairedTeams.length === 1) {
                 // Solo queda un equipo, es el ganador final
                 this.pairedTeams = [{ team1: this.teams.find(team => team.id === this.winnerIds[0]), team2: null }];
-                this.winnerIds = [];
                 this.paintWinner(); // Pintar el ganador final
+                this.winnerIds = [];
+                this.savePairedTeams(); // guardamos en localStorage
+
             }
         },
 
         paintWinner() {
-            this.pairedTeams.forEach(pair => {
+            this.pairedTeams.forEach(pair => { // recorro cada emparejamiento en this.pairedTeams
+                // establezco la propiedad .winner en true si el id del team esta en la lista de winnerIds
+                // luego esta propiedad se usa en el template para aplicar una clase
                 if (pair.team1) pair.team1.winner = this.winnerIds.includes(pair.team1.id);
                 if (pair.team2) pair.team2.winner = this.winnerIds.includes(pair.team2.id);
             });
