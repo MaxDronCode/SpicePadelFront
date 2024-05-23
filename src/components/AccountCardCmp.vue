@@ -6,7 +6,7 @@
                     <p class="heading_8264">{{ user_name }}</p>
                     <img :src=logo alt="Logo">
                     <svg class="chip" xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 256 256"><path fill="#d9d9d9" d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24M74.08 197.5a64 64 0 0 1 107.84 0a87.83 87.83 0 0 1-107.84 0M96 120a32 32 0 1 1 32 32a32 32 0 0 1-32-32m97.76 66.41a79.66 79.66 0 0 0-36.06-28.75a48 48 0 1 0-59.4 0a79.66 79.66 0 0 0-36.06 28.75a88 88 0 1 1 131.52 0"/></svg>
-                    <p class="number">(poner dni member)</p>
+                    <p class="number">{{ dni }}</p>
                     <p class="valid_thru">VALID THRU</p>
                     <p class="date_8264">1 2 / 2 4</p>
                 </div>
@@ -14,7 +14,7 @@
                     <div class="strip"><p></p></div>
                     <div class="mstrip"><p>{{ usuMail }}</p></div>
                     <div class="sstrip">
-                        <p class="code">***</p>
+                        <p class="code">{{ birthday }}</p>
                     </div>
                 </div>
             </div>
@@ -30,7 +30,9 @@ export default {
         return {
             usuMail: "",
             logo : Logo,
-            user_name: ""
+            user_name: "",
+            dni :"",
+            birthday: "",
         };
     },
     methods: {
@@ -53,6 +55,8 @@ export default {
                 console.log("nombre:")
                 console.log(data.user_name)
                 this.user_name = data.user_name
+                this.dni = data.dni
+                this.birthday = data.birthday
 
             } catch (error){
                 console.log("Error al conectar con la api: " + error)
