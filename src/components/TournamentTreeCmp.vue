@@ -192,6 +192,9 @@ export default {
             } catch(error){
                 console.log("Error conexion con la db, error: " + error)
             }
+            // Recargamos la página
+            await new Promise(resolve => setTimeout(resolve, 100)); // Espera breve para asegurar que todo se complete
+            window.location.reload();
         },
         clearLocalStorage(){
             localStorage.removeItem('pairedTeams');
