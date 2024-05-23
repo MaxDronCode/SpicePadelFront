@@ -1,0 +1,58 @@
+<template>
+    <div class="ftr-general-container">
+        <p>SpicePadel © 2024</p>
+        <p>Privacidad y Legal</p>
+        <p>Contacto</p>
+        <p>Noticias</p>
+        <p>Localización</p>
+        <p>Política de Cookies</p>
+        <p>Política de Privacidad</p>
+    </div>
+</template>
+
+
+<script>
+    export default {
+        name: 'FooterCmp',
+        components : {
+ 
+        },
+        data(){
+            return {
+ 
+            }
+        }
+    }
+</script>
+
+
+<style scoped>
+    *{
+        color: #fff;
+        font-size: 0.9rem;
+    }
+    .ftr-general-container{
+        background-color: #333;
+        width: 100%;
+        height: 60px;
+        display: flex;
+        justify-content: space-around;
+        line-height: 30px;
+    }
+    @media (max-width: 1000px){
+        .ftr-general-container{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            height: auto;
+            text-align: center;
+        }
+    }
+    @media (max-width: 768px){
+        .ftr-general-container{
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            height: auto;
+            text-align: center;
+        }
+    }
+</style>
