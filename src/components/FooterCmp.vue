@@ -41,6 +41,8 @@
         position: sticky;
         bottom: 0;
         z-index: 2;
+       
+
 
     }
     @media (max-width: 1000px){

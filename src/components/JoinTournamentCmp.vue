@@ -19,14 +19,18 @@
         <p>Jugador 2 : {{ name_player2 }}</p>
         <p>Equipo : {{ team_id }}</p>
     </div>
+    <FooterCmp/>
 </template>
 
 <script>
 import NavCmp from './NavCmp.vue'
+import FooterCmp from './FooterCmp.vue';
+
 export default {
     name: 'JoinTournamentCmp',
     components: {
-        NavCmp
+        NavCmp,
+        FooterCmp
     },
     data() {
         return {

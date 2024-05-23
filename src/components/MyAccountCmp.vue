@@ -2,18 +2,21 @@
 <NavCmp></NavCmp>
 <h1> Hola, {{ usuMail }} </h1>
 <AccountCardCmp></AccountCardCmp>
+<FooterCmp/>
 </template>
 
 
 <script>
 import NavCmp from './NavCmp.vue';
 import AccountCardCmp from './AccountCardCmp.vue';
+import FooterCmp from './FooterCmp.vue';
 
     export default {
         name: 'MyAccountCmp',
         components : {
             NavCmp,
             AccountCardCmp,
+            FooterCmp
         },
         data(){
             return {

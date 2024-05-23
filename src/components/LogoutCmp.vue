@@ -4,16 +4,19 @@
     <form @submit.prevent="logout">
         <button type="submit">Cerrar Sesión</button>
     </form>
+    <FooterCmp></FooterCmp>
 </template>
 
 
 <script>
 import NavCmp from './NavCmp.vue';
+import FooterCmp from './FooterCmp.vue';
 
 export default {
     name: 'LogoutCmp',
     components : {
-        NavCmp
+        NavCmp,
+        FooterCmp
     },
     data(){
         return{

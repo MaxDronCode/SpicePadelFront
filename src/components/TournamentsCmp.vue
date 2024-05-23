@@ -24,18 +24,22 @@
         </div>
 
     </div>
+    <FooterCmp/>
 </template>
 
 
 <script>
 import NavCmp from './NavCmp.vue';
 import TournamentTreeCmp from './TournamentTreeCmp.vue';
-
+import FooterCmp
+ from './FooterCmp.vue';
 export default {
+
     name: 'TournamentsCmp.vue',
     components: {
         NavCmp,
-        TournamentTreeCmp
+        TournamentTreeCmp,
+        FooterCmp
     },
     data() {
         return {

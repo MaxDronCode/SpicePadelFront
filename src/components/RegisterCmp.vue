@@ -28,17 +28,20 @@
 
     </form>
     <p class="error">{{ errorMessage }}</p>
+    <FooterCmp/>
 
 </template>
 
 
 <script>
 import NavCmp from './NavCmp.vue';
+import FooterCmp from './FooterCmp.vue';
 
     export default {
         name: 'RegisterCmp',
         components : {
-            NavCmp
+            NavCmp,
+            FooterCmp
         },
         data(){
             return{

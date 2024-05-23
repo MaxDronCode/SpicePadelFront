@@ -10,15 +10,18 @@
         <router-link to="/register" class="register-link">Inscríbete</router-link>
     </form>
     <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+    <FooterCmp></FooterCmp>
 </template>
 
 <script>
 import NavCmp from '@/components/NavCmp.vue'
+import FooterCmp from './FooterCmp.vue';
 
 export default {
     name: "LoginCmp",
     components: {
-        NavCmp
+        NavCmp,
+        FooterCmp
     },
     data(){
         return {
