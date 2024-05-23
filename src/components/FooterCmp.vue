@@ -38,21 +38,34 @@
         display: flex;
         justify-content: space-around;
         line-height: 30px;
+        position: sticky;
+        bottom: 0;
+        z-index: 2;
+
     }
     @media (max-width: 1000px){
         .ftr-general-container{
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            height: auto;
+            height: 60px;
             text-align: center;
+            position: sticky;
+            bottom: 0;
+            z-index: 2;
+            overflow: auto;
         }
     }
     @media (max-width: 768px){
         .ftr-general-container{
             display: grid;
             grid-template-columns: repeat(1, 1fr);
-            height: auto;
+            height: 60px;
             text-align: center;
+            position: sticky;
+            bottom: 0;
+            z-index: 2;
+            overflow: auto;
+
         }
     }
 </style>
