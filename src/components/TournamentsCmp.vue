@@ -6,7 +6,7 @@
         <div class="calendar" v-else>
             Calendar
         </div>
-        <div v-if="alreadyInTeam">
+        <div v-if="alreadyInTeam" class="team-info">
             <p><b>Tu Equipo</b></p>
             <p>{{ nextTournamentDate }}</p>
             <p>Jugador 1 : {{ name_player1 }}</p>
@@ -179,5 +179,13 @@ h1 {
 
 .join-link:hover {
     color: #09f;
+}
+@media (max-width: 768px){
+    .general-container{
+        flex-direction: column;
+    }
+    .team-info{
+        margin: auto;
+    }
 }
 </style>

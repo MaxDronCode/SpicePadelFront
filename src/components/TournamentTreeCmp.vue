@@ -213,4 +213,9 @@ button:hover {
     background-color: green;
     color: white;
 }
+@media (max-width: 768px){
+    .pair{
+        flex-direction: column;
+    }
+}
 </style>
