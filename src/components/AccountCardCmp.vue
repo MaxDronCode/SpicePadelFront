@@ -24,7 +24,6 @@
 
 <script>
 import Logo from '@/assets/LogoSpiceGirls.png';
-
 export default {
     name: 'AccountCard',
     data() {
@@ -54,7 +53,6 @@ export default {
   perspective: 1000px;
   color: white;
 }
-
 .heading_8264 {
   position: absolute;
   letter-spacing: 0.2em;
@@ -62,26 +60,22 @@ export default {
   top: 2em;
   left: 18.6em;
 }
-
 img {
     height: 60px;
     width: 60px;
     margin-left:180px;
     margin-top:90px;
 }
-
 .chip {
   position: absolute;
   top: 2.3em;
   left: 1.5em;
 }
-
 .contactless {
   position: absolute;
   top: 3.5em;
   left: 12.4em;
 }
-
 .number {
   position: absolute;
   font-weight: bold;
@@ -89,7 +83,6 @@ img {
   top: 8.3em;
   left: 1.6em;
 }
-
 .valid_thru {
   position: absolute;
   font-weight: bold;
@@ -97,7 +90,6 @@ img {
   font-size: 0.01em;
   left: 140.3em;
 }
-
 .date_8264 {
   position: absolute;
   font-weight: bold;
@@ -105,7 +97,6 @@ img {
   top: 13.6em;
   left: 3.2em;
 }
-
 .name {
   position: absolute;
   font-weight: bold;
@@ -113,7 +104,6 @@ img {
   top: 16.1em;
   left: 2em;
 }
-
 .strip {
   position: absolute;
   background-color: black;
@@ -128,7 +118,6 @@ img {
     #202020 20px
   );
 }
-
 .mstrip {
   position: absolute;
   background-color: rgb(255, 255, 255);
@@ -138,13 +127,11 @@ img {
   left: 0.8em;
   border-radius: 2.5px;
 }
-
 .mstrip p{
     margin-top:-.5px;
     color:black;
     font-size:10px;
 }
-
 .sstrip {
   position: absolute;
   background-color: rgb(255, 255, 255);
@@ -154,14 +141,12 @@ img {
   left: 10em;
   border-radius: 2.5px;
 }
-
 .code {
   font-weight: bold;
   text-align: center;
   margin: 0.2em;
   color: black;
 }
-
 .flip-card-inner {
   position: relative;
   width: 100%;
@@ -170,11 +155,9 @@ img {
   transition: transform 0.8s;
   transform-style: preserve-3d;
 }
-
 .flip-card:hover .flip-card-inner {
   transform: rotateY(180deg);
 }
-
 .flip-card-front, .flip-card-back {
   box-shadow: 0 8px 14px 0 rgba(0, 0, 0, 0.2);
   position: absolute;
@@ -187,12 +170,10 @@ img {
   backface-visibility: hidden;
   border-radius: 1rem;
 }
-
 .flip-card-front {
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 2px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
   background-color: #171717;
 }
-
 .flip-card-back {
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 2px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
   background-color: #171717;
