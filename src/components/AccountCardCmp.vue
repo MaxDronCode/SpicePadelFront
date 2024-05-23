@@ -51,7 +51,7 @@ export default {
                 this.user_name = data.user_name
                 this.dni = data.dni
                 this.birthday = data.birthday
-
+                
             } catch (error){
                 console.log("Error al conectar con la api: " + error)
             }
