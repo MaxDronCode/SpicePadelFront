@@ -3,7 +3,7 @@
         <div class="flip-card">
             <div class="flip-card-inner">
                 <div class="flip-card-front">
-                    <p class="heading_8264">BRUCE WAYNE</p>
+                    <p class="heading_8264">{{ user_name }}</p>
                     <img :src=logo alt="Logo">
                     <svg class="chip" xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 256 256"><path fill="#d9d9d9" d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24M74.08 197.5a64 64 0 0 1 107.84 0a87.83 87.83 0 0 1-107.84 0M96 120a32 32 0 1 1 32 32a32 32 0 0 1-32-32m97.76 66.41a79.66 79.66 0 0 0-36.06-28.75a48 48 0 1 0-59.4 0a79.66 79.66 0 0 0-36.06 28.75a88 88 0 1 1 131.52 0"/></svg>
                     <p class="number">(poner dni member)</p>
@@ -30,17 +30,40 @@ export default {
         return {
             usuMail: "",
             logo : Logo,
+            user_name: ""
         };
     },
     methods: {
-        obtainName() {
+        obtainEmail() {
             const spiceTokenString = localStorage.getItem('spicetoken');
             const spiceToken = JSON.parse(spiceTokenString);
             this.usuMail = spiceToken.user_mail;
         },
+        async obtainName(){
+            try{
+                const response = await fetch('http:localhost/spicepadel_api/api/getName.php', {
+                    method: 'POST',
+                    headers : {'Content-Type' : 'application/json'},
+                    body: JSON.stringify({
+                        'user_email' : this.usuMail
+                    })
+                })
+                const data = response.json()
+                console.log(data)
+                this.user_name = data.user_name
+
+            } catch (error){
+                console.log("Error al conectar con la api: " + error)
+            }
+        },
+
+
+    },
+    created(){
+        this.obtainName()
     },
     mounted() {
-        this.obtainName();
+        this.obtainEmail();
     }
 };
 </script>
