@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div >
         <h1>Lista de Equipos</h1>
         <button v-if="!isPaired" @click="pairTeams">{{ buttonText }}</button>
         <div class="teams">
@@ -231,6 +231,9 @@ export default {
     display: flex;
     align-items: center;
     margin: 10px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+
 }
 
 .versus {
@@ -263,9 +266,10 @@ button:hover {
 .end{
     width: 150px;
 }
-@media (max-width: 768px){
+@media (max-width: 800px){
     .pair{
         flex-direction: column;
     }
+    
 }
 </style>

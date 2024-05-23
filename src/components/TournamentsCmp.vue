@@ -184,12 +184,14 @@ h1 {
 .join-link:hover {
     color: #09f;
 }
-@media (max-width: 768px){
+@media (max-width: 800px){
     .general-container{
         flex-direction: column;
     }
     .team-info{
         margin: auto;
+        order: -1;
+        
     }
 }
 </style>
