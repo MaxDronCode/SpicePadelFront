@@ -12,6 +12,7 @@
     </div>
     <div v-else>
       <h2>Calendario</h2>
+      <h2>Pista {{ this.selectedFieldId }}</h2>
       <vue-cal 
         :attributes="calendarAttributes"
         :disable-views="['years', 'months']"
@@ -28,11 +29,11 @@
           <input type="time" v-model="reservation.start_hour" required>
         </div>
         <div>
-          <label for="dni">DNI/NIE: </label>
+          <!---<label for="dni">DNI/NIE: </label>
           <input type="text" v-model="reservation.member_id" required>
           <span class="tooltip" title="Por motivos de seguridad, necesitamos que introduzca su DNI/NIE aún estando logado en la web. Muchas gracias.">
             ?
-          </span>
+          </span>-->
         </div>
         <button type="submit">Reservar</button>
       </form>
@@ -40,32 +41,35 @@
     </div>
     <div v-if="message">{{ message }}</div>
   </div>
+  <FooterCmp/>
 </template>
 
 <script>
 import NavCmp from '@/components/NavCmp.vue';
 import VueCal from 'vue-cal';
 import 'vue-cal/dist/vuecal.css';
+import FooterCmp from './FooterCmp.vue';
 
 export default {
   name: 'BookingForm',
   components: {
     VueCal,
-    NavCmp
+    NavCmp,
+    FooterCmp
   },
   data() {
     return {
       reservation: {
         date: '',
         start_hour: '',
-        member_id: ''
+        member_id: '' // member_id debe ser parte del objeto reservation
       },
       availableFields: [],
       selectedFieldId: null,
       selectedFieldName: '',
       message: '',
       existsToken: false,
-      calendarAttributes: [], // Aquí guardaremos los días ocupados
+      calendarAttributes: [], // aquí guardaremos los días ocupados
       today: new Date().toISOString().split('T')[0] // Fecha de hoy en formato YYYY-MM-DD
     };
   },
@@ -78,7 +82,6 @@ export default {
 
       const startHour = this.reservation.start_hour;
       const endHour = this.calculateEndHour(startHour);
-
       try {
         const response = await fetch('http://localhost/spicepadel_api/api/reserve.php', {
           method: 'POST',
@@ -89,7 +92,7 @@ export default {
             date: this.reservation.date,
             start_hour: startHour,
             end_hour: endHour,
-            member_id: this.reservation.member_id,
+            member_id: this.reservation.member_id, // Usar el member_id del objeto reservation
             field_id: this.selectedFieldId 
           })
         });
@@ -113,7 +116,12 @@ export default {
       return `${endHour.getHours().toString().padStart(2, '0')}:${endHour.getMinutes().toString().padStart(2, '0')}`;
     },
     checkToken() {
-      this.existsToken = localStorage.getItem('spicetoken') !== null;
+      const spiceTokenString = localStorage.getItem('spicetoken');
+      if (spiceTokenString) {
+        const spiceToken = JSON.parse(spiceTokenString);
+        this.reservation.member_id = spiceToken.user_mail; // Asignar el valor al objeto reservation
+        this.existsToken = true;
+      }
     },
     async loadAvailableFields() {
       try {
@@ -134,12 +142,16 @@ export default {
 
       try {
         const response = await fetch(`http://localhost/spicepadel_api/api/getAvailableFields.php?id=${this.selectedFieldId}&date=${this.reservation.date}`);
+        console.log("ok")
         const data = await response.json();
+        console.log("ok")
         this.calendarAttributes = data.map(booking => ({
           start: `${this.reservation.date} ${booking.start_hour}`,
           end: `${this.reservation.date} ${booking.end_hour}`,
           class: 'booked'
         }));
+        // Verifica que los atributos estén correctamente configurados
+        console.log("calendarAttributes:", this.calendarAttributes);
       } catch (error) {
         console.error("Error loading availability:", error);
       }
