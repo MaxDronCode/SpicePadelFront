@@ -13,8 +13,14 @@
                 </TeamCmp>
                 <button v-if="pair.team2 && !pair.team1.winner && !pair.team2.winner"
                     @click="checkWinner(pair.team1.id, pair.team2.id)">Actualizar</button>
-                <p v-else-if="!pair.team2">Ganador</p>
-                <!-- Agregado para mostrar "Ganador" cuando solo queda un equipo -->
+                <template v-else-if="!pair.team2">
+                    <div class="end">
+                        <p>Ganador</p>
+                        <button @click="resetTournament">Reset</button>
+
+                    </div>
+
+                </template>
             </div>
 
         </div>
@@ -23,6 +29,7 @@
 </template>
 
 <script>
+import confetti from 'canvas-confetti'
 import TeamCmp from './TeamCmp.vue'
 
 export default {
@@ -157,7 +164,7 @@ export default {
                 this.paintWinner(); // Pintar el ganador final
                 this.winnerIds = [];
                 this.savePairedTeams(); // guardamos en localStorage
-
+                this.launchConfetti()   
             }
         },
 
@@ -167,6 +174,35 @@ export default {
                 // luego esta propiedad se usa en el template para aplicar una clase
                 if (pair.team1) pair.team1.winner = this.winnerIds.includes(pair.team1.id);
                 if (pair.team2) pair.team2.winner = this.winnerIds.includes(pair.team2.id);
+            });
+        },
+        async resetTournament(){
+            this.clearLocalStorage() // limpiamos la localStorage
+            // vaciamos la tabla match del bd
+            try{
+                const response = await fetch('http://localhost/spicepadel_api/api/deleteMatch.php', {
+                    method: 'POST',
+                })
+                const data = await response.json()
+                if (data.success){
+                    console.log("Delete de todos los matches, hecho")
+                } else {
+                    console.log(data.message)
+                }
+            } catch(error){
+                console.log("Error conexion con la db, error: " + error)
+            }
+        },
+        clearLocalStorage(){
+            localStorage.removeItem('pairedTeams');
+            localStorage.removeItem('isPaired');
+            localStorage.removeItem('winnerIds');
+        },
+        launchConfetti() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
             });
         }
     },
@@ -220,6 +256,9 @@ button:hover {
 .winner {
     background-color: green;
     color: white;
+}
+.end{
+    width: 150px;
 }
 @media (max-width: 768px){
     .pair{
