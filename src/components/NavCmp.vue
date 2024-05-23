@@ -154,7 +154,7 @@ img{
   margin-left:-30px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
   .nav-main-ul {
     flex-direction: column;
     position: absolute;
@@ -163,7 +163,7 @@ img{
     width: 100%;
     background-color: #333;
     display: none;
-    
+    z-index: 10;
   }
   
 
@@ -177,6 +177,7 @@ img{
 
   .hamburger {
     display: flex;
+    
   }
 
   li {
