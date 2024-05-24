@@ -1,5 +1,5 @@
 <template>
-  <NavCmp/>
+  <NavCmp />
   <div v-if="existsToken" id="bookingForm">
     <h1>Reservar Pista</h1>
     <div v-if="!selectedFieldId">
@@ -10,38 +10,36 @@
         </option>
       </select>
     </div>
-    <div v-else>
-      <h2>Calendario</h2>
-      <h2>Pista {{ selectedFieldId }}</h2>
-      <vue-cal 
-        style="height: 40rem" 
-        locale="es" 
-        :events="events"
-        :time-from="8 * 60"
-        :time-to="19 * 60"
-        :time-step="60"
-        :disable-views="['years', 'months']"
-        @cell-focus="selectedDate = $event.date || $event"
-        :selectedFieldId="selectedFieldId"
-        ref="child"
-      />
-      <h2>Reserva</h2><p>Te recomendamos con 1 día de antelación</p>
-      <form @submit.prevent="submitReservation">
-        <div>
-          <label for="date">Fecha: </label>
-          <input type="date" v-model="reservation.date"  required>
-        </div>
-        <div>
-          <label for="start_hour">Hora de inicio: </label>
-          <input type="time" v-model="reservation.start_hour" required>
-        </div>
-        <button type="submit">Reservar</button>
-      </form>
-      <button @click="clearSelection">Cambiar pista</button>
+    <div v-else class="general-container">
+      <div>
+        <h2>Calendario</h2>
+        <h2>Pista {{ selectedFieldId }}</h2>
+        <vue-cal style="height: 40rem; width: 400px" locale="es" :events="events" :time-from="8 * 60" :time-to="19 * 60"
+          :time-step="60" :disable-views="['years', 'months']" @cell-focus="selectedDate = $event.date || $event"
+          :selectedFieldId="selectedFieldId" xsmall />
+
+      </div>
+      <div class="res-form">
+
+        <h2>Reserva</h2>
+        <p>Te recomendamos con 1 día de antelación</p>
+        <form @submit.prevent="submitReservation">
+          <div>
+            <label for="date">Fecha: </label>
+            <input type="date" v-model="reservation.date" required>
+          </div>
+          <div>
+            <label for="start_hour">Hora de inicio: </label>
+            <input type="time" v-model="reservation.start_hour" required>
+          </div>
+          <button type="submit">Reservar</button>
+        </form>
+        <button @click="clearSelection">Cambiar pista</button>
+      </div>
+      <div v-if="message">{{ message }}</div>
     </div>
-    <div v-if="message">{{ message }}</div>
   </div>
-  <FooterCmp/>
+  <FooterCmp />
 </template>
 
 
@@ -96,7 +94,7 @@ export default {
 
       const startHour = this.reservation.start_hour;
       const endHour = this.calculateEndHour(startHour);
-      
+
       try {
         // un metodo que compruebe
         console.log("Llama a la api reserve")
@@ -105,12 +103,12 @@ export default {
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ 
+          body: JSON.stringify({
             date: this.reservation.date,
             start_hour: startHour,
             end_hour: endHour,
             member_id: this.reservation.member_id,
-            field_id: this.selectedFieldId 
+            field_id: this.selectedFieldId
           })
         });
         const result = await response.json();
@@ -205,11 +203,27 @@ export default {
 <style scoped>
 @import "vue-cal/dist/vuecal.css";
 
-.vuecal__menu, .vuecal__cell-events-count {background-color: #42b983;}
-.vuecal__title-bar {background-color: #e4f5ef;}
-.vuecal__cell--today, .vuecal__cell--current {background-color: rgba(240, 240, 255, 0.4);}
-.vuecal:not(.vuecal--day-view) .vuecal__cell--selected {background-color: rgba(235, 255, 245, 0.4);}
-.vuecal__cell--selected:before {border-color: rgba(66, 185, 131, 0.5);}
+.vuecal__menu,
+.vuecal__cell-events-count {
+  background-color: #42b983;
+}
+
+.vuecal__title-bar {
+  background-color: #e4f5ef;
+}
+
+.vuecal__cell--today,
+.vuecal__cell--current {
+  background-color: rgba(240, 240, 255, 0.4);
+}
+
+.vuecal:not(.vuecal--day-view) .vuecal__cell--selected {
+  background-color: rgba(235, 255, 245, 0.4);
+}
+
+.vuecal__cell--selected:before {
+  border-color: rgba(66, 185, 131, 0.5);
+}
 
 #bookingForm {
   padding: 1rem;
@@ -247,8 +261,21 @@ export default {
   background-color: rgba(255, 0, 0, 0.5);
   color: white;
 }
+
+.general-container {
+  display: flex;
+  gap: 3rem;
+}
+.res-form{
+  margin-top: 200px;
+}
+@media (max-width:1000px){
+  .general-container{
+    flex-direction: column;
+  }
+  .res-form{
+    margin: auto;
+  }
+  
+}
 </style>
-
-
-
-
