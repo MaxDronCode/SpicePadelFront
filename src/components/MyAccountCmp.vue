@@ -1,7 +1,11 @@
 <template>
     <NavCmp></NavCmp>
     <h1> Hola, {{ user_name }} </h1>
-    <AccountCardCmp></AccountCardCmp>
+    <div class="components">
+        <AccountCardCmp class="card"></AccountCardCmp>
+        <AccountTorneosCmp class="list"></AccountTorneosCmp>
+        <AccountMatchReservaCmp></AccountMatchReservaCmp>
+    </div>
     <FooterCmp />
 </template>
 
@@ -9,6 +13,8 @@
 <script>
 import NavCmp from './NavCmp.vue';
 import AccountCardCmp from './AccountCardCmp.vue';
+import AccountTorneosCmp from './AccountTorneosCmp.vue';
+import AccountMatchReservaCmp from './AccountMatchReservaCmp';
 import FooterCmp from './FooterCmp.vue';
 
 export default {
@@ -16,7 +22,9 @@ export default {
     components: {
         NavCmp,
         AccountCardCmp,
-        FooterCmp
+        FooterCmp,
+        AccountTorneosCmp,
+        AccountMatchReservaCmp,
     },
     data() {
         return {
@@ -58,10 +66,25 @@ export default {
 
 <style scoped>
 
-AccountCardCmp{
+h1{
+    margin-left: 20px;;
+}
+
+.components{
     display:flex;
+    flex-direction:row;
+}
+
+.card{
+    justify-content: left;
+    margin-left:20px;
+    align-items: center;
+}
+
+.list{
     justify-content: center;
     align-items: center;
+    margin-left:120px;
 }
 
 </style>
