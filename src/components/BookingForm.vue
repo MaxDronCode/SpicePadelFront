@@ -1,19 +1,18 @@
 <template>
   <NavCmp />
-  <div v-if="existsToken" id="bookingForm">
+  <div v-if="existsToken" id="bookingForm"> 
     <h1>Reservar Pista</h1>
-    <div v-if="!selectedFieldId">
+    <div v-if="!selectedFieldId"> 
       <label for="field_id">Selecciona una pista: </label>
       <select v-model="selectedFieldId" @change="loadAvailability" required>
         <option v-for="field in availableFields" :key="field.id" :value="field.id">
           {{ field.name }}
         </option>
       </select>
-    </div>
-    <div v-else class="general-container">
+    </div> 
+    <div v-else class="general-container"> 
       <div>
-        <h2>Calendario</h2>
-        <h2>Pista {{ selectedFieldId }}</h2>
+        <h2 class="pista">Pista {{ selectedFieldId }}</h2>
         <vue-cal style="height: 40rem; width: 600px" locale="es" :events="events" :time-from="8 * 60" :time-to="19 * 60"
           :time-step="60" :disable-views="['years', 'months']" @cell-focus="selectedDate = $event.date || $event"
           :selectedFieldId="selectedFieldId" xsmall />
@@ -24,21 +23,21 @@
         <h2>Reserva</h2>
         <p>Te recomendamos con 1 día de antelación</p>
         <form @submit.prevent="submitReservation">
+          <div> 
+            <label for="date" class="lab">Fecha: </label><br>
+            <input type="date" v-model="reservation.date" required class="inp-date"/>
+          </div> 
           <div>
-            <label for="date">Fecha: </label>
-            <input type="date" v-model="reservation.date" required>
-          </div>
-          <div>
-            <label for="start_hour">Hora de inicio: </label>
-            <input type="time" v-model="reservation.start_hour" required>
+            <label for="start_hour" class="lab">Hora de inicio: </label><br>
+            <input type="time" v-model="reservation.start_hour" required class="inp-time" >
           </div>
           <button type="submit">Reservar</button>
         </form>
         <button @click="clearSelection">Cambiar pista</button>
+        <div v-if="message">{{ message }}</div>
       </div>
-      <div v-if="message">{{ message }}</div>
     </div>
-  </div>
+  </div> 
   <FooterCmp />
 </template>
 
@@ -266,16 +265,62 @@ export default {
   display: flex;
   gap: 3rem;
 }
-.res-form{
+
+.res-form {
   margin-top: 200px;
 }
-@media (max-width:1000px){
-  .general-container{
+
+
+.lab {
+  margin-bottom: 15px; /* Ajusta este valor si necesitas más espacio */
+}
+
+.inp-date, input[type="time"] {
+  background-color: #f0f0f0; /* Color de fondo */
+  border: none; /* Sin bordes */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 12px 20px; /* Espaciado interno */
+  font-size: 16px; /* Tamaño del texto */
+  color: #333; /* Color del texto */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra ligera */
+  transition: box-shadow 0.3s ease-in-out; /* Transición suave de la sombra */
+  display: block; /* Asegura que el input ocupe toda la línea */
+  width: calc(100% - 24px); /* Ajusta el ancho para tener en cuenta el padding */
+  margin-bottom: 20px; /* Espacio debajo de cada input */
+}
+
+input[type="date"]:focus, input[type="time"]:focus {
+  outline: none; /* Eliminar el contorno predeterminado */
+  box-shadow: 0 0 10px rgba(30, 144, 255, 0.8); /* Sombra más destacada al enfocar */
+}
+button{
+    width: 50%;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease-in-out;
+    margin-top: 30px;
+}
+button:hover{
+    background-color: #555;
+}
+.pista{
+  text-align: center;
+}
+
+
+@media (max-width:1000px) {
+  .general-container {
     flex-direction: column;
   }
-  .res-form{
+
+  .res-form {
     margin: auto;
   }
-  
+
 }
 </style>
