@@ -46,6 +46,7 @@ export default {
     },
 
     methods: {
+        
     //     async fetchBookings() {
 
     //         if (!this.selectedFieldId) {

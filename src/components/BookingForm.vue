@@ -23,12 +23,13 @@
         :disable-views="['years', 'months']"
         @cell-focus="selectedDate = $event.date || $event"
         :selectedFieldId="selectedFieldId"
+        ref="child"
       />
       <h2>Reserva</h2><p>Te recomendamos con 1 día de antelación</p>
       <form @submit.prevent="submitReservation">
         <div>
           <label for="date">Fecha: </label>
-          <input type="date" v-model="reservation.date" @change="loadAvailability" required>
+          <input type="date" v-model="reservation.date"  required>
         </div>
         <div>
           <label for="start_hour">Hora de inicio: </label>
@@ -97,6 +98,8 @@ export default {
       const endHour = this.calculateEndHour(startHour);
       
       try {
+        // un metodo que compruebe
+        console.log("Llama a la api reserve")
         const response = await fetch('http://localhost/spicepadel_api/api/reserve.php', {
           method: 'POST',
           headers: {
@@ -114,6 +117,7 @@ export default {
         if (result.success) {
           this.message = 'Reserva realizada con éxito';
           await this.loadAvailability();
+          this.reloadPage()
         } else {
           this.message = 'Error al realizar la reserva: ' + result.message;
         }
@@ -121,6 +125,10 @@ export default {
         this.message = 'Error al conectar con el servidor';
       }
     },
+    async reloadPage() {
+      this.$router.push('/myAccount');
+    },
+
     calculateEndHour(startHour) {
       const [hours, minutes] = startHour.split(':').map(Number);
       const endHour = new Date();
@@ -180,6 +188,7 @@ export default {
           deletable: false,
           split: booking.field_id % 2 === 0 ? 1 : 2
         }));
+
       } catch (error) {
         console.error('Error fetching bookings:', error);
       }
