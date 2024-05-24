@@ -34,7 +34,7 @@
         </table>
         <div v-if="editingUser !== null" class="modal-overlay">
             <div class="modal-content">
-                
+
                 <form @submit.prevent="saveUserEdition">
                     <h2>Editar Usuario</h2>
                     <label for="edit_user_dni">Dni:</label>
@@ -77,14 +77,14 @@
                 <td>{{ member.dni_m }}</td>
                 <td>{{ member.birthday }}</td>
                 <td>{{ member.bank_account }}</td>
-                
+
                 <td><button @click="editMember(member.dni_m)">Modificar</button></td>
                 <td><button @click="deleteMember(member.dni_m)">Eliminar</button></td>
             </tr>
         </table>
         <div v-if="editingMember !== null" class="modal-overlay">
             <div class="modal-content">
-                
+
                 <form @submit.prevent="saveMemberEdition">
                     <h2>Editar Miembro</h2>
                     <label for="edit_member_dni">Dni:</label>
@@ -93,12 +93,32 @@
                     <input type="text" v-model="editedMember.birthday" required><br>
                     <label for="edit_member_bank_account">Cuenta Bancaria:</label>
                     <input type="text" v-model="editedMember.bank_account" required><br>
-                    
+
                     <button type="submit">Guardar</button>
                     <button type="button" @click="cancelEditMember">Cancelar</button>
                 </form>
             </div>
         </div>
+        <!-- ---------------------------EQUIPOS------------------------------------------- -->
+        <button @click="getTeams" v-if="!teams.length">Ver Equipos</button>
+        <button @click="hideTeams" v-else>Ocultar Equipos</button>
+
+        <table>
+            <thead v-if="teams.length">
+                <tr>
+                    <td>ID</td>
+                    <td>DNI jugador 1</td>
+                    <td>DNI jugador 2</td>
+                </tr>
+            </thead>
+            <tr v-for="team in teams" :key="team.id">
+                <td>{{ team.id }}</td>
+                <td>{{ team.player1_dni }}</td>
+                <td>{{ team.player2_dni }}</td>
+
+                <td><button @click="deleteTeam(team.id)">Eliminar</button></td>
+            </tr>
+        </table>
 
     </div>
 
@@ -132,10 +152,12 @@ export default {
             members: [],
             editingMember: null,
             editedMember: {
-                dni_m : "",
+                dni_m: "",
                 birthday: "",
                 bank_account: ""
-            }
+            },
+            teams: [],
+
         }
     },
     methods: {
@@ -154,7 +176,7 @@ export default {
                     this.errorMessage = "Failed to load users: " + error.message;
                 });
         },
-        getMembers(){
+        getMembers() {
             fetch('http://localhost/spicepadel_api/getMembers.php')
                 .then(response => {
                     if (!response.ok) {
@@ -169,6 +191,21 @@ export default {
                     this.errorMessage = "Failed to load users: " + error.message;
                 });
         },
+        getTeams(){
+            fetch('http://localhost/spicepadel_api/getTeams.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    this.teams = data;
+                })
+                .catch(error => {
+                    this.errorMessage = "Failed to load teams: " + error.message;
+                });
+        },
         editUser(user_dni) {
             const user = this.users.find(u => u.dni === user_dni);
             if (user) {
@@ -178,11 +215,11 @@ export default {
                 this.errorMessage = "No se encontró el usuario.";
             }
         },
-        editMember(dni_m){
+        editMember(dni_m) {
             const member = this.members.find(m => m.dni_m === dni_m)
             if (member) {
                 this.editingMember = dni_m
-                this.editedMember = {...member}
+                this.editedMember = { ...member }
             } else {
                 this.errorMessage = "No se encontró el miembro"
             }
@@ -201,62 +238,20 @@ export default {
                 password: ''
             };
         },
-        cancelEditMember(){
+        cancelEditMember() {
             this.editingMember = null
             this.editedMember = {
-                dni_m : "",
+                dni_m: "",
                 birthday: "",
                 bank_account: ""
             }
         },
         async saveUserEdition() {
             try {
-            const response = await fetch('http://localhost/spicepadel_api/modifyUser.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(this.editedUser) 
-            });
-            const data = await response.json();
-            if (data.success) {
-                this.errorMessage = data.message;
-                this.cancelEditUser(); // Limpia el formulario y cierra el modal
-                this.getUsers(); // Recarga la lista de usuarios
-            } else {
-                this.errorMessage = data.message;
-            }
-            } catch (error) {
-                this.errorMessage = "Error de conexión con el servidor al modificar usuario, error: " + error.message;
-            }
-
-        },
-        async saveMemberEdition() {
-            try {
-            const response = await fetch('http://localhost/spicepadel_api/modifyMember.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(this.editedMember) 
-            });
-            const data = await response.json();
-            if (data.success) {
-                this.errorMessage = data.message;
-                this.cancelEditMember(); // Limpia el formulario y cierra el modal
-                this.getMembers(); // Recarga la lista de miembros
-            } else {
-                this.errorMessage = data.message;
-            }
-            } catch (error) {
-                this.errorMessage = "Error de conexión con el servidor al modificar miembro, error: " + error.message;
-            }
-
-        },
-        
-        async deleteUser(user_dni){
-            if (confirm(`Seguro que deseas eliminar el usuario con dni ${user_dni} ?`)){
-                try {
-                const response = await fetch('http://localhost/spicepadel_api/deleteUser.php', {
+                const response = await fetch('http://localhost/spicepadel_api/modifyUser.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({user_dni}) 
+                    body: JSON.stringify(this.editedUser)
                 });
                 const data = await response.json();
                 if (data.success) {
@@ -266,18 +261,17 @@ export default {
                 } else {
                     this.errorMessage = data.message;
                 }
-                } catch (error) {
-                    this.errorMessage = "Error de conexión con el servidor al modificar usuario, error: " + error.message;
-                }
+            } catch (error) {
+                this.errorMessage = "Error de conexión con el servidor al modificar usuario, error: " + error.message;
             }
+
         },
-        async deleteMember(dni_m){
-            if (confirm(`Seguro que deseas eliminar el miembro con dni ${dni_m} ?`)){
-                try {
-                const response = await fetch('http://localhost/spicepadel_api/deleteMember.php', {
+        async saveMemberEdition() {
+            try {
+                const response = await fetch('http://localhost/spicepadel_api/modifyMember.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({dni_m}) 
+                    body: JSON.stringify(this.editedMember)
                 });
                 const data = await response.json();
                 if (data.success) {
@@ -287,30 +281,96 @@ export default {
                 } else {
                     this.errorMessage = data.message;
                 }
+            } catch (error) {
+                this.errorMessage = "Error de conexión con el servidor al modificar miembro, error: " + error.message;
+            }
+
+        },
+
+        async deleteUser(user_dni) {
+            if (confirm(`Seguro que deseas eliminar el usuario con dni ${user_dni} ?`)) {
+                try {
+                    const response = await fetch('http://localhost/spicepadel_api/deleteUser.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ user_dni })
+                    });
+                    const data = await response.json();
+                    if (data.success) {
+                        this.errorMessage = data.message;
+                        this.cancelEditUser(); // Limpia el formulario y cierra el modal
+                        this.getUsers(); // Recarga la lista de usuarios
+                    } else {
+                        this.errorMessage = data.message;
+                    }
                 } catch (error) {
-                    this.errorMessage = "Error de conexión con el servidor al modificar miembro, error: " + error.message;
+                    this.errorMessage = "Error de conexión con el servidor al eliminar usuario, error: " + error.message;
                 }
             }
         },
-        hideUsers(){
+        async deleteMember(dni_m) {
+            if (confirm(`Seguro que deseas eliminar el miembro con dni ${dni_m} ?`)) {
+                try {
+                    const response = await fetch('http://localhost/spicepadel_api/deleteMember.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ dni_m })
+                    });
+                    const data = await response.json();
+                    if (data.success) {
+                        this.errorMessage = data.message;
+                        this.cancelEditMember(); // Limpia el formulario y cierra el modal
+                        this.getMembers(); // Recarga la lista de miembros
+                    } else {
+                        this.errorMessage = data.message;
+                    }
+                } catch (error) {
+                    this.errorMessage = "Error de conexión con el servidor al eliminar miembro, error: " + error.message;
+                }
+            }
+        },
+        async deleteTeam(team_id){
+            if (confirm(`Seguro que deseas eliminar el equipo con id ${team_id} ?`)) {
+                try {
+                    const response = await fetch('http://localhost/spicepadel_api/deleteTeam.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ team_id })
+                    });
+                    const data = await response.json();
+                    if (data.success) {
+                        this.errorMessage = data.message;
+                        this.getTeams(); // Recarga la lista de miembros
+                    } else {
+                        this.errorMessage = data.message;
+                    }
+                } catch (error) {
+                    this.errorMessage = "Error de conexión con el servidor al eliminar team, error: " + error.message;
+                }
+            }
+        },
+        hideUsers() {
             this.users = []
         },
-        hideMembers(){
+        hideMembers() {
             this.members = []
         },
-        checkIfAdmin(){
+        hideTeams(){
+            this.teams = []
+        },
+        checkIfAdmin() {
             const spiceTokenString = localStorage.getItem('spicetoken')
             const spiceToken = JSON.parse(spiceTokenString)
-            if (spiceToken.admin == false){ 
+            if (spiceToken.admin == false) {
                 this.$router.push('/')
             }
         }
 
     },
-    
-    created(){
+
+    created() {
         this.checkIfAdmin()
-           
+
     }
 }
 </script>
@@ -356,9 +416,11 @@ table {
     margin-top: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-thead{
+
+thead {
     font-weight: bold;
 }
+
 th,
 td {
     padding: 8px 12px;
