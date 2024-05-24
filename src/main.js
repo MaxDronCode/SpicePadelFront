@@ -10,6 +10,9 @@ import JoinTournamentCmp from '@/components/JoinTournamentCmp.vue';
 import MyAccountCmp from '@/components/MyAccountCmp.vue';
 import CalendarCmp from '@/components/CalendarCmp.vue';
 import BookingForm from '@/components/BookingForm.vue';
+import 'vue-cal/dist/vuecal.css'
+
+
 
 
 const router = createRouter({
