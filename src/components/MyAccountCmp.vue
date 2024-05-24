@@ -58,4 +58,10 @@ export default {
 
 <style scoped>
 
+AccountCardCmp{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
 </style>

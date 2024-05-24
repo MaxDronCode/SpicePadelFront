@@ -3,11 +3,12 @@
         <div class="flip-card">
             <div class="flip-card-inner">
                 <div class="flip-card-front">
-                    <p class="heading_8264">{{ user_name }}</p>
+                    <p class="heading_8264"><b>{{ user_name }}</b></p>
                     <img :src=logo alt="Logo">
                     <svg class="chip" xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 256 256"><path fill="#d9d9d9" d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24M74.08 197.5a64 64 0 0 1 107.84 0a87.83 87.83 0 0 1-107.84 0M96 120a32 32 0 1 1 32 32a32 32 0 0 1-32-32m97.76 66.41a79.66 79.66 0 0 0-36.06-28.75a48 48 0 1 0-59.4 0a79.66 79.66 0 0 0-36.06 28.75a88 88 0 1 1 131.52 0"/></svg>
                     <p class="number">{{ dni }}</p>
-                    <p class="date_8264">{{ birthday }}</p>
+                    <p class="valid_thru">Team 1</p>
+                    <p class="date_8264">🥳{{ birthday }}🥳</p>
                 </div>
                 <div class="flip-card-back">
                     <div class="strip"><p></p></div>
@@ -56,8 +57,9 @@ export default {
                 console.log("Error al conectar con la api: " + error)
             }
         },
+        obtainTeam(){
 
-
+        },
     },
     mounted(){
       this.obtainEmail()
@@ -117,7 +119,7 @@ img {
   font-weight: bold;
   font-size: 0.5em;
   top: 13.6em;
-  left: 3.2em;
+  left: 1.2em;
 }
 .name {
   position: absolute;
