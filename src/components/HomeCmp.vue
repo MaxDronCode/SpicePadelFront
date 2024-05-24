@@ -2,7 +2,7 @@
     <NavCmp/>
     <h1>HOME</h1>
     <TestApiCmp/>
-    <VueCalComponent />
+    <!-- <VueCalComponent /> -->
 
     <FooterCmp/>
 </template>
@@ -11,7 +11,7 @@
 import NavCmp from './NavCmp.vue';
 import TestApiCmp from './TestApiCmp.vue';
 import FooterCmp from './FooterCmp.vue'
-import VueCalComponent from '@/components/VueCalComponent.vue'
+// import VueCalComponent from '@/components/VueCalComponent.vue'
 
 export default {
     name: "HomeCmp",
@@ -19,7 +19,7 @@ export default {
         NavCmp,
         TestApiCmp,
         FooterCmp,
-        VueCalComponent
+        // VueCalComponent
     }
 }
 </script>

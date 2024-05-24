@@ -10,6 +10,7 @@ import JoinTournamentCmp from '@/components/JoinTournamentCmp.vue';
 import MyAccountCmp from '@/components/MyAccountCmp.vue';
 import CalendarCmp from '@/components/CalendarCmp.vue';
 import BookingForm from '@/components/BookingForm.vue';
+import AdminView from '@/components/adminViewCmp.vue'
 import 'vue-cal/dist/vuecal.css'
 
 
@@ -27,6 +28,7 @@ const router = createRouter({
         { path: '/myAccount', component: MyAccountCmp },
         { path: '/reserve', component: BookingForm },
         { path: '/calendar', component: CalendarCmp },
+        { path: '/adminView', component: AdminView}
     ],
 });
 
