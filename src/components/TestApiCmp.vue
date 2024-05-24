@@ -21,6 +21,7 @@ export default {
     mounted(){
         // Ruta Marti : http://localhost/PROYECTO_FINAL/SpicePadelApi/spicepadel_api/api.php
         // Ruta Max : http://localhost/spicepadel_api/api.php
+        // fetch('https://Test2php-env.eba-tdje93tb.us-east-1.elasticbeanstalk.com/api.php')
         fetch('http://localhost/spicepadel_api/api.php')
             .then(response => response.json())
             .then(data => {
