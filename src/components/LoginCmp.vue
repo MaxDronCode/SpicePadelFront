@@ -47,10 +47,10 @@ export default {
                 if (data.success) {
 
                     if (data.admin){
-                        localStorage.setItem('spicetoken', JSON.stringify({'user_mail': data.user_mail, 'token': data.token}))
+                        localStorage.setItem('spicetoken', JSON.stringify({'user_mail': data.user_mail, 'token': data.token, 'admin': true}))
                         this.$router.push('/adminView')
                     }else{
-                        localStorage.setItem('spicetoken', JSON.stringify({'user_mail': data.user_mail, 'token': data.token}))
+                        localStorage.setItem('spicetoken', JSON.stringify({'user_mail': data.user_mail, 'token': data.token, 'admin': false}))
                         this.$router.push('/') 
                     }
                 } else {

@@ -297,8 +297,20 @@ export default {
         },
         hideMembers(){
             this.members = []
+        },
+        checkIfAdmin(){
+            const spiceTokenString = localStorage.getItem('spicetoken')
+            const spiceToken = JSON.parse(spiceTokenString)
+            if (spiceToken.admin == false){ 
+                this.$router.push('/')
+            }
         }
 
+    },
+    
+    created(){
+        this.checkIfAdmin()
+           
     }
 }
 </script>
