@@ -6,29 +6,13 @@
         .w-flex.wrap.align-center.justify-center
             .ma4
                 //- Date picker.
-                vue-cal.vuecal--date-picker.demo(
-                    xsmall
-                    :selected-date="selectedDate"
-                    hide-view-selector
-                    :time="false"
-                    :transitions="false"
-                    active-view="month"
-                    :events="events"
-                    :disable-views="['week', 'day']"
-                    @cell-click="selectedDate = $event"
-                    style="width: 210px;height: 230px")
-                .grey.code.my2(style="font-size: 13px") Selected date: '{{ selectedDate }}'
-
-            .grow.mx2(style="max-width: 800px")
                 //- Full-power calendar.
                 vue-cal.demo.full-cal.vuecal--full-height-delete(
-                    
                     :selected-date="selectedDate"
                     :time-from="8 * 60"
                     :time-to="19 * 60"
                     :split-days="splits"
                     sticky-split-labels
-                    :editable-events="editable"
                     :events="events"
                     @cell-focus="selectedDate = $event.date || $event"
                     style="height: 450px")
@@ -52,8 +36,6 @@ export default {
     data: () => ({
         events: [],
         selectedDate: new Date(),
-        splits: [{ label: 'John', class: 'john' }, { label: 'Kate', class: 'kate' }],
-        editable: { title: false, drag: true, resize: true, create: true, delete: true }
     }),
 
     created() {
@@ -61,7 +43,7 @@ export default {
     },
 
     methods: {
-        async fetchBookings() {
+    async fetchBookings() {
       try {
         const response = await axios.get('http://localhost/spicepadel_api/api/getBookings.php');
         console.log('Bookings data:', response.data);
