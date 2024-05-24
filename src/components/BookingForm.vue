@@ -14,7 +14,7 @@
       <div>
         <h2>Calendario</h2>
         <h2>Pista {{ selectedFieldId }}</h2>
-        <vue-cal style="height: 40rem; width: 400px" locale="es" :events="events" :time-from="8 * 60" :time-to="19 * 60"
+        <vue-cal style="height: 40rem; width: 600px" locale="es" :events="events" :time-from="8 * 60" :time-to="19 * 60"
           :time-step="60" :disable-views="['years', 'months']" @cell-focus="selectedDate = $event.date || $event"
           :selectedFieldId="selectedFieldId" xsmall />
 
@@ -181,7 +181,7 @@ export default {
           start: `${booking.date} ${booking.start_hour}`,
           end: `${booking.date} ${booking.end_hour}`,
           title: `Pista ${booking.field_id}`,
-          content: `<i class="w-icon material-icons mt1">sports_soccer</i> Member ${booking.member_id}`,
+          content: `<i class="w-icon material-icons mt1"></i> ${booking.member_id}`,
           resizable: false,
           deletable: false,
           split: booking.field_id % 2 === 0 ? 1 : 2

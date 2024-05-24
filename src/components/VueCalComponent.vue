@@ -42,7 +42,7 @@ export default {
     },
     created() {
         console.log("Entra en created")
-        this.handleFieldSelection();
+        // this.handleFieldSelection();
     },
 
     methods: {
