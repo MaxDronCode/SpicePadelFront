@@ -78,6 +78,7 @@ export default {
     this.loadAvailableFields();
     this.fetchBookings();
   },
+  
   methods: {
     async submitReservation() {
       if (!this.reservation.date || !this.reservation.start_hour || !this.reservation.member_id || !this.selectedFieldId) {
@@ -87,6 +88,7 @@ export default {
 
       const startHour = this.reservation.start_hour;
       const endHour = this.calculateEndHour(startHour);
+      
       try {
         const response = await fetch('http://localhost/spicepadel_api/api/reserve.php', {
           method: 'POST',
