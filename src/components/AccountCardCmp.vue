@@ -3,7 +3,7 @@
         <div class="flip-card">
             <div class="flip-card-inner">
                 <div class="flip-card-front">
-                    <p class="heading_8264"><b>{{ user_name }}</b></p>
+                    <p class="heading_8264">{{ user_name }}</p>
                     <img :src=logo alt="Logo">
                     <svg class="chip" xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 256 256"><path fill="#d9d9d9" d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24M74.08 197.5a64 64 0 0 1 107.84 0a87.83 87.83 0 0 1-107.84 0M96 120a32 32 0 1 1 32 32a32 32 0 0 1-32-32m97.76 66.41a79.66 79.66 0 0 0-36.06-28.75a48 48 0 1 0-59.4 0a79.66 79.66 0 0 0-36.06 28.75a88 88 0 1 1 131.52 0"/></svg>
                     <p class="number">{{ dni }}</p>
@@ -90,28 +90,32 @@ export default {
 <style scoped>
 .flip-card {
   background-color: transparent;
-  width: 240px;
-  height: 154px;
+  width: 320px; /* Cambiado a 340px */
+  height: 200px; /* Cambiado a 250px */
   perspective: 1000px;
   color: white;
 }
+
 .heading_8264 {
   position: absolute;
   letter-spacing: 0.2em;
-  font-size: 0.5em;
-  top: 2em;
-  left: 18.6em;
+  font-size: .75em;
+  top: .75em;
+  left: 220px; /* Puedes ajustar este valor según sea necesario */
+  font-weight:500px;
 }
 img {
-    height: 60px;
-    width: 60px;
-    margin-left:180px;
-    margin-top:90px;
+    height: 130px;
+    width: 130px;
+    margin-left:210px; /* Puedes ajustar este valor según sea necesario */
+    margin-top:100px; /* Puedes ajustar este valor según sea necesario */
 }
 .chip {
   position: absolute;
   top: 2.3em;
-  left: 1.5em;
+  left: 1.75em;
+  height: 40px;
+  width: 40px;
 }
 .contactless {
   position: absolute;
