@@ -7,8 +7,9 @@
                     <img :src=logo alt="Logo">
                     <svg class="chip" xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 256 256"><path fill="#d9d9d9" d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24M74.08 197.5a64 64 0 0 1 107.84 0a87.83 87.83 0 0 1-107.84 0M96 120a32 32 0 1 1 32 32a32 32 0 0 1-32-32m97.76 66.41a79.66 79.66 0 0 0-36.06-28.75a48 48 0 1 0-59.4 0a79.66 79.66 0 0 0-36.06 28.75a88 88 0 1 1 131.52 0"/></svg>
                     <p class="number">{{ dni }}</p>
-                    <p class="valid_thru">Team 1</p>
-                    <p class="date_8264">🥳{{ birthday }}🥳</p>
+                    <p class="valid_thru" v-if="team_id">Team: {{ team_id }}</p>
+                    <p v-else class="valid_thru"> Sin equipo </p>
+                    <p class="date_8264">{{ birthday }}🥳</p>
                 </div>
                 <div class="flip-card-back">
                     <div class="strip"><p></p></div>
@@ -30,10 +31,11 @@ export default {
             user_name: "",
             dni :"",
             birthday: "",
+            team_id:""
         };
     },
     methods: {
-        obtainEmail() {
+        async obtainEmail() {
             const spiceTokenString = localStorage.getItem('spicetoken');
             const spiceToken = JSON.parse(spiceTokenString);
             this.usuMail = spiceToken.user_mail;
@@ -57,13 +59,29 @@ export default {
                 console.log("Error al conectar con la api: " + error)
             }
         },
-        obtainTeam(){
-
-        },
+        async getTeamNames(){
+            
+            try{
+                const response = await fetch('http://localhost/spicepadel_api/api/getTeamNames.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type' : 'application/json'
+                    },
+                    body: JSON.stringify({
+                        user_email: this.usuMail
+                    })
+                })
+                const data = await response.json()
+                this.team_id = data.team_id
+            } catch (error) {
+                this.errorMessage = "Error en la conexión con el servidor, ERROR : " + error
+            }
+        }
     },
     mounted(){
       this.obtainEmail()
       this.obtainName()
+      this.getTeamNames()
     }
     
 };
@@ -110,16 +128,17 @@ img {
 .valid_thru {
   position: absolute;
   font-weight: bold;
-  top: 635.8em;
-  font-size: 0.01em;
-  left: 140.3em;
+  font-size: 9px; /* Cambia el tamaño de fuente a 12px */
+  top: 10.5em; /* Ajusta esta posición según sea necesario */
+  left: 1.8em; /* Ajusta esta posición según sea necesario */
 }
+
 .date_8264 {
   position: absolute;
   font-weight: bold;
   font-size: 0.5em;
   top: 13.6em;
-  left: 1.2em;
+  left: 2.1em;
 }
 .name {
   position: absolute;
@@ -196,11 +215,11 @@ img {
 }
 .flip-card-front {
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 2px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
-  background-color: #171717;
+  background-color:#333333;
 }
 .flip-card-back {
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 2px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
-  background-color: #171717;
+  background-color: #333333;
   transform: rotateY(180deg);
 }
 </style>
