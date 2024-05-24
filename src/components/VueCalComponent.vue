@@ -1,35 +1,35 @@
 <template lang="pug">
 .main-demo
-        .mb10.tagline
-            .title2.grey-dark1 Go for the date picker...
-            .title1.text-right.primary-dark1 or unleash the full potential!
-        .w-flex.wrap.align-center.justify-center
-            .ma4
-                //- Date picker.
-                //- Full-power calendar.
-                vue-cal.demo.full-cal.vuecal--full-height-delete(
-                    :selected-date="selectedDate"
-                    :time-from="8 * 60"
-                    :time-to="19 * 60"
-                    :split-days="splits"
-                    sticky-split-labels
-                    :events="events"
-                    @cell-focus="selectedDate = $event.date || $event"
-                    style="height: 450px")
-                    template(#split-label="{ split, view }")
-                        w-icon(:color="split.color" size="20") material-icons person
-                        strong(:style="`color: ${split.color}`") {{ split.label }}
-                a.mt4.w-flex.justify-end.grey-light1(
-                    href="https://github.com/antoniandre/vue-cal/blob/master/src/documentation/main-demo.vue"
-                    target="_blank")
-                    | View this example source code
-                    w-icon.ml1(color="grey lighten-1") material-icons open_in_new
+    .mb10.tagline
+        .title2.grey-dark1 Go for the date picker...
+        .title1.text-right.primary-dark1 or unleash the full potential!
+    .w-flex.wrap.align-center.justify-center
+        .ma4
+            //- Date picker.
+            //- Full-power calendar.
+            vue-cal.demo.full-cal.vuecal--full-height-delete(
+                :selected-date="selectedDate"
+                :time-from="8 * 60"
+                :time-to="19 * 60"
+                :split-days="splits"
+                sticky-split-labels
+                :events="events"
+                @cell-focus="selectedDate = $event.date || $event"
+                style="height: 450px")
+                template(#split-label="{ split, view }")
+                    w-icon(:color="split.color" size="20") material-icons person
+                    strong(:style="`color: ${split.color}`") {{ split.label }}
+            a.mt4.w-flex.justify-end.grey-light1(
+                href="https://github.com/antoniandre/vue-cal/blob/master/src/documentation/main-demo.vue"
+                target="_blank")
+                | View this example source code
+                w-icon.ml1(color="grey lighten-1") material-icons open_in_new
 </template>
 
 <script>
 import VueCal from 'vue-cal'
 import 'vue-cal/dist/vuecal.css'
-import axios from 'axios'
+// import axios from 'axios'
 
 export default {
     components: { VueCal },
@@ -37,34 +37,57 @@ export default {
         events: [],
         selectedDate: new Date(),
     }),
-
+    props: {
+        selectedFieldId: String
+    },
     created() {
-        this.fetchBookings();
+        console.log("Entra en created")
+        this.handleFieldSelection();
     },
 
     methods: {
-    async fetchBookings() {
-      try {
-        const response = await axios.get('http://localhost/spicepadel_api/api/getBookings.php');
-        console.log('Bookings data:', response.data);
-        
-        this.events = response.data.map(booking => ({
-          start: `${booking.date} ${booking.start_hour}`,
-          end: `${booking.date} ${booking.end_hour}`,
-          title: `Field ${booking.field_id}`,
-          content: `<i class="w-icon material-icons mt1">sports_soccer</i> Member ${booking.member_id}`,
-          resizable: false,
-          deletable: false,
-          split: booking.field_id % 2 === 0 ? 1 : 2 // Asignación arbitraria de splits
-        }));
-        
-        console.log('Events:', this.events);
-      } catch (error) {
-        console.error('Error fetching bookings:', error);
-      }
-        }
-    }
+    //     async fetchBookings() {
+
+    //         if (!this.selectedFieldId) {
+    //             console.log("No field ID selected yet.");
+    //             return; // Detener la ejecución si no hay un field_id seleccionado
+    //         }
+
+    //         try {
+    //             const response = await axios.get(`http://localhost/spicepadel_api/api/getBookings.php?field_id=${this.selectedFieldId}`);
+    //             this.events = response.data.map(booking => ({
+    //                 start: `${booking.date} ${booking.start_hour}`,
+    //                 end: `${booking.date} ${booking.end_hour}`,
+    //                 title: `Field ${booking.field_id}`,
+    //                 content: `<i class="w-icon material-icons mt1">sports_soccer</i> Member ${booking.member_id}`,
+    //                 resizable: false,
+    //                 deletable: false,
+    //                 split: booking.field_id % 2 === 0 ? 1 : 2
+    //             }));
+    //         } catch (error) {
+    //             console.error('Error fetching bookings:', error);
+    //         }
+    //     },
+    //     handleFieldSelection() {
+    //         console.log("Estamos en handleFieldSelection")
+    //     if (this.selectedFieldId) {
+    //         console.log("El selected field id esta establecido")
+    //         this.fetchBookings();
+    //     }
+    // }
+
+    // },
+    // watch: {
+    // selectedFieldId(newVal, oldVal) {
+    //   if (newVal && newVal !== oldVal) {
+    //     this.fetchBookings();
+    //   }
+    // }
+  },
+    
 }
+
+
 </script>
 
 <style lang="scss">

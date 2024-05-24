@@ -22,6 +22,7 @@
         :time-step="60"
         :disable-views="['years', 'months']"
         @cell-focus="selectedDate = $event.date || $event"
+        :selectedFieldId="selectedFieldId"
       />
       <h2>Reserva</h2><p>Te recomendamos con 1 día de antelación</p>
       <form @submit.prevent="submitReservation">
@@ -76,9 +77,15 @@ export default {
   created() {
     this.checkToken();
     this.loadAvailableFields();
-    this.fetchBookings();
+    // this.fetchBookings();
   },
-  
+  watch: {
+    selectedFieldId() {
+      if (this.selectedFieldId) {
+        this.fetchBookings();
+      }
+    }
+  },
   methods: {
     async submitReservation() {
       if (!this.reservation.date || !this.reservation.start_hour || !this.reservation.member_id || !this.selectedFieldId) {
@@ -131,7 +138,7 @@ export default {
     },
     async loadAvailableFields() {
       try {
-        const response = await fetch('http://localhost/spicepadel_api/api/getFields.php');
+        const response = await fetch(`http://localhost/spicepadel_api/api/getFields.php`);
         const data = await response.json();
         this.availableFields = data;
       } catch (error) {
@@ -162,7 +169,7 @@ export default {
     },
     async fetchBookings() {
       try {
-        const response = await axios.get('http://localhost/spicepadel_api/api/getBookings.php');
+        const response = await axios.get(`http://localhost/spicepadel_api/api/getBookings.php?field_id=${this.selectedFieldId}`);
         console.log('Bookings data:', response.data);
         this.events = response.data.map(booking => ({
           start: `${booking.date} ${booking.start_hour}`,
