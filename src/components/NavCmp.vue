@@ -10,7 +10,6 @@
         <li><router-link to="/">Home</router-link></li>
         <li><router-link to="/club">Club</router-link></li>
         <li><router-link to="/reserve">Reservar</router-link></li>
-        <li><a>Calendario</a></li>
         <li><router-link to="/tournaments">Torneos</router-link></li>
         <li><a>Contacto</a></li>
         <li v-if="!existsToken"><router-link to="/login" class="nav-login-li">Login</router-link></li>
@@ -63,7 +62,7 @@ export default {
 
 nav {
   background-color: #333;
-  padding: 0 20px;
+  padding: 10px 30px;
 }
 
 
@@ -119,6 +118,7 @@ li:hover {
 
 li:hover::before {
   transform: scaleX(1);
+  background-color: #ffeb3b
 }
 
 a {
