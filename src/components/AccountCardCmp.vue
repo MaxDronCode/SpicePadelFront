@@ -100,7 +100,7 @@ export default {
   position: absolute;
   letter-spacing: 0.2em;
   font-size: .75em;
-  top: .75em;
+  top: .5em;
   left: 220px; /* Puedes ajustar este valor según sea necesario */
   font-weight:500px;
 }
@@ -114,8 +114,8 @@ img {
   position: absolute;
   top: 2.3em;
   left: 1.75em;
-  height: 40px;
-  width: 40px;
+  height: 60px;
+  width: 60px;
 }
 .contactless {
   position: absolute;
@@ -125,24 +125,24 @@ img {
 .number {
   position: absolute;
   font-weight: bold;
-  font-size: 0.6em;
-  top: 8.3em;
+  font-size: .9em;
+  top: 7em;
   left: 1.6em;
 }
 .valid_thru {
   position: absolute;
   font-weight: bold;
-  font-size: 9px; /* Cambia el tamaño de fuente a 12px */
-  top: 10.5em; /* Ajusta esta posición según sea necesario */
+  font-size: 13px; /* Cambia el tamaño de fuente a 12px */
+  top: 9.3em; /* Ajusta esta posición según sea necesario */
   left: 1.8em; /* Ajusta esta posición según sea necesario */
 }
 
 .date_8264 {
   position: absolute;
   font-weight: bold;
-  font-size: 0.5em;
-  top: 13.6em;
-  left: 2.1em;
+  font-size: 0.9em;
+  top: 9.4em;
+  left: 1.7em;
 }
 .name {
   position: absolute;
@@ -154,7 +154,7 @@ img {
 .strip {
   position: absolute;
   background-color: black;
-  width: 15em;
+  width: 100%;
   height: 1.5em;
   top: 2.4em;
   background: repeating-linear-gradient(
@@ -168,16 +168,16 @@ img {
 .mstrip {
   position: absolute;
   background-color: rgb(255, 255, 255);
-  width: 13em;
-  height: 0.8em;
+  width: 90%;
+  height: 1.3em;
   top: 5em;
   left: 0.8em;
   border-radius: 2.5px;
 }
 .mstrip p{
-    margin-top:-.5px;
+    margin-top:1px;
     color:black;
-    font-size:10px;
+    font-size:16px;
 }
 .sstrip {
   position: absolute;
