@@ -1,4 +1,5 @@
 <template>
+  <div class="wrapper">
     <NavCmp/>
     <div class="home-page">
       <section class="welcome-section">
@@ -34,119 +35,134 @@
       </section>
     </div>
     <FooterCmp/>
-  </template>
-  
-  <script>
-  import NavCmp from '@/components/NavCmp.vue';
-  import FooterCmp from './FooterCmp.vue';
-  
-  export default {
-    name: 'HomePage',
-    components: {
-      NavCmp,
-      FooterCmp
-    }
-  };
-  </script>
-  
-  <style scoped>
-  .home-page {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    color: #fff;
-  }
-  
-  section {
-    position: relative;
-    width: 100%;
-    height: 50vh;
-    background-size: cover;
-    background-position: center;
-  }
-  
-  .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 2em;
-  }
-  
-  .welcome-section {
-    height: 100vh;
-    background-image: url('@/assets/reserve.webp');
-  }
-  
-  .welcome-section h1 {
-    font-size: 5em;
-    margin-bottom: 0.5em;
-    color: #ffeb3b;
-  }
-  
-  .welcome-section p {
-    font-size: 1.5em;
-  }
-  
-  .offer-section {
-    background-image: url('@/assets/fields.webp');
-  }
-  
-  .offer-section h2 {
-    font-size: 2.5em;
-    margin-bottom: 0.5em;
-    color: #ffeb3b;
-  }
-  
-  .offer-section p {
-    font-size: 1.5em;
-    line-height: 1.6;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
-  .reservation-section {
-    background-image: url('@/assets/homeImg.webp');
-  }
-  
-  .reservation-section h2 {
-    font-size: 2.5em;
-    margin-bottom: 0.5em;
-    color: #ffeb3b;
-  }
-  
-  .reservation-section p {
-    font-size: 1.5em;
-    line-height: 1.6;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
-  .contact-section {
-    background-image: url('@/assets/joinUs.webp');
-  }
-  
-  .contact-section h2 {
-    font-size: 2.5em;
-    margin-bottom: 0.5em;
-    color: #ffeb3b;
-  }
-  
-  .contact-section p {
-    font-size: 1.5em;
-    line-height: 1.6;
-    max-width: 800px;
-    margin: 0 auto;
-  }
+  </div>
+</template>
 
-  a {
-      color: yellow; /* Cambia el color del enlace a amarillo */
-      text-decoration: none; /* Elimina el subrayado del enlace */
-    }
-  </style>
-  
+<script>
+import NavCmp from '@/components/NavCmp.vue';
+import FooterCmp from './FooterCmp.vue';
+
+export default {
+  name: 'HomePage',
+  components: {
+    NavCmp,
+    FooterCmp
+  }
+};
+</script>
+
+<style scoped>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.home-page {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: #fff;
+  flex: 1;
+}
+
+section {
+  position: relative;
+  width: 100%;
+  height: 50vh;
+  background-size: cover;
+  background-position: center;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2em;
+}
+
+.welcome-section {
+  height: 100vh;
+  background-image: url('@/assets/reserve.webp');
+}
+
+.welcome-section h1 {
+  font-size: 5em;
+  margin-bottom: 0.5em;
+  color: #ffeb3b;
+}
+
+.welcome-section p {
+  font-size: 1.5em;
+}
+
+.offer-section {
+  background-image: url('@/assets/fields.webp');
+}
+
+.offer-section h2 {
+  font-size: 2.5em;
+  margin-bottom: 0.5em;
+  color: #ffeb3b;
+}
+
+.offer-section p {
+  font-size: 1.5em;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.reservation-section {
+  background-image: url('@/assets/homeImg.webp');
+}
+
+.reservation-section h2 {
+  font-size: 2.5em;
+  margin-bottom: 0.5em;
+  color: #ffeb3b;
+}
+
+.reservation-section p {
+  font-size: 1.5em;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.contact-section {
+  background-image: url('@/assets/joinUs.webp');
+}
+
+.contact-section h2 {
+  font-size: 2.5em;
+  margin-bottom: 0.5em;
+  color: #ffeb3b;
+}
+
+.contact-section p {
+  font-size: 1.5em;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+a {
+  color: yellow; /* Cambia el color del enlace a amarillo */
+  text-decoration: none; /* Elimina el subrayado del enlace */
+}
+</style>
