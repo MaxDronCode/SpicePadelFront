@@ -39,7 +39,6 @@ export default {
             this.usuMail = spiceToken.user_mail;
         },
         async obtainName() {
-
             try {
                 const response = await fetch('http://localhost/spicepadel_api/api/getName.php', {
                     method: 'POST',

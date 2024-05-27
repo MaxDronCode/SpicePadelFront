@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-  <p class="title"> Match </p>
+  <p class="title"> Pistas Reservadas </p>
   <router-link to='/tournaments' class="action">  Matches </router-link>
   <ul class="lists">
     <li class="list">
