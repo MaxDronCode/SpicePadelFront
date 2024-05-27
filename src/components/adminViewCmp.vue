@@ -123,7 +123,7 @@
                 <td><button @click="deleteTeam(team.id)">Eliminar</button></td>
             </tr>
         </table>
-<!-- ---------------------------COMENTARIOS------------------------------------------- -->
+        <!-- ---------------------------COMENTARIOS------------------------------------------- -->
         <button @click="getCommentaries" v-if="!commentaries.length">Ver Comentarios</button>
         <button @click="hideCommentaries" v-else>Ocultar Comentarios</button>
 
@@ -149,6 +149,28 @@
                 <td><button @click="deleteCommentary(commentary.id)">Eliminar</button></td>
             </tr>
         </table>
+
+        <!-- ---------------------------MATCHES------------------------------------------- -->
+        <button @click="getMatches" v-if="!matches.length">Ver Matches</button>
+        <button @click="hideMatches" v-else>Ocultar Matches</button>
+
+        <div v-if="matches.length" class="match-form-container">
+            <form v-for="match in matches" :key="match.id" @submit.prevent="punctuateMatch(match)" class="match-form">
+                <p>Match: {{ match.id }}</p>
+                <div class="team-container">
+                    <div>
+                        <p>Equipo: {{ match.team1_id }}</p>
+                        <input type="text" v-model.number="match.pointsTeam1" required>
+                    </div>
+                    <div>
+                        <p>Equipo: {{ match.team2_id }}</p>
+                        <input type="text" v-model.number="match.pointsTeam2" required>
+                    </div>
+                </div>
+                <button class="btn-punctuate" type="submit">Puntuar</button>
+            </form>
+        </div>
+
 
     </div>
 
@@ -188,7 +210,10 @@ export default {
                 bank_account: ""
             },
             teams: [],
-            commentaries: []
+            commentaries: [],
+            matches: [],
+            pointsTeam1: null,
+            pointsTeam2: null
 
         }
     },
@@ -223,7 +248,7 @@ export default {
                     this.errorMessage = "Failed to load users: " + error.message;
                 });
         },
-        getTeams(){
+        getTeams() {
             fetch('http://localhost/spicepadel_api/getTeams.php')
                 .then(response => {
                     if (!response.ok) {
@@ -253,6 +278,26 @@ export default {
                     this.errorMessage = "Failed to load commentaries: " + error.message;
                 });
         },
+        getMatches() {
+            fetch('http://localhost/spicepadel_api/getMatches.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    this.matches = data.map(match => ({
+                        ...match,
+                        pointsTeam1: 0,
+                        pointsTeam2: 0
+                    }));
+                })
+                .catch(error => {
+                    this.errorMessage = "Failed to load matches: " + error.message;
+                });
+        },
+
         editUser(user_dni) {
             const user = this.users.find(u => u.dni === user_dni);
             if (user) {
@@ -376,7 +421,7 @@ export default {
                 }
             }
         },
-        async deleteTeam(team_id){
+        async deleteTeam(team_id) {
             if (confirm(`Seguro que deseas eliminar el equipo con id ${team_id} ?`)) {
                 try {
                     const response = await fetch('http://localhost/spicepadel_api/deleteTeam.php', {
@@ -396,7 +441,7 @@ export default {
                 }
             }
         },
-        async deleteCommentary(com_id){
+        async deleteCommentary(com_id) {
             if (confirm(`Seguro que deseas eliminar el comentario con id ${com_id} ?`)) {
                 try {
                     const response = await fetch('http://localhost/spicepadel_api/deleteCommentary.php', {
@@ -416,17 +461,49 @@ export default {
                 }
             }
         },
+        async punctuateMatch(match) {
+            const payload = {
+                match_id: match.id,
+                pointsTeam1: match.pointsTeam1,
+                pointsTeam2: match.pointsTeam2
+            };
+
+            try {
+                const response = await fetch('http://localhost/spicepadel_api/postMatchResults.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json(); 
+                console.log('Success:', data);
+
+                this.getMatches();
+            } catch (error) {
+                console.error('Error posting match results:', error);
+            }
+        },
+
         hideUsers() {
             this.users = []
         },
         hideMembers() {
             this.members = []
         },
-        hideTeams(){
+        hideTeams() {
             this.teams = []
         },
         hideCommentaries() {
             this.commentaries = []
+        },
+        hideMatches() {
+            this.matches = []
         },
         checkIfAdmin() {
             const spiceTokenString = localStorage.getItem('spicetoken')
@@ -443,7 +520,7 @@ export default {
 
     created() {
         this.checkToken() // COmprueba que exista token
-        if (this.existsToken){
+        if (this.existsToken) {
             this.checkIfAdmin()
         } else {
             this.$router.push('/')
@@ -577,5 +654,39 @@ tbody tr:hover {
 
 .modal-content form button {
     margin: 20px;
+}
+
+.team-container {
+    display: flex;
+    /* border: 1px solid #333; */
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 999px;
+    box-sizing: border-box;
+}
+
+.match-form {
+    /* border: 1px solid #333; */
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.match-form p:first-child {
+    text-align: center;
+}
+
+.btn-punctuate {
+    width: 100%;
+}
+
+.match-form-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
 }
 </style>
