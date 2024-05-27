@@ -188,8 +188,7 @@ export default {
             const winnerTeamId = winnerTeam.id;
             const winnerPlayer1 = winnerTeam.player1_name;
             const winnerPlayer2 = winnerTeam.player2_name;
-            console.log("datos a enviar:")
-            console.log(winnerTeamId, winnerPlayer1, winnerPlayer2)
+
 
             try {
                 const response = await fetch("http://localhost/spicepadel_api/saveTournament.php", {
@@ -228,7 +227,7 @@ export default {
             } catch (error) {
                 console.log("Error conexion con la db, error: " + error)
             }
-            Recargamos la página
+            //Recargamos la página
             await new Promise(resolve => setTimeout(resolve, 100)); // Espera breve para asegurar que todo se complete
             window.location.reload();
         },
@@ -248,10 +247,14 @@ export default {
     created() {
         this.getAllTeams();
     },
+    
+
     watch: {
         '$route'() { // Observar cambios en la ruta
             this.paintWinner();
-        }
+        },
+       
+
     }
 }
 </script>
