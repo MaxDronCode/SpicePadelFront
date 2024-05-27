@@ -1,5 +1,5 @@
 <template>
-    <div >
+    <div>
         <h1>Lista de Equipos</h1>
         <p>{{ tieMessage }}</p>
         <button v-if="!isPaired" @click="pairTeams">{{ buttonText }}</button>
@@ -13,17 +13,17 @@
                     :player1_name="pair.team2.player1_name" :player2_name="pair.team2.player2_name">
                 </TeamCmp>
 
-                <button v-if="pair.team2 && !pair.team1.winner && !pair.team2.winner" 
-                @click="checkWinner(pair.team1.id, pair.team2.id)">Actualizar</button>
+                <button v-if="pair.team2 && !pair.team1.winner && !pair.team2.winner"
+                    @click="checkWinner(pair.team1.id, pair.team2.id)">Actualizar</button>
                 <template v-else-if="!pair.team2">
                     <div class="end">
                         <p>Ganador</p>
                         <button @click="resetTournament">Reset</button>
-                        
+
                     </div>
-                    
+
                 </template>
-                
+
             </div>
 
         </div>
@@ -135,7 +135,7 @@ export default {
                     this.savePairedTeams(); // guardamos en localStorage
                     this.updatePairings(); // actualizamos los pairings para los nuevos enfrentamientos
                     // console.log("Winner id = " + data.winner_id);
-                } else if(data.tie) {
+                } else if (data.tie) {
                     this.tieMessage = data.message
                 } else {
                     this.errorMessage = data.message;
@@ -168,7 +168,7 @@ export default {
                 this.paintWinner(); // Pintar el ganador final
                 this.winnerIds = [];
                 this.savePairedTeams(); // guardamos en localStorage
-                this.launchConfetti()   
+                this.launchConfetti()
             }
         },
 
@@ -180,27 +180,59 @@ export default {
                 if (pair.team2) pair.team2.winner = this.winnerIds.includes(pair.team2.id);
             });
         },
-        async resetTournament(){
+        async resetTournament() {
+
+            // almacenar el tournament en la bd
+            const pairedTeams = JSON.parse(localStorage.getItem('pairedTeams'));
+            const winnerTeam = pairedTeams[0].team1;
+            const winnerTeamId = winnerTeam.id;
+            const winnerPlayer1 = winnerTeam.player1_name;
+            const winnerPlayer2 = winnerTeam.player2_name;
+            console.log("datos a enviar:")
+            console.log(winnerTeamId, winnerPlayer1, winnerPlayer2)
+
+            try {
+                const response = await fetch("http://localhost/spicepadel_api/saveTournament.php", {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        'winnerTeamId': winnerTeamId,
+                        'winnerPlayer1': winnerPlayer1,
+                        'winnerPlayer2': winnerPlayer2
+                    })
+                })
+                const data = await response.json()
+                if (data.success) {
+                    console.log("Nuevo torneo almacenado");
+                } else {
+                    console.log("Error almacenando el torneo:", data.error ? data.error : "No se proporcionó error específico");
+                }
+
+            } catch (error) {
+                console.log("Error al conectar con la API")
+            }
+
             this.clearLocalStorage() // limpiamos la localStorage
+
             // vaciamos la tabla match del bd
-            try{
+            try {
                 const response = await fetch('http://localhost/spicepadel_api/api/deleteMatch.php', {
                     method: 'POST',
                 })
                 const data = await response.json()
-                if (data.success){
-                    console.log("Torneo Reseteado")
+                if (data.success) {
+                    console.log("Torneo Reseteado por DeleteMatch()")
                 } else {
                     console.log(data.message)
                 }
-            } catch(error){
+            } catch (error) {
                 console.log("Error conexion con la db, error: " + error)
             }
-            // Recargamos la página
+            Recargamos la página
             await new Promise(resolve => setTimeout(resolve, 100)); // Espera breve para asegurar que todo se complete
             window.location.reload();
         },
-        clearLocalStorage(){
+        clearLocalStorage() {
             localStorage.removeItem('pairedTeams');
             localStorage.removeItem('isPaired');
             localStorage.removeItem('winnerIds');
@@ -267,13 +299,15 @@ button:hover {
     background-color: green;
     color: white;
 }
-.end{
+
+.end {
     width: 150px;
 }
-@media (max-width: 800px){
-    .pair{
+
+@media (max-width: 800px) {
+    .pair {
         flex-direction: column;
     }
-    
+
 }
 </style>
