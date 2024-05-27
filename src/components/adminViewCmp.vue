@@ -119,6 +119,32 @@
                 <td><button @click="deleteTeam(team.id)">Eliminar</button></td>
             </tr>
         </table>
+<!-- ---------------------------COMENTARIOS------------------------------------------- -->
+        <button @click="getCommentaries" v-if="!commentaries.length">Ver Comentarios</button>
+        <button @click="hideCommentaries" v-else>Ocultar Comentarios</button>
+
+        <table>
+            <thead v-if="commentaries.length">
+                <tr>
+                    <td>ID</td>
+                    <td>Usuario</td>
+                    <td>Email</td>
+                    <td>Teléfono</td>
+                    <td>Tema</td>
+                    <td>Comentario</td>
+                </tr>
+            </thead>
+            <tr v-for="commentary in commentaries" :key="commentary.id">
+                <td>{{ commentary.id }}</td>
+                <td>{{ commentary.user_name }}</td>
+                <td>{{ commentary.email }}</td>
+                <td>{{ commentary.phone }}</td>
+                <td>{{ commentary.theme }}</td>
+                <td>{{ commentary.text }}</td>
+
+                <td><button @click="deleteCommentary(commentary.id)">Eliminar</button></td>
+            </tr>
+        </table>
 
     </div>
 
@@ -136,6 +162,7 @@ export default {
     },
     data() {
         return {
+            existsToken: false,
             users: [],
             errorMessage: "",
             editingUser: null,
@@ -157,6 +184,7 @@ export default {
                 bank_account: ""
             },
             teams: [],
+            commentaries: []
 
         }
     },
@@ -204,6 +232,21 @@ export default {
                 })
                 .catch(error => {
                     this.errorMessage = "Failed to load teams: " + error.message;
+                });
+        },
+        getCommentaries() {
+            fetch('http://localhost/spicepadel_api/getCommentaries.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    this.commentaries = data;
+                })
+                .catch(error => {
+                    this.errorMessage = "Failed to load commentaries: " + error.message;
                 });
         },
         editUser(user_dni) {
@@ -349,6 +392,26 @@ export default {
                 }
             }
         },
+        async deleteCommentary(com_id){
+            if (confirm(`Seguro que deseas eliminar el comentario con id ${com_id} ?`)) {
+                try {
+                    const response = await fetch('http://localhost/spicepadel_api/deleteCommentary.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ com_id })
+                    });
+                    const data = await response.json();
+                    if (data.success) {
+                        this.errorMessage = data.message;
+                        this.getCommentaries(); // Recarga la lista de comentarios
+                    } else {
+                        this.errorMessage = data.message;
+                    }
+                } catch (error) {
+                    this.errorMessage = "Error de conexión con el servidor al eliminar comentario, error: " + error.message;
+                }
+            }
+        },
         hideUsers() {
             this.users = []
         },
@@ -358,18 +421,30 @@ export default {
         hideTeams(){
             this.teams = []
         },
+        hideCommentaries() {
+            this.commentaries = []
+        },
         checkIfAdmin() {
             const spiceTokenString = localStorage.getItem('spicetoken')
             const spiceToken = JSON.parse(spiceTokenString)
             if (spiceToken.admin == false) {
                 this.$router.push('/')
             }
-        }
+        },
+        checkToken() {
+            this.existsToken = localStorage.getItem('spicetoken') !== null
+        },
 
     },
 
     created() {
-        this.checkIfAdmin()
+        this.checkToken() // COmprueba que exista token
+        if (this.existsToken){
+            this.checkIfAdmin()
+        } else {
+            this.$router.push('/')
+        }
+
 
     }
 }

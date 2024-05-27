@@ -11,7 +11,7 @@
         <li><router-link to="/club">Club</router-link></li>
         <li><router-link to="/reserve">Reservar</router-link></li>
         <li><router-link to="/tournaments">Torneos</router-link></li>
-        <li><a>Contacto</a></li>
+        <li><router-link to="/contact">Contacto</router-link></li>
         <li v-if="!existsToken"><router-link to="/login" class="nav-login-li">Login</router-link></li>
         <li v-else><router-link to="/logout" class="nav-login-li">Logout</router-link></li>
         <li v-if="existsToken"><router-link to="/myAccount" class="nav-login-li">Mi Cuenta</router-link></li>
