@@ -102,9 +102,12 @@ export default {
     },
     created() {
         this.checkToken() // COmprueba que exista token
-        this.getUser1()
-        this.checkIfInTeam()
-        this.getTeamNames()
+        if (this.existsToken){
+
+            this.getUser1()
+            this.checkIfInTeam()
+            this.getTeamNames()
+        }
     },
     watch: {
         '$route'() { // Observar cambios en la ruta
