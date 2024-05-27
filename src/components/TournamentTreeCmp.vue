@@ -1,6 +1,7 @@
 <template>
     <div >
         <h1>Lista de Equipos</h1>
+        <p>{{ tieMessage }}</p>
         <button v-if="!isPaired" @click="pairTeams">{{ buttonText }}</button>
         <div class="teams">
             <div v-for="(pair, index) in pairedTeams" :key="index" class="pair">
@@ -11,16 +12,18 @@
                 <TeamCmp v-if="pair.team2" :class="{ winner: pair.team2 && pair.team2.winner }" :team_id="pair.team2.id"
                     :player1_name="pair.team2.player1_name" :player2_name="pair.team2.player2_name">
                 </TeamCmp>
-                <button v-if="pair.team2 && !pair.team1.winner && !pair.team2.winner"
-                    @click="checkWinner(pair.team1.id, pair.team2.id)">Actualizar</button>
+
+                <button v-if="pair.team2 && !pair.team1.winner && !pair.team2.winner" 
+                @click="checkWinner(pair.team1.id, pair.team2.id)">Actualizar</button>
                 <template v-else-if="!pair.team2">
                     <div class="end">
                         <p>Ganador</p>
                         <button @click="resetTournament">Reset</button>
-
+                        
                     </div>
-
+                    
                 </template>
+                
             </div>
 
         </div>
@@ -45,6 +48,7 @@ export default {
             buttonText: "Emparejar",
             isPaired: false,
             winnerIds: [], // Almacenar los IDs de los ganadores
+            tieMessage: ""
         }
     },
     methods: {
@@ -78,9 +82,6 @@ export default {
             this.savePairedTeams(); // Guardo en LocalStorage
         },
 
-        updateMatches() {
-            // Aquí iría la logica para actualizar los partidos
-        },
         savePairedTeams() {
             localStorage.setItem('pairedTeams', JSON.stringify(this.pairedTeams));
             localStorage.setItem('isPaired', JSON.stringify(this.isPaired));
@@ -134,8 +135,11 @@ export default {
                     this.savePairedTeams(); // guardamos en localStorage
                     this.updatePairings(); // actualizamos los pairings para los nuevos enfrentamientos
                     // console.log("Winner id = " + data.winner_id);
+                } else if(data.tie) {
+                    this.tieMessage = data.message
                 } else {
                     this.errorMessage = data.message;
+
                 }
             } catch (error) {
                 this.errorMessage = "Error de conexión con el servidor: " + error;
@@ -185,7 +189,7 @@ export default {
                 })
                 const data = await response.json()
                 if (data.success){
-                    console.log("Delete de todos los matches, hecho")
+                    console.log("Torneo Reseteado")
                 } else {
                     console.log(data.message)
                 }
