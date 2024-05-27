@@ -1,4 +1,5 @@
 <template>
+ 
     <div id="card">
         <div class="flip-card">
             <div class="flip-card-inner">
@@ -18,6 +19,7 @@
             </div>
         </div>
     </div>
+
 </template>
 
 <script>
@@ -88,10 +90,11 @@ export default {
 </script>
 
 <style scoped>
+
 .flip-card {
   background-color: transparent;
-  width: 320px; /* Cambiado a 340px */
-  height: 200px; /* Cambiado a 250px */
+  width: 320px;
+  height: 200px; 
   perspective: 1000px;
   color: white;
 }

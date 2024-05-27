@@ -3,8 +3,10 @@
     <h1> Hola, {{ user_name }} </h1>
     <div class="components">
         <AccountCardCmp class="card"></AccountCardCmp>
-        <AccountTorneosCmp class="list"></AccountTorneosCmp>
-        <AccountMatchReservaCmp></AccountMatchReservaCmp>
+    </div>
+    <div class="info">
+    <AccountTorneosCmp class="list"></AccountTorneosCmp>
+    <AccountMatchReservaCmp class="list"></AccountMatchReservaCmp>
     </div>
     <FooterCmp />
 </template>
@@ -70,13 +72,20 @@ h1{
 }
 
 .components{
+    width: 100%;
     display:flex;
-    flex-direction:row;
+    justify-content: center;
+    margin-left:-100px;
+}
+
+.info{
+    display: flex;
+    justify-content: space-around;
 }
 
 .card{
     justify-content: left;
-    margin-left:20px;
+    margin-left:100px;
     align-items: center;
 }
 

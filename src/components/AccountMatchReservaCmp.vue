@@ -50,7 +50,7 @@
 
 <style scoped>
 .card {
-  max-width: 320px;
+  width: 320px;
   display: flex;
   flex-direction: column;
   border-radius: 1.5rem;
