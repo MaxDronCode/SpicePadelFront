@@ -109,12 +109,16 @@
                     <td>ID</td>
                     <td>DNI jugador 1</td>
                     <td>DNI jugador 2</td>
+                    <td>Jugador 1</td>
+                    <td>Jugador 2</td>
                 </tr>
             </thead>
             <tr v-for="team in teams" :key="team.id">
                 <td>{{ team.id }}</td>
                 <td>{{ team.player1_dni }}</td>
                 <td>{{ team.player2_dni }}</td>
+                <td>{{ team.player1_name }}</td>
+                <td>{{ team.player2_name }}</td>
 
                 <td><button @click="deleteTeam(team.id)">Eliminar</button></td>
             </tr>
