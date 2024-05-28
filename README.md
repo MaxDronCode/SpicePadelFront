@@ -67,16 +67,19 @@ npm run lint
 > These are essential dependencies required to run the project:
 > ```bash
 > npm install animate.css
-> ```
-> ```bash
+> npm install animation.css
+> npm install axios
 > npm install canvas-confetti
-> ```
-> ```bash
 > npm install v-calendar
-> ```
-> ```bash
 > npm install sass
+> npm install sass-loader
+> npm install less
+> npm install less-loader
+> npm install moment
+> npm install pug-plain-loader
+> npm install vuetify
 > ```
+
 
 <a id = "details"></a>
 ## 🔍Project Details
