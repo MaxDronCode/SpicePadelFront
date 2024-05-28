@@ -4,7 +4,7 @@
 </div>
 
 <div align="center">
-  <img src="https://github.com/MaxDronCode/SpicePadelFront/assets/152992238/95ff5a72-66db-41d2-934f-69423982803c" width="500" height="500">
+  <img src="https://github.com/MaxDronCode/SpicePadelFront/assets/152992238/95ff5a72-66db-41d2-934f-69423982803c" width="400" height="400">
 </div>
 <div align="center">
 <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white">
@@ -22,15 +22,15 @@
 Welcome to **SpicePadel**, a website dedicated to managing a **padel club** of the same name. This project is designed to be scalable and adaptable, suitable for any club looking to expand its capabilities! Our website's front end is hosted on **Vercel**, while the backend operations are **powered by AWS**. Currently, we utilize a free cloud service for our database needs.
 
 <a id = "toc"></a>
-# 📖 Table of contents
+## 📖 Table of contents
 1. [Project Description](#project-description)
 2. [Project Setup](#install)
-3. [Project Execution](#execution)
+3. [Project Details](#details)
 4. [Summary](#summary)
 
 
 <a id = "project-description"></a>
-# ✏️ Project Description
+## ✏️ Project Description
 
 SpicePadel is a **dynamic web platform** with a **three-tier** access system, enhancing user interaction and management across various levels:
 
@@ -65,7 +65,24 @@ npm run lint
 ```
 > [!IMPORTANT]
 > These are essential dependencies required to run the project:
-> ```
+> ```bash
 > npm install animate.css
 > ```
+> ```bash
+> npm install canvas-confetti
+> ```
+> ```bash
+> npm install v-calendar
+> ```
+> ```bash
+> npm install sass
+> ```
+
+<a id = "details"></a>
+## Project Details
+This project is built using the JavaScript framework, **Vue.js**, which means we're working with a **component-based architecture** that emphasizes **reusability**. At the heart of this website is the core philosophy of using extensive and interconnected components.
+
+We're dealing with components that encompass entire pages, filled with smaller, intercommunicating components managed by **vue-router**. These components interact with a variety of server endpoints through **HTTP requests** designed for making all sorts of **queries to the database** and delivering information in JSON format. The components are equipped with rich methods that process this JSON data and display it in an engaging and visually appealing manner.
+
+
 
