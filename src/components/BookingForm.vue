@@ -4,7 +4,12 @@
     <h1 class="hTitle">Reservar Pista</h1>
     <div v-if="!selectedFieldId"> 
       <div class="generalFieldContainer">
-        <div v-for="field in availableFields" :key="field.id" class="fieldContainer animate__animated animate__fadeInUp">
+        <div 
+          v-for="field in availableFields" 
+          :key="field.id" 
+          class="fieldContainer animate__animated animate__fadeInUp"
+          :style="{ backgroundImage: 'url(' + field.field_img + ')' }"
+        >
           <h2>Pista {{ field.name }}</h2>
           <p>{{ field.description }}</p>
           <button type="button" @click="selectField(field.id)">Reservar</button>
@@ -279,6 +284,8 @@ html, body {
   transition: transform 0.3s ease-in-out;
   position: relative;
   animation: float 3s ease-in-out infinite;
+  background-size: cover;
+  background-position: center;
 }
 
 .fieldContainer:hover {
