@@ -4,7 +4,7 @@
     <h1 class="hTitle">Reservar Pista</h1>
     <div v-if="!selectedFieldId"> 
       <div class="generalFieldContainer">
-        <div v-for="field in availableFields" :key="field.id" class="fieldContainer">
+        <div v-for="field in availableFields" :key="field.id" class="fieldContainer animate__animated animate__fadeInUp">
           <h2>Pista {{ field.name }}</h2>
           <p>{{ field.description }}</p>
           <button type="button" @click="selectField(field.id)">Reservar</button>
@@ -47,6 +47,7 @@ import VueCal from 'vue-cal';
 import 'vue-cal/dist/vuecal.css';
 import FooterCmp from './FooterCmp.vue';
 import axios from 'axios';
+import 'animate.css'; // Import the animate.css library
 
 export default {
   name: 'BookingForm',
@@ -182,7 +183,7 @@ export default {
           content: `<i class="w-icon material-icons mt1"></i> ${booking.member_id}`,
           resizable: false,
           deletable: false,
-          split: booking.field_id % 2 === 0 ? 1 : 2
+                    split: booking.field_id % 2 === 0 ? 1 : 2
         }));
       } catch (error) {
         console.error('Error fetching bookings:', error);
@@ -199,6 +200,19 @@ export default {
 
 <style scoped>
 @import "vue-cal/dist/vuecal.css";
+@import 'animate.css';
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 .vuecal__menu,
 .vuecal__cell-events-count {
@@ -223,6 +237,8 @@ export default {
 }
 
 #bookingForm {
+  min-height: 100vh; /* Asegura que el contenedor ocupe al menos la altura de la ventana */
+  height: 100vh; /* Asegura que el contenedor ocupe toda la altura de la pantalla */
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -232,8 +248,6 @@ export default {
   background-repeat: no-repeat;
   background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
   background-position: center; /* Centra la imagen */
-  width: 100vw; /* Asegura que el contenedor ocupe todo el ancho de la pantalla */
-  height: 100vh; /* Asegura que el contenedor ocupe todo el alto de la pantalla */
   position: relative;
   filter: brightness(1.1); /* Aumenta el brillo de la imagen */
 }
@@ -249,11 +263,39 @@ export default {
   z-index: -1; /* Asegura que esté detrás del contenido */
 }
 
-.fields-container {
+.generalFieldContainer {
   display: flex;
   flex-wrap: wrap;
+  gap: 1rem;
   justify-content: center;
-  gap: 2rem;
+}
+
+.fieldContainer {
+  background-color: rgba(255, 255, 255, 0.5); /* Blanco con 50% de opacidad */
+  padding: 2rem;
+  border-radius: 20%;
+  width: 250px;
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+  position: relative;
+  animation: float 3s ease-in-out infinite;
+}
+
+.fieldContainer:hover {
+  transform: scale(1.1);
+  z-index: 10;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 .field-card {
@@ -336,23 +378,6 @@ button:hover {
   gap: 3rem;
 }
 
-.fieldContainer {
-  background-color: rgba(255, 255, 255, 0.5); /* Blanco con 50% de opacidad */
-  padding: 2rem;
-  border-radius: 20%;
-}
-
-.generalFieldContainer {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 1rem;
-}
-
-.hTitle {
-  color: #ffeb3b;
-  font-size: 60px;
-}
-
 .res-form {
   margin-top: 200px;
 }
@@ -410,4 +435,10 @@ button:hover {
     margin: auto;
   }
 }
+
+.hTitle {
+  color: #ffeb3b;
+  font-size: 60px;
+}
 </style>
+
