@@ -3,8 +3,8 @@
     <p>{{ errorMessage }}</p>
     <div class="general-container">
         <!-- ---------------------------USUARIOS------------------------------------------- -->
-        <button @click="getUsers" v-if="!users.length">Ver Usuarios</button>
-        <button @click="hideUsers" v-else>Ocultar Usuarios</button>
+        <button @click="getUsers" v-if="!users.length" class="gnrl-button">Ver Usuarios</button>
+        <button @click="hideUsers" v-else class="gnrl-button">Ocultar Usuarios</button>
         <table>
             <thead v-if="users.length">
                 <tr>
@@ -62,8 +62,8 @@
         </div>
         <!-- ---------------------------MIEMBROS------------------------------------------- -->
 
-        <button @click="getMembers" v-if="!members.length">Ver miembros</button>
-        <button @click="hideMembers" v-else>Ocultar Miembros</button>
+        <button @click="getMembers" v-if="!members.length" class="gnrl-button">Ver miembros</button>
+        <button @click="hideMembers" v-else class="gnrl-button">Ocultar Miembros</button>
 
         <table>
             <thead v-if="members.length">
@@ -100,8 +100,8 @@
             </div>
         </div>
         <!-- ---------------------------EQUIPOS------------------------------------------- -->
-        <button @click="getTeams" v-if="!teams.length">Ver Equipos</button>
-        <button @click="hideTeams" v-else>Ocultar Equipos</button>
+        <button @click="getTeams" v-if="!teams.length" class="gnrl-button">Ver Equipos</button>
+        <button @click="hideTeams" v-else class="gnrl-button">Ocultar Equipos</button>
 
         <table>
             <thead v-if="teams.length">
@@ -124,8 +124,8 @@
             </tr>
         </table>
         <!-- ---------------------------COMENTARIOS------------------------------------------- -->
-        <button @click="getCommentaries" v-if="!commentaries.length">Ver Comentarios</button>
-        <button @click="hideCommentaries" v-else>Ocultar Comentarios</button>
+        <button @click="getCommentaries" v-if="!commentaries.length" class="gnrl-button">Ver Comentarios</button>
+        <button @click="hideCommentaries" v-else class="gnrl-button">Ocultar Comentarios</button>
 
         <table>
             <thead v-if="commentaries.length">
@@ -151,8 +151,8 @@
         </table>
 
         <!-- ---------------------------MATCHES------------------------------------------- -->
-        <button @click="getMatches" v-if="!matches.length">Ver Matches</button>
-        <button @click="hideMatches" v-else>Ocultar Matches</button>
+        <button @click="getMatches" v-if="!matches.length" class="gnrl-button">Ver Matches</button>
+        <button @click="hideMatches" v-else class="gnrl-button">Ocultar Matches</button>
 
         <div v-if="matches.length" class="match-form-container">
             <form v-for="match in matches" :key="match.id" @submit.prevent="punctuateMatch(match)" class="match-form">
@@ -538,7 +538,7 @@ h1 {
 }
 
 button {
-    width: 200px;
+    width: 100%;
     padding: 10px;
     background-color: #333;
     color: #fff;
@@ -588,25 +588,26 @@ td {
 
 button {
     width: 100px;
-    /* Reduce el ancho de los botones para ahorrar espacio */
     padding: 5px;
     font-size: 14px;
-    /* Ajusta el tamaño del texto para que sea coherente con el espacio más pequeño */
+}
+.gnrl-button{
+    width: 30%;
+    height: 60px;
+    padding: 5px;
+    font-size: 18px;
 }
 
 td:nth-last-child(-n+2) {
     width: 110px;
-    /* Asegura que las celdas de los botones tengan un ancho fijo */
 }
 
 tbody tr:nth-child(odd) {
-    background-color: #f9f9f9;
-    /* Zebra striping for rows */
+    background-color: #a7a7a7;
 }
 
 tbody tr:hover {
     background-color: #f1f1f1;
-    /* Light grey background on row hover */
 }
 
 .modal-overlay {
