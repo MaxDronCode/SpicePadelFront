@@ -8,8 +8,8 @@
           v-for="field in availableFields" 
           :key="field.id" 
           class="fieldContainer animate__animated animate__fadeInUp"
-          :style="{ backgroundImage: 'url(' + field.field_img + ')' }"
-        >
+          :style="{ backgroundImage: 'URL(/'+ field.field_img +')' }"
+          >
           <h2>Pista {{ field.name }}</h2>
           <p>{{ field.description }}</p>
           <button type="button" @click="selectField(field.id)">Reservar</button>
@@ -22,7 +22,6 @@
         <vue-cal style="height: 40rem; width: 600px" locale="es" :events="events" :time-from="8 * 60" :time-to="19 * 60"
           :time-step="60" :disable-views="['years', 'months', 'year']" @cell-focus="selectedDate = $event.date || $event"
            xsmall />
-
       </div>
       <div class="res-form">
         <h2>Reserva</h2>
@@ -74,7 +73,7 @@ export default {
       message: '',
       existsToken: false,
       events: [],
-      selectedDate: new Date()
+      selectedDate: new Date(),
     };
   },
   created() {
@@ -188,7 +187,7 @@ export default {
           content: `<i class="w-icon material-icons mt1"></i> ${booking.member_id}`,
           resizable: false,
           deletable: false,
-                    split: booking.field_id % 2 === 0 ? 1 : 2
+          split: booking.field_id % 2 === 0 ? 1 : 2
         }));
       } catch (error) {
         console.error('Error fetching bookings:', error);
@@ -202,6 +201,7 @@ export default {
   }
 };
 </script>
+
 
 <style scoped>
 @import "vue-cal/dist/vuecal.css";
@@ -449,4 +449,5 @@ button:hover {
   font-size: 70px;
 }
 </style>
+
 
