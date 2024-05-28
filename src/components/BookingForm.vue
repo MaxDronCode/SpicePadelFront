@@ -7,19 +7,24 @@
         <div 
           v-for="field in availableFields" 
           :key="field.id" 
-          class="fieldContainer animate__animated animate__fadeInUp"
-          :style="{ backgroundImage: 'URL(/'+ field.field_img +')' }"
-          >
-          <h2>Pista {{ field.name }}</h2>
-          <p>{{ field.description }}</p>
-          <button type="button" @click="selectField(field.id)">Reservar</button>
+          class="fieldContainer"
+          :style="{ backgroundImage: `url(${field.field_img})` }"
+        >
+          <div class="fieldOverlay">
+            <h2>Pista {{ field.name }}</h2>
+            <p>{{ field.description }}</p>
+            <button type="button" @click="selectField(field.id)">Reservar</button>
+          </div>
+          <div class="fieldNumber">
+            <h2>{{ field.name }}</h2>
+          </div>
         </div> 
       </div>
     </div> 
     <div v-else class="general-container"> 
       <div>
-        <h2 class="pista">Pista {{ selectedFieldId }}</h2>
-        <vue-cal style="height: 40rem; width: 600px" locale="es" :events="events" :time-from="8 * 60" :time-to="19 * 60"
+        <h2 class="fieldNameH2">Pista {{ selectedFieldId }}</h2>
+        <vue-cal style="height: auto; width: auto" locale="es" :events="events" :time-from="8 * 60" :time-to="19 * 60"
           :time-step="60" :disable-views="['years', 'months', 'year']" @cell-focus="selectedDate = $event.date || $event"
            xsmall />
       </div>
@@ -44,6 +49,8 @@
   </div> 
   <FooterCmp />
 </template>
+
+
 
 <script>
 import NavCmp from '@/components/NavCmp.vue';
@@ -86,6 +93,12 @@ export default {
       if (this.selectedFieldId) {
         this.fetchBookings();
       }
+    }
+  },
+  computed: {
+    getSelectedFieldImage() {
+      const selectedField = this.availableFields.find(field => field.id === this.selectedFieldId);
+      return selectedField ? selectedField.field_img : '';
     }
   },
   methods: {
@@ -202,8 +215,7 @@ export default {
 };
 </script>
 
-
-<style scoped>
+<style scooped>
 @import "vue-cal/dist/vuecal.css";
 @import 'animate.css';
 
@@ -219,31 +231,15 @@ html, body {
   box-sizing: border-box;
 }
 
-.vuecal__menu,
-.vuecal__cell-events-count {
-  background-color: #42b983;
-}
-
-.vuecal__title-bar {
-  background-color: #e4f5ef;
-}
-
-.vuecal__cell--today,
-.vuecal__cell--current {
-  background-color: rgba(240, 240, 255, 0.4);
-}
-
-.vuecal:not(.vuecal--day-view) .vuecal__cell--selected {
-  background-color: rgba(235, 255, 245, 0.4);
-}
-
-.vuecal__cell--selected:before {
-  border-color: rgba(66, 185, 131, 0.5);
+.vuecal {
+  backdrop-filter: blur(10px);
+  padding: 3rem;
+  border-radius: 6rem;
 }
 
 #bookingForm {
-  min-height: 100vh; /* Asegura que el contenedor ocupe al menos la altura de la ventana */
-  height: 100vh; /* Asegura que el contenedor ocupe toda la altura de la pantalla */
+  min-height: 100vh;
+  /* height: 100vh; */
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -251,10 +247,10 @@ html, body {
   align-items: center;
   background-image: url('@/assets/fieldsIMG.webp');
   background-repeat: no-repeat;
-  background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
-  background-position: center; /* Centra la imagen */
+  background-size: cover;
+  background-position: center;
   position: relative;
-  filter: brightness(1.1); /* Aumenta el brillo de la imagen */
+  filter: brightness(1.1);
 }
 
 #bookingForm::before {
@@ -264,8 +260,8 @@ html, body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.3); /* Ajusta la capa semi-transparente para reducir la oscuridad */
-  z-index: -1; /* Asegura que esté detrás del contenido */
+  background: rgba(0, 0, 0, 0.3);
+  z-index: -1;
 }
 
 .generalFieldContainer {
@@ -276,62 +272,62 @@ html, body {
 }
 
 .fieldContainer {
-  background-color: rgba(255, 255, 255, 0.5); /* Blanco con 50% de opacidad */
-  padding: 2rem;
-  border-radius: 20%;
-  width: 250px;
-  text-align: center;
-  transition: transform 0.3s ease-in-out;
-  position: relative;
-  animation: float 3s ease-in-out infinite;
   background-size: cover;
   background-position: center;
+  border-radius: 20%;
+  width: 250px;
+  height: 300px;
+  text-align: center;
+  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.fieldOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  padding: 2rem;
+}
+
+.fieldContainer:hover .fieldOverlay {
+  opacity: 1;
+}
+
+.fieldNameH2 {
+  color:#ffeb3b;
+  font-size: 40px;
+}
+
+.fieldNumber {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffeb3b;
+  font-size: 4rem;
+}
+
+.fieldContainer:hover .fieldNumber {
+  opacity: 0;
 }
 
 .fieldContainer:hover {
   transform: scale(1.1);
-  z-index: 10;
-}
-
-@keyframes float {
-  0% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
-}
-
-.field-card {
-  display: flex;
-  flex-direction: column;
-  width: 300px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  overflow: hidden;
-  background-color: rgba(255, 255, 255, 0.5); /* Blanco con 50% de opacidad */
-  transition: transform 0.3s ease-in-out;
-}
-
-.field-card:hover {
-  z-index: 10; /* Trae la tarjeta al frente */
-}
-
-.field-details {
-  padding: 1rem;
-}
-
-.field-image {
-  height: 200px;
-  background-size: cover;
-  background-position: center;
+  filter: brightness(0.5);
 }
 
 button {
-  width: 100%;
   padding: 10px;
   background-color: #333;
   color: #fff;
@@ -340,7 +336,7 @@ button {
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s ease-in-out;
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 button:hover {
@@ -390,26 +386,26 @@ button:hover {
 }
 
 .lab {
-  margin-bottom: 15px; /* Ajusta este valor si necesitas más espacio */
+  margin-bottom: 15px;
 }
 
 .inp-date, input[type="time"] {
-  background-color: #f0f0f0; /* Color de fondo */
-  border: none; /* Sin bordes */
-  border-radius: 8px; /* Bordes redondeados */
-  padding: 12px 20px; /* Espaciado interno */
-  font-size: 16px; /* Tamaño del texto */
-  color: #333; /* Color del texto */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra ligera */
-  transition: box-shadow 0.3s ease-in-out; /* Transición suave de la sombra */
-  display: block; /* Asegura que el input ocupe toda la línea */
-  width: calc(100% - 24px); /* Ajusta el ancho para tener en cuenta el padding */
-  margin-bottom: 20px; /* Espacio debajo de cada input */
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 16px;
+  color: #333;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease-in-out;
+  display: block;
+  width: calc(100% - 24px);
+  margin-bottom: 20px;
 }
 
 input[type="date"]:focus, input[type="time"]:focus {
-  outline: none; /* Eliminar el contorno predeterminado */
-  box-shadow: 0 0 10px rgba(30, 144, 255, 0.8); /* Sombra más destacada al enfocar */
+  outline: none;
+  box-shadow: 0 0 10px rgba(30, 144, 255, 0.8);
 }
 
 button {
@@ -433,6 +429,12 @@ button:hover {
   text-align: center;
 }
 
+.res-form {
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  border-radius: 6rem;
+}
+
 @media (max-width:1000px) {
   .general-container {
     flex-direction: column;
@@ -449,5 +451,3 @@ button:hover {
   font-size: 70px;
 }
 </style>
-
-

@@ -1,5 +1,5 @@
 <template>
-    <div class="ftr-general-container">
+    <footer class="ftr-general-container">
       <p>SpicePadel © 2024</p>
       <p>Privacidad y Legal</p>
       <p>Contacto</p>
@@ -7,7 +7,7 @@
       <p>Localización</p>
       <p>Política de Cookies</p>
       <p>Política de Privacidad</p>
-    </div>
+    </footer>
   </template>
   
   <script>
@@ -23,7 +23,8 @@
   .ftr-general-container {
     background-color: #333;
     width: 100%;
-    height: 60px;
+    padding: .5rem 0;
+    height: fit-content;
     display: flex;
     justify-content: space-around;
     align-items: center;
