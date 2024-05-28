@@ -52,7 +52,11 @@ export default {
         },
         async getUser2() {
             try {
-                const response = await fetch('http://localhost/spicepadel_api/api/getUsers.php')
+                const response = await fetch('http://localhost/spicepadel_api/api/getUsers.php', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({'player1_mail': this.user1})
+                })
                 const data = await response.json()
                 this.users2 = data
             } catch (error) {
