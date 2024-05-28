@@ -10,9 +10,9 @@
     </div>
     <div class="general-container">
         <TournamentTreeCmp class="calendar" v-if="alreadyInTeam"/>
-        <div class="calendar" v-else>
+        <!-- <div class="calendar" v-else>
             Calendar
-        </div>
+        </div> -->
         <div v-if="alreadyInTeam" class="team-info">
             <p><b>Tu Equipo</b></p>
             <p>{{ nextTournamentDate }}</p>
@@ -126,12 +126,12 @@ export default {
     },
     created() {
         this.checkToken() // COmprueba que exista token
+        this.getLastTournamentWinners()
         if (this.existsToken){
 
             this.getUser1()
             this.checkIfInTeam()
             this.getTeamNames()
-            this.getLastTournamentWinners()
         }
     },
     watch: {
@@ -189,6 +189,7 @@ h1 {
     max-width: 100px;
     display: flex;
     align-items: center;
+    margin-bottom: 30vh;
     
 }
 
@@ -217,13 +218,16 @@ h1 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 300px;
     border-radius: 10px;
-    margin: auto
+    margin: auto;
+    border-bottom: 1px solid #333;
 }
 .team-info{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 10px;
     height: 200px;
     border-radius: 10px;
+    border-bottom: 1px solid #333;
+
 
 }
 @media (max-width: 800px){
