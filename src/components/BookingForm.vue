@@ -437,8 +437,9 @@ button:hover {
 }
 
 .hTitle {
+  margin-bottom: 5rem;
   color: #ffeb3b;
-  font-size: 60px;
+  font-size: 70px;
 }
 </style>
 
