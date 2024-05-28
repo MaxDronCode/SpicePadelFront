@@ -13,6 +13,7 @@ import BookingForm from '@/components/BookingForm.vue';
 import FieldReservation from '@/components/FieldReservation.vue';
 import AdminView from '@/components/adminViewCmp.vue';
 import ContactCmp from '@/components/ContactCmp.vue';
+import ClubCmp from '@/components/ClubCmp.vue';
 
 import 'vue-cal/dist/vuecal.css'
 
@@ -31,6 +32,7 @@ const router = createRouter({
         { path: '/calendar', component: CalendarCmp },
         { path: '/adminView', component: AdminView },
         { path: '/contact', component: ContactCmp},
+        { path: '/club', component: ClubCmp},
         { path: '/reserve/:fieldId', component: FieldReservation, props: true }
     ],
 });
