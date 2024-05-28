@@ -62,7 +62,7 @@
       },
       async obtainInfoMatch(){
           try{
-            console.log("este es " + this.dni_player)
+
               const response = await fetch('http://localhost/spicepadel_api/api/getUserTournaments.php', {
                   method: 'POST',
                   headers : {'Content-Type' : 'application/json'},
@@ -73,13 +73,13 @@
               
               const data = await response.json()
               if (data.success){
-                console.log("se mete en el if")
+
                 this.time = data.time
                 this.field = data.field
                 this.idMatch = data.id
                 this.player2_name=data.player2_name
               }else {
-                console.log("ERROR data no success");
+                console.log("no succes on api")
               }
           } catch (error){
               console.log("Error al conectar con la api: " + error);
