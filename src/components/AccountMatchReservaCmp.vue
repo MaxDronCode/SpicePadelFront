@@ -126,6 +126,7 @@
   color: rgba(255, 255, 255, 1);
   background-color: #ff0086;
   text-decoration: none;
+  text-shadow: 0 0 2.5px #333333, 0 0 5px #333333, 0 0 10px #333333;
 }
 
 </style>
