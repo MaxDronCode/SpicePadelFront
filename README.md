@@ -44,7 +44,7 @@ SpicePadel offers robust user management with **admin-level controls**, **multip
 
 <a id = "install"></a>
 
-## Project setup
+## ⚙️Project setup
 ```
 npm install
 ```
@@ -79,10 +79,19 @@ npm run lint
 > ```
 
 <a id = "details"></a>
-## Project Details
+## 🔍Project Details
 This project is built using the JavaScript framework, **Vue.js**, which means we're working with a **component-based architecture** that emphasizes **reusability**. At the heart of this website is the core philosophy of using extensive and interconnected components.
 
 We're dealing with components that encompass entire pages, filled with smaller, intercommunicating components managed by **vue-router**. These components interact with a variety of server endpoints through **HTTP requests** designed for making all sorts of **queries to the database** and delivering information in JSON format. The components are equipped with rich methods that process this JSON data and display it in an engaging and visually appealing manner.
 
+<a id="summary"></a>
+## 🔑 Thank You for Exploring!
 
+We look forward to your opinions on this educational project. Personally, We have enjoyed and learned a lot working on it. Gradually, the foundations are becoming firm, and  great programmers are growing.
+
+Looking forward to our paths crossing again in future, in more intricate projects.
+
+Happy coding!
+---
+[Go back to Table of contents](#toc)
 
