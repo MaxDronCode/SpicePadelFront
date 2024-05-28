@@ -235,6 +235,7 @@ export default {
   width: 100vw; /* Asegura que el contenedor ocupe todo el ancho de la pantalla */
   height: 100vh; /* Asegura que el contenedor ocupe todo el alto de la pantalla */
   position: relative;
+  filter: brightness(1.1); /* Aumenta el brillo de la imagen */
 }
 
 #bookingForm::before {
@@ -244,7 +245,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Capa semi-transparente para reducir la oscuridad */
+  background: rgba(0, 0, 0, 0.3); /* Ajusta la capa semi-transparente para reducir la oscuridad */
   z-index: -1; /* Asegura que esté detrás del contenido */
 }
 
