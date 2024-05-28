@@ -27,6 +27,7 @@ Welcome to **SpicePadel**, a website dedicated to managing a **padel club** of t
 2. [Project Setup](#install)
 3. [Project Details](#details)
 4. [Summary](#summary)
+5. [Contributors](#contributors)
 
 
 <a id = "project-description"></a>
@@ -44,7 +45,7 @@ SpicePadel offers robust user management with **admin-level controls**, **multip
 
 <a id = "install"></a>
 
-## ⚙️Project setup
+## ⚙️ Project setup
 ```
 npm install
 ```
@@ -82,7 +83,7 @@ npm run lint
 
 
 <a id = "details"></a>
-## 🔍Project Details
+## 🔍 Project Details
 This project is built using the JavaScript framework, **Vue.js**, which means we're working with a **component-based architecture** that emphasizes **reusability**. At the heart of this website is the core philosophy of using extensive and interconnected components.
 
 We're dealing with components that encompass entire pages, filled with smaller, intercommunicating components managed by **vue-router**. These components interact with a variety of server endpoints through **HTTP requests** designed for making all sorts of **queries to the database** and delivering information in JSON format. The components are equipped with rich methods that process this JSON data and display it in an engaging and visually appealing manner.
@@ -96,5 +97,17 @@ Looking forward to our paths crossing again in future, in more intricate project
 
 Happy coding!
 ---
+
+<a id="contributors"></a>
+
+## 🙌 Contributors
+<img src="https://github.com/MaxDronCode/SpicePadelFront/assets/152992238/c59ff6c3-2e94-462d-8784-b4a2f4a78c32" width="80" height="80">
+<img src="https://github.com/MaxDronCode/SpicePadelFront/assets/152992238/23d70912-2d7a-47e8-b0d1-f806a8c223c8" width="80" height="80">
+<img src="https://github.com/MaxDronCode/SpicePadelFront/assets/152992238/4612aea0-a99a-4f46-9cf4-0dd8863507cc" width="80" height="80">
+- [Ulises Castell](https://github.com/ulisescastell)
+- [Martí Vilàs](https://github.com/MartiVilas)
+- [Max Dron](https://github.com/MaxDronCode)
+
+
 [Go back to Table of contents](#toc)
 
