@@ -70,7 +70,7 @@
                       'dni' : this.dni_player
                   })
               });
-              console.log("SALE DEL RESPONSE")
+              
               const data = await response.json()
               if (data.success){
                 console.log("se mete en el if")
@@ -91,7 +91,7 @@
           await this.obtainEmail()
           await this.obtainName()
           await this.obtainInfoMatch()
-        }
+        } 
     }
 </script>
 

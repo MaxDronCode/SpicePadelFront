@@ -75,7 +75,7 @@ h1{
     width: 100%;
     display:flex;
     justify-content: center;
-    margin-left:-100px;
+    margin-left:-50px;
 }
 
 .info{
@@ -90,6 +90,7 @@ h1{
 }
 
 .list{
+    margin-top:20px;
     justify-content: center;
     align-items: center;
     margin-left:120px;
