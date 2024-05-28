@@ -1,6 +1,9 @@
 <template>
     <NavCmp />
     <h1>Torneos</h1>
+    <div class="winners">
+        
+    </div>
     <div class="general-container">
         <TournamentTreeCmp class="calendar" v-if="alreadyInTeam"/>
         <div class="calendar" v-else>
