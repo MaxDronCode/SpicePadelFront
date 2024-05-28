@@ -256,13 +256,6 @@ export default {
   z-index: -1; /* Asegura que esté detrás del contenido */
 }
 
-.fields-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
-}
-
 
 .tooltip {
   display: inline-block;
