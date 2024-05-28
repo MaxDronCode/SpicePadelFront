@@ -2,7 +2,7 @@
     <NavCmp />
     <h1>Torneos</h1>
     <div class="winners">
-        <h2>Ganadores del torneo anterior</h2>
+        <h2>Ganadores del último anterior</h2>
         <p>Equipo Ganador: {{ winner_team }}</p>
         <h3>Ganadores</h3>
         <p>{{ win_player1_name }}</p>

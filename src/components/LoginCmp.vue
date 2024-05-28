@@ -10,7 +10,7 @@
         <router-link to="/register" class="register-link">Inscríbete</router-link>
     </form>
     <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
-    <FooterCmp></FooterCmp>
+    <FooterCmp class="footer"></FooterCmp>
 </template>
 
 <script>
@@ -136,5 +136,8 @@ button:hover{
     color: red;
     text-align: center;
 }
-
+.footer{
+    position: absolute;
+    bottom: 0;
+}
 </style>

@@ -1,10 +1,11 @@
 <template>
+
     <NavCmp/>
     <h1>Logout</h1>
     <form @submit.prevent="logout">
         <button type="submit">Cerrar Sesión</button>
     </form>
-    <FooterCmp></FooterCmp>
+    <FooterCmp class="footer"></FooterCmp>
 </template>
 
 
@@ -72,4 +73,9 @@ button{
     font-size: 16px;
     transition: background-color 0.3s ease-in-out;
 }
+.footer{
+    position: absolute;
+    bottom: 0;
+}
+
 </style>
