@@ -1,5 +1,4 @@
 <template>
- 
     <div id="card">
         <div class="flip-card">
             <div class="flip-card-inner">
@@ -19,7 +18,6 @@
             </div>
         </div>
     </div>
-
 </template>
 
 <script>
