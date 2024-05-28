@@ -29,7 +29,7 @@
         <div class="overlay">
           <h2>Contáctanos</h2>
           <p>
-            ¿Tienes preguntas o necesitas ayuda? Ponte en contacto con nuestro equipo de soporte y estaremos encantados de asistirte.
+            ¿Tienes preguntas o necesitas ayuda? Ponte en <a href="contact">contacto</a> con nuestro equipo de soporte y estaremos encantados de asistirte.
           </p>
         </div>
       </section>
