@@ -4,13 +4,12 @@
     <h1 class="hTitle">Reservar Pista</h1>
     <div v-if="!selectedFieldId"> 
       <div class="generalFieldContainer">
-      <form v-for="field in availableFields" :key="field.id" :value="field.id" @submit.prevent="selectField(field.id)" required>
-        <div class="fieldContainer">
-        <h2>Pista {{ field.name }}</h2>
-        <button type="submit" @change="selectedFieldId">Reservar</button>
-      </div> 
-      </form>
-    </div>
+        <div v-for="field in availableFields" :key="field.id" class="fieldContainer">
+          <h2>Pista {{ field.name }}</h2>
+          <p>{{ field.description }}</p>
+          <button type="button" @click="selectField(field.id)">Reservar</button>
+        </div> 
+      </div>
     </div> 
     <div v-else class="general-container"> 
       <div>
@@ -21,7 +20,6 @@
 
       </div>
       <div class="res-form">
-
         <h2>Reserva</h2>
         <p>Te recomendamos con 1 día de antelación</p>
         <form @submit.prevent="submitReservation">
@@ -42,7 +40,6 @@
   </div> 
   <FooterCmp />
 </template>
-
 
 <script>
 import NavCmp from '@/components/NavCmp.vue';
@@ -97,8 +94,6 @@ export default {
       const endHour = this.calculateEndHour(startHour);
 
       try {
-        // un metodo que compruebe
-        console.log("Llama a la api reserve")
         const response = await fetch('http://localhost/spicepadel_api/api/reserve.php', {
           method: 'POST',
           headers: {
@@ -143,8 +138,8 @@ export default {
         this.existsToken = true;
       }
     },
-    selectField (field_id) {
-      this.selectedFieldId = field_id
+    selectField(fieldId) {
+      this.selectedFieldId = fieldId;
     },
     async loadAvailableFields() {
       try {
@@ -180,7 +175,6 @@ export default {
     async fetchBookings() {
       try {
         const response = await axios.get(`http://localhost/spicepadel_api/api/getBookings.php?field_id=${this.selectedFieldId}`);
-        console.log('Bookings data:', response.data);
         this.events = response.data.map(booking => ({
           start: `${booking.date} ${booking.start_hour}`,
           end: `${booking.date} ${booking.end_hour}`,
@@ -190,7 +184,6 @@ export default {
           deletable: false,
           split: booking.field_id % 2 === 0 ? 1 : 2
         }));
-
       } catch (error) {
         console.error('Error fetching bookings:', error);
       }
@@ -236,7 +229,6 @@ export default {
   justify-content: center;
   align-items: center;
   background-image: url('@/assets/fieldsIMG.webp');
-  filter: brightness();
   background-repeat: no-repeat;
   background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
   background-position: center; /* Centra la imagen */
@@ -256,6 +248,58 @@ export default {
   z-index: -1; /* Asegura que esté detrás del contenido */
 }
 
+.fields-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.field-card {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.5); /* Blanco con 50% de opacidad */
+  transition: transform 0.3s ease-in-out;
+}
+
+.field-card:hover {
+  z-index: 10; /* Trae la tarjeta al frente */
+}
+
+.field-details {
+  padding: 1rem;
+}
+
+.field-image {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease-in-out;
+  margin-top: 30px;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+.pista {
+  text-align: center;
+}
 
 .tooltip {
   display: inline-block;
@@ -292,7 +336,7 @@ export default {
 }
 
 .fieldContainer {
-  background-color: #42b983;
+  background-color: rgba(255, 255, 255, 0.5); /* Blanco con 50% de opacidad */
   padding: 2rem;
   border-radius: 20%;
 }
@@ -308,11 +352,9 @@ export default {
   font-size: 60px;
 }
 
-.general
 .res-form {
   margin-top: 200px;
 }
-
 
 .lab {
   margin-bottom: 15px; /* Ajusta este valor si necesitas más espacio */
@@ -337,25 +379,26 @@ input[type="date"]:focus, input[type="time"]:focus {
   box-shadow: 0 0 10px rgba(30, 144, 255, 0.8); /* Sombra más destacada al enfocar */
 }
 
-button{
-    width: 50%;
-    padding: 10px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 999px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease-in-out;
-    margin-top: 30px;
-}
-button:hover{
-    background-color: #555;
-}
-.pista{
-  text-align: center;
+button {
+  width: 50%;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease-in-out;
+  margin-top: 30px;
 }
 
+button:hover {
+  background-color: #555;
+}
+
+.pista {
+  text-align: center;
+}
 
 @media (max-width:1000px) {
   .general-container {
@@ -365,6 +408,5 @@ button:hover{
   .res-form {
     margin: auto;
   }
-
 }
 </style>
