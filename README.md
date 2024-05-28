@@ -101,9 +101,10 @@ Happy coding!
 <a id="contributors"></a>
 
 ## 🙌 Contributors
-<img src="https://github.com/MaxDronCode/SpicePadelFront/assets/152992238/c59ff6c3-2e94-462d-8784-b4a2f4a78c32" width="80" height="80">
 <img src="https://github.com/MaxDronCode/SpicePadelFront/assets/152992238/23d70912-2d7a-47e8-b0d1-f806a8c223c8" width="80" height="80">
+<img src="https://github.com/MaxDronCode/SpicePadelFront/assets/152992238/c59ff6c3-2e94-462d-8784-b4a2f4a78c32" width="80" height="80">
 <img src="https://github.com/MaxDronCode/SpicePadelFront/assets/152992238/4612aea0-a99a-4f46-9cf4-0dd8863507cc" width="80" height="80">
+
 - [Ulises Castell](https://github.com/ulisescastell)
 - [Martí Vilàs](https://github.com/MartiVilas)
 - [Max Dron](https://github.com/MaxDronCode)
