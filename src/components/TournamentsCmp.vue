@@ -2,13 +2,17 @@
     <NavCmp />
     <h1>Torneos</h1>
     <div class="winners">
-        
+        <h2>Ganadores del torneo anterior</h2>
+        <p>Equipo Ganador: {{ winner_team }}</p>
+        <h3>Ganadores</h3>
+        <p>{{ win_player1_name }}</p>
+        <p>{{ win_player2_name }}</p>
     </div>
     <div class="general-container">
         <TournamentTreeCmp class="calendar" v-if="alreadyInTeam"/>
-        <div class="calendar" v-else>
+        <!-- <div class="calendar" v-else>
             Calendar
-        </div>
+        </div> -->
         <div v-if="alreadyInTeam" class="team-info">
             <p><b>Tu Equipo</b></p>
             <p>{{ nextTournamentDate }}</p>
@@ -52,6 +56,9 @@ export default {
             team_id : "",
             errorMessage: "",
             user1: "",
+            winner_team: null,
+            win_player1_name: "",
+            win_player2_name: ""
         }
     },
     methods: {
@@ -100,10 +107,26 @@ export default {
             } catch (error) {
                 this.errorMessage = "Error en la conexión con el servidor, ERROR : " + error
             }
+        },
+        async getLastTournamentWinners(){
+            try{
+                const response = await fetch('http://localhost/spicepadel_api/getLastTournamentWinners.php')
+                const data = await response.json()
+                if (data.success){
+                    this.winner_team = data.winner_team
+                    this.win_player1_name = data.win_player1_name
+                    this.win_player2_name = data.win_player2_name
+                } else {
+                    console.log("Error : ", data.message)
+                }
+            } catch (error) {
+                console.log("Error al conectar a la api: ", error)
+            }
         }
     },
     created() {
         this.checkToken() // COmprueba que exista token
+        this.getLastTournamentWinners()
         if (this.existsToken){
 
             this.getUser1()
@@ -166,6 +189,7 @@ h1 {
     max-width: 100px;
     display: flex;
     align-items: center;
+    margin-bottom: 30vh;
     
 }
 
@@ -188,6 +212,23 @@ h1 {
 
 .join-link:hover {
     color: #09f;
+}
+.winners{
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    border-radius: 10px;
+    margin: auto;
+    border-bottom: 1px solid #333;
+}
+.team-info{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    height: 200px;
+    border-radius: 10px;
+    border-bottom: 1px solid #333;
+
+
 }
 @media (max-width: 800px){
     .general-container{
