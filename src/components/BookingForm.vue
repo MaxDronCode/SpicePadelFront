@@ -1,15 +1,12 @@
-
-
 <template>
   <NavCmp />
   <div v-if="existsToken" id="bookingForm"> 
-    <h1>Reservar Pista</h1>
+    <h1 class="hTitle">Reservar Pista</h1>
     <div v-if="!selectedFieldId"> 
-      <label for="field_id">Selecciona una pista: </label>
       <div class="generalFieldContainer">
       <form v-for="field in availableFields" :key="field.id" :value="field.id" @submit.prevent="selectField(field.id)" required>
         <div class="fieldContainer">
-        <h2>{{ field.name }}</h2>
+        <h2>Pista {{ field.name }}</h2>
         <button type="submit" @change="selectedFieldId">Reservar</button>
       </div> 
       </form>
@@ -238,7 +235,34 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-image: url('@/assets/fieldsIMG.webp');
+  filter: brightness();
+  background-repeat: no-repeat;
+  background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
+  background-position: center; /* Centra la imagen */
+  width: 100vw; /* Asegura que el contenedor ocupe todo el ancho de la pantalla */
+  height: 100vh; /* Asegura que el contenedor ocupe todo el alto de la pantalla */
+  position: relative;
 }
+
+#bookingForm::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Capa semi-transparente para reducir la oscuridad */
+  z-index: -1; /* Asegura que esté detrás del contenido */
+}
+
+.fields-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
 
 .tooltip {
   display: inline-block;
@@ -282,7 +306,13 @@ export default {
 
 .generalFieldContainer {
   display: flex;
+  flex-wrap: nowrap;
   gap: 1rem;
+}
+
+.hTitle {
+  color: #ffeb3b;
+  font-size: 60px;
 }
 
 .general
