@@ -32,6 +32,7 @@
                 <td><button @click="deleteUser(user.dni)">Eliminar</button></td>
             </tr>
         </table>
+        <button @click="createUser" class="gnrl-button">Crear Usuario</button><br>
         <div v-if="editingUser !== null" class="modal-overlay">
             <div class="modal-content">
 
@@ -57,6 +58,38 @@
 
                     <button type="submit">Guardar</button>
                     <button type="button" @click="cancelEditUser">Cancelar</button>
+                </form>
+            </div>
+        </div>
+        <div v-if="creatingUser" class="modal-overlay">
+            <div class="modal-content">
+
+                <form @submit.prevent="saveNewUser">
+                    <h2>Editar Usuario</h2>
+                    <label for="new_user_dni">Dni:</label>
+                    <input type="text" v-model="newUser.dni" required><br>
+                    <label for="new_user_name">Nombre:</label>
+                    <input type="text" v-model="newUser.name" required><br>
+                    <label for="new_user_surname1">Apellido1:</label>
+                    <input type="text" v-model="newUser.surname1" required><br>
+                    <label for="new_user_surname2">Apellido2:</label>
+                    <input type="text" v-model="newUser.surname2" required><br>
+                    <label for="new_user_phone">Teléfono:</label>
+                    <input type="text" v-model="newUser.phone" required><br>
+                    <label for="new_user_email">Email:</label>
+                    <input type="text" v-model="newUser.email" required><br>
+                    <label for="new_user_address">Dirección:</label>
+                    <input type="text" v-model="newUser.address" required><br>
+                    <label for="new_user_password">Contraseña:</label>
+                    <input type="text" v-model="newUser.password" required><br>
+                    <label for="new_user_password">Cumpleaños:</label>
+                    <input type="date" v-model="newUser.birthday" required><br>
+                    <label for="new_user_password">Cuenta Bancária:</label>
+                    <input type="text" v-model="newUser.bank_account" required><br>
+
+
+                    <button type="submit">Guardar</button>
+                    <button type="button" @click="cancelCreateUser">Cancelar</button>
                 </form>
             </div>
         </div>
@@ -202,6 +235,19 @@ export default {
                 address: '',
                 password: ''
             },
+            creatingUser: false,
+            newUser: {
+                dni: '',
+                password: '',
+                name: '',
+                surname1: '',
+                surname2: '',
+                phone: '',
+                email: '',
+                address: '',
+                birthday: '',
+                bank_account: ''
+            },
             members: [],
             editingMember: null,
             editedMember: {
@@ -307,6 +353,9 @@ export default {
                 this.errorMessage = "No se encontró el usuario.";
             }
         },
+        createUser(){
+            this.creatingUser = true
+        },
         editMember(dni_m) {
             const member = this.members.find(m => m.dni_m === dni_m)
             if (member) {
@@ -329,6 +378,21 @@ export default {
                 address: '',
                 password: ''
             };
+        },
+        cancelCreateUser() {
+            this.creatingUser = false
+            this.newUser = {
+                dni: '',
+                password: '',
+                name: '',
+                surname1: '',
+                surname2: '',
+                phone: '',
+                email: '',
+                address: '',
+                birthday: '',
+                bank_account: ''
+            }
         },
         cancelEditMember() {
             this.editingMember = null
@@ -377,6 +441,26 @@ export default {
                 this.errorMessage = "Error de conexión con el servidor al modificar miembro, error: " + error.message;
             }
 
+        },
+        async saveNewUser() {
+            try{
+                const response = await fetch("http://localhost/spicepadel_api/adminCreateUser.php", {
+                    method: 'POST',
+                    headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify(this.newUser)
+                })
+                const data = await response.json()
+                if (data.success){
+                    this.errorMessage = data.message
+                    this.cancelCreateUser()
+                    this.getUsers()
+                } else {
+                    this.errorMessage = data.message
+                }
+            } catch (error) {
+                this.errorMessage = "Error de conexión con el servidor al crear usuario, error: " + error.message;
+
+            }
         },
 
         async deleteUser(user_dni) {
@@ -621,6 +705,7 @@ tbody tr:hover {
     justify-content: center;
     align-items: center;
     z-index: 9999;
+    overflow-y: auto; 
 }
 
 .modal-content {
@@ -654,7 +739,7 @@ tbody tr:hover {
 }
 
 .modal-content form button {
-    margin: 20px;
+    margin: 10px;
 }
 
 .team-container {
@@ -665,7 +750,7 @@ tbody tr:hover {
 input[type="text"] {
     width: 100%;
     padding: 10px;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     border: 1px solid #ccc;
     border-radius: 999px;
     box-sizing: border-box;
@@ -689,5 +774,9 @@ input[type="text"] {
 .match-form-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+}
+.btn-createUser{
+    width: 30%;
+    margin: 0;
 }
 </style>
