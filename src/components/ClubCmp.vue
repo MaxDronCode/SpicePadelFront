@@ -162,9 +162,12 @@ h2 {
     }
     .art-installations{
         margin: auto;
+        width: 300px;
     }
     .img-installations{
         margin: 30px auto auto auto;
+        width: 300px;
+        height: auto;
     }
 }
 </style>
