@@ -2,13 +2,11 @@
     <NavCmp></NavCmp>
     <h1> Hola, {{ user_name }} </h1>
     <div class="components">
-        <AccountCardCmp class="card"></AccountCardCmp>
-    </div>
-    <div class="info">
+    <AccountCardCmp class="card"></AccountCardCmp>
     <AccountTorneosCmp class="list"></AccountTorneosCmp>
     <AccountMatchReservaCmp class="list"></AccountMatchReservaCmp>
     </div>
-    <FooterCmp />
+    <FooterCmp class="footer"/>
 </template>
 
 
@@ -68,32 +66,41 @@ export default {
 <style scoped>
 
 h1{
-    margin-left: 20px;;
+    margin-left: 20px;
 }
 
 .components{
-    width: 100%;
     display:flex;
-    justify-content: center;
     margin-left:-50px;
-}
-
-.info{
-    display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
 }
 
 .card{
     justify-content: left;
-    margin-left:100px;
+    margin:10px;
     align-items: center;
 }
 
 .list{
-    margin-top:20px;
+    margin-top:-20px;
     justify-content: center;
     align-items: center;
     margin-left:120px;
+}
+
+
+.footer{
+    position:absolute;
+    bottom:0;
+}
+
+@media(max-width:768px){
+    .info{
+        flex-direction: column;
+        margin:0;
+        padding: 0;
+        margin:auto;
+    }
 }
 
 </style>

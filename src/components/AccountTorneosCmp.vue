@@ -85,8 +85,7 @@
               console.log("Error al conectar con la api: " + error);
           }
       },
-
-        },
+},
         async mounted(){
           await this.obtainEmail()
           await this.obtainName()
