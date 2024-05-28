@@ -6,11 +6,14 @@
     <h1>Reservar Pista</h1>
     <div v-if="!selectedFieldId"> 
       <label for="field_id">Selecciona una pista: </label>
-      <select v-model="selectedFieldId" @change="loadAvailability" required>
-        <option v-for="field in availableFields" :key="field.id" :value="field.id">
-          {{ field.name }}
-        </option>
-      </select>
+      <div class="generalFieldContainer">
+      <form v-for="field in availableFields" :key="field.id" :value="field.id" @submit.prevent="selectField(field.id)" required>
+        <div class="fieldContainer">
+        <h2>{{ field.name }}</h2>
+        <button type="submit" @change="selectedFieldId">Reservar</button>
+      </div> 
+      </form>
+    </div>
     </div> 
     <div v-else class="general-container"> 
       <div>
@@ -143,6 +146,9 @@ export default {
         this.existsToken = true;
       }
     },
+    selectField (field_id) {
+      this.selectedFieldId = field_id
+    },
     async loadAvailableFields() {
       try {
         const response = await fetch(`http://localhost/spicepadel_api/api/getFields.php`);
@@ -268,6 +274,18 @@ export default {
   gap: 3rem;
 }
 
+.fieldContainer {
+  background-color: #42b983;
+  padding: 2rem;
+  border-radius: 20%;
+}
+
+.generalFieldContainer {
+  display: flex;
+  gap: 1rem;
+}
+
+.general
 .res-form {
   margin-top: 200px;
 }
@@ -295,6 +313,7 @@ input[type="date"]:focus, input[type="time"]:focus {
   outline: none; /* Eliminar el contorno predeterminado */
   box-shadow: 0 0 10px rgba(30, 144, 255, 0.8); /* Sombra más destacada al enfocar */
 }
+
 button{
     width: 50%;
     padding: 10px;
