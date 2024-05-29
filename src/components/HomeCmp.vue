@@ -14,7 +14,7 @@
           <p>
             Ofrecemos una plataforma sencilla y rápida para encontrar y reservar las mejores pistas de pádel.
             Además, te brindamos información detallada sobre cada pista para que elijas la que mejor se adapte a tus
-            necesidades.
+            necesidades. <a href="club">Consulta nuestras tarifas!</a>
           </p>
         </div>
       </section>
