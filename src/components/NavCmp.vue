@@ -9,13 +9,13 @@
       <ul class="nav-main-ul" :class="{ 'nav-active': isNavActive }">
         <li><router-link to="/">Home</router-link></li>
         <li><router-link to="/club">Club</router-link></li>
-        <li v-if="existsToken"><router-link to="/reserve">Reservar</router-link></li>
+        <li v-if="existsToken" class="nav-login-li"><router-link to="/reserve">Reservar</router-link></li>
         <li><router-link to="/tournaments">Torneos</router-link></li>
         <li><router-link to="/contact">Contacto</router-link></li>
         <li v-if="!existsToken"><router-link to="/login" class="nav-login-li">Login</router-link></li>
         <li v-else><router-link to="/logout" class="nav-login-li">Logout</router-link></li>
         <li v-if="existsToken"><router-link to="/myAccount" class="nav-login-li">Mi Cuenta</router-link></li>
-        <li v-if="admin"><router-link to="/adminView">ADMINISTRAR</router-link></li>
+        <li v-if="admin" class="nav-login-li"><router-link to="/adminView">ADMINISTRAR</router-link></li>
       </ul>
       </div>
       <div class="hamburger" @click="toggleNav">
@@ -144,7 +144,9 @@ a {
 }
 
 .nav-login-li {
-  padding: 0 10px;
+  /* padding: 0 10px; */
+  /* color: #333;  */
+  text-shadow: 0 0 6px #ffeb3b; /* Sombra de texto con brillo */
 }
 
 .hamburger {
