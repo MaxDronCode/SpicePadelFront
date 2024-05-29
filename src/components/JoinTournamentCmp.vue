@@ -1,23 +1,26 @@
 <template>
     <NavCmp />
-    <h1>Apuntarse a Torneo</h1>
-    <form @submit.prevent="createTeam" v-if="!alreadyInTeam" class="join-form">
-        <p>Usted: {{ user1 }}</p>
-        <select name="users2" id="users2" ref="users2">
-            <option value="">Seleccione su compañero</option>
-            <option v-for="user in users2" :key="user.email" :value="user.email">{{ user.email }}</option>
-        </select><br>
-        <button type="submit">Apuntarse</button>
-        <p>{{ errorMessage }}</p>
-    </form>
-    <div v-else class="join-already">
-        <p>Próximo Torneo</p>
-        <p>{{ nextTournamentDate }}</p>
-        <p>Jugador 1 : {{ name_player1 }}</p>
-        <p>Jugador 2 : {{ name_player2 }}</p>
-        <p>Equipo : {{ team_id }}</p>
+    <div class="global-container">
+
+        <h1>Apuntarse a Torneo</h1>
+        <form @submit.prevent="createTeam" v-if="!alreadyInTeam" class="join-form">
+            <p>Usted: {{ user1 }}</p>
+            <select name="users2" id="users2" ref="users2">
+                <option value="">Seleccione su compañero</option>
+                <option v-for="user in users2" :key="user.email" :value="user.email">{{ user.email }}</option>
+            </select><br>
+            <button type="submit">Apuntarse</button>
+            <p>{{ errorMessage }}</p>
+        </form>
+        <div v-else class="join-already">
+            <p>Próximo Torneo</p>
+            <p>{{ nextTournamentDate }}</p>
+            <p>Jugador 1 : {{ name_player1 }}</p>
+            <p>Jugador 2 : {{ name_player2 }}</p>
+            <p>Equipo : {{ team_id }}</p>
+        </div>
     </div>
-    <FooterCmp />
+    <FooterCmp class="footer" />
 </template>
 
 <script>
@@ -142,23 +145,28 @@ export default {
 </script>
 
 <style scoped>
-
-
+.global-container{
+    min-height: 85vh;
+    background-image: url('@/assets/padelTeam.webp');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 .join-form {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: auto auto 50px auto;
+    margin: auto;
     padding: 20px;
     border-radius: 8px;
-    background-color: #f7f7f7;
+    background-color: #fff; 
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
     width: 300px;
-    height: 400px;
+    height: auto; 
 }
 
-.join-form p {
+.join-form p, .join-already p {
     font-size: 16px;
     color: #333;
 }
@@ -176,35 +184,50 @@ select {
 }
 
 select:focus {
-    border-color: #0056b3;
+    border-color: #ffeb3b; 
     outline: none;
 }
+
 button{
     width: 100%;
     padding: 10px;
-    background-color: #333;
-    color: #fff;
+    background-color: #ffeb3b; 
+    color: #333;
     border: none;
     border-radius: 999px;
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease-in-out;
 }
+
 button:hover{
-    background-color: #555;
+    background-color: #cca12c; 
 }
 
-/* Estilos para los detalles del torneo en caso de estar ya en un equipo */
 .join-already {
     text-align: center;
     padding: 20px;
-    background-color: #f1f1f1;
+    background-color: #f7f7f7;
     border-radius: 8px;
-    margin: 20px 20px 350px 20px;
+    margin: 20px auto; 
 }
+
 h1 {
     text-align: center;
     color: #333;
     padding: 40px;
+    color: #ffeb3b;
+    font-size: 70px;
+    margin-top: 0;
+}
+
+.errorMessage {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px; 
+}
+.footer{
+    position: absolute;
+    bottom: 0;
 }
 </style>

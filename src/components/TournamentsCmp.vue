@@ -310,6 +310,49 @@ h1 {
     padding: 1rem;
 }
 
+.winners {
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.75); /* Sombra dorada para destacar */
+    width: 300px;
+    border-radius: 10px;
+    border: 2px solid #ffeb3b; /* Borde dorado */
+    display: flex;
+    flex-direction: column;
+    min-height: 250px;
+    background-color: #ffffffc8; /* Fondo semitransparente */
+    padding: 10px;
+    overflow: auto; /* Permite desplazamiento si es necesario */
+    position: relative; /* Para efectos de posición */
+    animation: glow 1.5s infinite alternate; /* Animación de brillo */
+}
+
+.winners h2, .winners h3 {
+    color: #333; /* Texto oscuro para más contraste */
+    text-shadow: 0 0 6px #ffeb3b; /* Sombra de texto con brillo */
+}
+
+.winners p {
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    width: 150px;
+    align-self: center;
+    background-color: #ffeb3b; /* Fondo dorado para los nombres */
+    color: #333;
+    margin: 5px 0;
+    padding: 5px;
+    font-weight: bold;
+}
+
+/* Keyframes para la animación de brillo */
+@keyframes glow {
+    from {
+        box-shadow: 0 4px 8px rgba(255, 215, 0, 0.6);
+    }
+    to {
+        box-shadow: 0 4px 20px rgba(255, 215, 0, 0.9);
+    }
+}
+
 @media (max-width: 800px) {
     .general-container {
         flex-direction: column;
