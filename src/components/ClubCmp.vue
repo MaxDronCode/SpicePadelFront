@@ -71,6 +71,7 @@
         </article>
         <img :src="InstImgRoute" alt="Instalaciones" class="img-installations">
     </div>
+    <p class="contacto">Tienes alguna duda? <a href="contact">Contáctanos</a></p>
 
 
 
@@ -155,6 +156,10 @@ h2 {
 }
 .art-installations p span{
     font-weight: bold;
+}
+.contacto{
+    text-align: center;
+    padding: 40px;
 }
 @media (max-width:950px){
     .inst-general-container{
