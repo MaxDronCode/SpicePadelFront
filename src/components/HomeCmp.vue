@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <NavCmp/>
+    <NavCmp />
     <div class="home-page">
       <section class="welcome-section">
         <div class="overlay">
@@ -13,15 +13,21 @@
           <h2>¿Qué Ofrecemos?</h2>
           <p>
             Ofrecemos una plataforma sencilla y rápida para encontrar y reservar las mejores pistas de pádel.
-            Además, te brindamos información detallada sobre cada pista para que elijas la que mejor se adapte a tus necesidades.
+            Además, te brindamos información detallada sobre cada pista para que elijas la que mejor se adapte a tus
+            necesidades.
           </p>
         </div>
       </section>
       <section class="reservation-section">
         <div class="overlay">
           <h2>Reserva Tu Pista</h2>
-          <p>
-            Con nuestro sistema de reservas en línea, puedes seleccionar la fecha, la hora y la pista que prefieras. <a href="reserve">¡Reserva aquí!</a>
+          <p v-if="existsToken">
+            Con nuestro sistema de reservas en línea, puedes seleccionar la fecha, la hora y la pista que prefieras. <a
+              href="reserve">¡Reserva aquí!</a>
+          </p>
+          <p v-else>
+            Con nuestro sistema de reservas en línea, puedes seleccionar la fecha, la hora y la pista que prefieras. <a
+              href="login">Incríbete y reserva ya!</a>
           </p>
         </div>
       </section>
@@ -29,12 +35,13 @@
         <div class="overlay">
           <h2>Contáctanos</h2>
           <p>
-            ¿Tienes preguntas o necesitas ayuda? Ponte en <a href="contact">contacto</a> con nuestro equipo de soporte y estaremos encantados de asistirte.
+            ¿Tienes preguntas o necesitas ayuda? Ponte en <a href="contact">contacto</a> con nuestro equipo de soporte y
+            estaremos encantados de asistirte.
           </p>
         </div>
       </section>
     </div>
-    <FooterCmp/>
+    <FooterCmp />
   </div>
 </template>
 
@@ -47,12 +54,26 @@ export default {
   components: {
     NavCmp,
     FooterCmp
+  },
+  data(){
+    return {
+      existsToken: null
+    }
+  },
+  methods: {
+    checkToken() {
+      this.existsToken = localStorage.getItem('spicetoken') !== null
+    },
+  },
+  mounted(){
+    this.checkToken()
   }
 };
 </script>
 
 <style scoped>
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -161,7 +182,9 @@ section {
 }
 
 a {
-  color: #fc0; /* Cambia el color del enlace a amarillo */
-  text-decoration: none; /* Elimina el subrayado del enlace */
+  color: #fc0;
+  /* Cambia el color del enlace a amarillo */
+  text-decoration: none;
+  /* Elimina el subrayado del enlace */
 }
 </style>
