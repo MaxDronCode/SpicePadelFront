@@ -316,5 +316,8 @@ h1 {
     .super-general-container{
         flex-direction: column;
     }
+    .secondary-container{
+        align-items: center;
+    }
 }
 </style>

@@ -1,15 +1,18 @@
 <template>
-    <NavCmp/>
-    <h1>Login</h1>
-    <form @submit.prevent="login">
-        <label for="dni">DNI/NIF: </label>
-        <input type="text" v-model="dni" id="dni" required><br>
-        <label for="password">Contraseña: </label>
-        <input type="text" v-model="password" id="password" required><br>
-        <button type="submit">Iniciar Sesión</button>
-        <router-link to="/register" class="register-link">Inscríbete</router-link>
-    </form>
-    <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+    <NavCmp />
+    <div class="super-general-div">
+
+        <h1>Login</h1>
+        <form @submit.prevent="login">
+            <label for="dni">DNI/NIF: </label>
+            <input type="text" v-model="dni" id="dni" required><br>
+            <label for="password">Contraseña: </label>
+            <input type="text" v-model="password" id="password" required><br>
+            <button type="submit">Iniciar Sesión</button>
+            <router-link to="/register" class="register-link">Inscríbete</router-link>
+        </form>
+        <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+    </div>
     <FooterCmp class="footer"></FooterCmp>
 </template>
 
@@ -23,20 +26,20 @@ export default {
         NavCmp,
         FooterCmp
     },
-    data(){
+    data() {
         return {
             dni: "",
             password: "",
             errorMessage: ""
         }
     },
-    methods:{
+    methods: {
         async login() {
             try {
-                const response = await fetch ('http://localhost/spicepadel_api/api/login.php', {
+                const response = await fetch('http://localhost/spicepadel_api/api/login.php', {
                     method: 'POST',
-                    headers : {
-                        'Content-Type' : 'application/json'
+                    headers: {
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
                         dni: this.dni,
@@ -46,12 +49,12 @@ export default {
                 const data = await response.json()
                 if (data.success) {
 
-                    if (data.admin){
-                        localStorage.setItem('spicetoken', JSON.stringify({'user_mail': data.user_mail, 'token': data.token, 'admin': true}))
+                    if (data.admin) {
+                        localStorage.setItem('spicetoken', JSON.stringify({ 'user_mail': data.user_mail, 'token': data.token, 'admin': true }))
                         this.$router.push('/myAccount')
-                    }else{
-                        localStorage.setItem('spicetoken', JSON.stringify({'user_mail': data.user_mail, 'token': data.token, 'admin': false}))
-                        this.$router.push('/') 
+                    } else {
+                        localStorage.setItem('spicetoken', JSON.stringify({ 'user_mail': data.user_mail, 'token': data.token, 'admin': false }))
+                        this.$router.push('/')
                     }
                 } else {
                     this.errorMessage = data.message
@@ -60,15 +63,14 @@ export default {
                 this.errorMessage = "Error en la conexión con el servidor"
             }
         }
-        
+
     }
 }
 
 </script>
 
 <style scoped>
-
-body{
+body {
     background-color: #f4f4f4;
     display: flex;
     justify-content: center;
@@ -77,7 +79,7 @@ body{
     margin: 0;
 }
 
-form{
+form {
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
@@ -87,19 +89,25 @@ form{
     box-sizing: border-box;
     margin: auto;
 }
-h1{
+
+h1 {
     text-align: center;
-    color: #333;
     margin-bottom: 20px;
     padding: 40px;
+    margin-bottom: 3rem;
+    color: #ffeb3b;
+    font-size: 70px;
 }
-label{
+
+label {
     display: block;
     margin-bottom: 8px;
     color: #333;
     font-weight: bold;
 }
-input[type="text"], input[type="password"]{
+
+input[type="text"],
+input[type="password"] {
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
@@ -107,7 +115,8 @@ input[type="text"], input[type="password"]{
     border-radius: 999px;
     box-sizing: border-box;
 }
-button{
+
+button {
     width: 100%;
     padding: 10px;
     background-color: #333;
@@ -118,10 +127,12 @@ button{
     font-size: 16px;
     transition: background-color 0.3s ease-in-out;
 }
-button:hover{
+
+button:hover {
     background-color: #555;
 }
-.register-link{
+
+.register-link {
     display: block;
     margin-top: 20px;
     color: #333;
@@ -130,15 +141,25 @@ button:hover{
     transition: color 0.3s ease;
     width: min-content;
 }
-.register-link:hover{
+
+.register-link:hover {
     color: #09f;
 }
+
 .error {
     color: red;
     text-align: center;
 }
-.footer{
+
+.footer {
     position: absolute;
     bottom: 0;
+}
+
+.super-general-div {
+    min-height: 85vh;
+    background-image: url('@/assets/recepcion.png');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 </style>
