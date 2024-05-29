@@ -57,7 +57,7 @@ export default {
                 const data = await response.json()
                 this.users2 = data
             } catch (error) {
-                console.log("Error en la conexión con el servidor")
+                console.log("Error en la conexión con el servidor (getUser2)")
             }
         },
         async createTeam() {
@@ -69,8 +69,8 @@ export default {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        user_mail1: this.user1,
-                        user_mail2: selectedUser2
+                        'user_mail1': this.user1,
+                        'user_mail2': selectedUser2
                     })
                 })
                 const data = await response.json()
@@ -80,7 +80,7 @@ export default {
                     this.getTeamNames()
                 }
             } catch (error) {
-                console.log("Error en la conexión con el servidor")
+                console.log("Error en la conexión con el servidor (Create Team)")
                 this.errorMessage = "Error en la conexión con el servidor"
             }
         },
@@ -98,7 +98,7 @@ export default {
                 const data = await response.json()
                 this.alreadyInTeam = data.alreadyInTeam
             } catch (error) {
-                console.log("Error en la conexión con el servidor")
+                console.log("Error en la conexión con el servidor (checkIfInTeam)")
                 this.errorMessage = "Error en la conexión con el servidor, ERROR : " + error
             }
         },
@@ -119,6 +119,7 @@ export default {
                 this.name_player2 = data.name_player2
                 this.team_id = data.team_id
             } catch (error) {
+                console.log("Error en la conexion con el servidor, getTeamNames()")
                 this.errorMessage = "Error en la conexión con el servidor, ERROR : " + error
             }
         }
