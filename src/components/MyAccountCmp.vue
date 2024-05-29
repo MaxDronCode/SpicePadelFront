@@ -4,7 +4,7 @@
       <div class="container">
           <div>
               <div class="title">
-                  <h1>Hola, {{ user_name }} 👋</h1>
+                  <h1>Hola, {{ user_name }}</h1>
                 </div>
                 <div class="components">
                     <AccountCardCmp class="card"></AccountCardCmp>

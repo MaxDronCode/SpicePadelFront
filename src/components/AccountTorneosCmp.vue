@@ -121,13 +121,11 @@
   font-size: 0.875rem;
   line-height: 1.25rem;
   color: rgba(255, 255, 255, 1);
-  margin-left: -120px;
 }
 
 .list {
   display: flex;
   align-items: center;
-
 }
 
 .list svg {
