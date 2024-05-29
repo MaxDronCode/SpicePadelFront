@@ -11,7 +11,7 @@
           :style="{ backgroundImage: `url(${field.field_img})` }"
         >
           <div class="fieldOverlay">
-            <h2 class="fieldNum">Pista {{ field.name }}</h2>
+            <h2>Pista {{ field.name }}</h2>
             <p>{{ field.description }}</p>
             <button type="button" @click="selectField(field.id)">Reservar</button>
           </div>
@@ -23,13 +23,13 @@
     </div> 
     <div v-else class="general-container"> 
       <div>
-        <h2 class="fieldNameH2">Pista {{ selectedFieldId }}</h2>
-        <vue-cal style="height: auto; width: auto" locale="es" :events="events" :time-from="8 * 60" :time-to="19 * 60"
+        <h2 class="pista">Pista {{ selectedFieldId }}</h2>
+        <vue-cal style="height: 40rem; width: 600px" locale="es" :events="events" :time-from="8 * 60" :time-to="19 * 60"
           :time-step="60" :disable-views="['years', 'months', 'year']" @cell-focus="selectedDate = $event.date || $event"
            xsmall />
       </div>
       <div class="res-form">
-        <h2 class="resH2">Reserva</h2>
+        <h2>Reserva</h2>
         <p>Te recomendamos con 1 día de antelación</p>
         <form @submit.prevent="submitReservation">
           <div> 
@@ -40,10 +40,10 @@
             <label for="start_hour" class="lab">Hora de inicio: </label><br>
             <input type="time" v-model="reservation.start_hour" required class="inp-time" >
           </div>
-          <button type="submit">Reservar</button>
+          <button type="submit" >Reservar</button>
         </form>
         <button @click="clearSelection">Cambiar pista</button>
-        <div v-if="message">{{ message }}</div>
+        <div :class="messageClass">{{ message }}</div> <!-- Aplicar la clase dinámica -->
       </div>
     </div>
   </div> 
@@ -78,9 +78,10 @@ export default {
       selectedFieldId: null,
       selectedFieldName: '',
       message: '',
+      messageClass: '', // Nueva variable para la clase del mensaje
       existsToken: false,
       events: [],
-      selectedDate: new Date(),
+      selectedDate: new Date()
     };
   },
   created() {
@@ -95,16 +96,11 @@ export default {
       }
     }
   },
-  computed: {
-    getSelectedFieldImage() {
-      const selectedField = this.availableFields.find(field => field.id === this.selectedFieldId);
-      return selectedField ? selectedField.field_img : '';
-    }
-  },
   methods: {
     async submitReservation() {
       if (!this.reservation.date || !this.reservation.start_hour || !this.reservation.member_id || !this.selectedFieldId) {
         this.message = 'Todos los campos son requeridos';
+        this.messageClass = 'error'; // Asigna la clase de error
         return;
       }
 
@@ -128,17 +124,16 @@ export default {
         const result = await response.json();
         if (result.success) {
           this.message = 'Reserva realizada con éxito';
+          this.messageClass = 'success'; // Asigna la clase de éxito
           await this.loadAvailability();
-          this.reloadPage()
         } else {
-          this.message = 'Error al realizar la reserva: ' + result.message;
+          this.message = result.message;
+          this.messageClass = 'error'; // Asigna la clase de error
         }
       } catch (error) {
-        this.message = 'Error';
+        this.message = 'Error al conectar con el servidor';
+        this.messageClass = 'error'; // Asigna la clase de error
       }
-    },
-    async reloadPage() {
-      this.$router.push('/myAccount');
     },
 
     calculateEndHour(startHour) {
@@ -166,6 +161,7 @@ export default {
         this.availableFields = data;
       } catch (error) {
         this.message = "Error en la conexión con el servidor";
+        this.messageClass = 'error'; // Asigna la clase de error
       }
     },
     async loadAvailability() {
@@ -229,6 +225,9 @@ html, body {
   color:white;
 }
 
+.statusMsg {
+  padding: 1rem;
+}
 
 * {
   margin: 0;
@@ -240,6 +239,18 @@ html, body {
   backdrop-filter: blur(10px);
   padding: 3rem;
   border-radius: 6rem;
+}
+
+.success {
+  color: green;
+  font-weight: bold;
+  padding: 1rem;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+  padding: 1rem;
 }
 
 
@@ -319,7 +330,7 @@ html, body {
   opacity: 1;
 }
 
-.fieldNameH2 {
+.pista {
   color:#ffeb3b;
   font-size: 50px;
   padding: 3rem;
@@ -449,7 +460,7 @@ button:hover {
   backdrop-filter: blur(10px);
   padding: 3rem;
   border-radius: 4rem;
-  height: 27rem;
+  height: 30rem;
   color: white
 }
 
