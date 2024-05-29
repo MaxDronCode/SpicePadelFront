@@ -62,6 +62,7 @@ export default {
         },
         async createTeam() {
             const selectedUser2 = this.$refs.users2.value;
+            console.log("Se envia user 1: ", this.user1, " y el user 2: ", selectedUser2)
             try {
                 const response = await fetch('http://localhost/spicepadel_api/api/createTeam.php', {
                     method: 'POST',
@@ -78,6 +79,8 @@ export default {
                 if (data.success) {
                     this.alreadyInTeam = true; // Actualizar el estado para ocultar el formulario
                     this.getTeamNames()
+                } else {
+                    console.log(data.message)
                 }
             } catch (error) {
                 console.log("Error en la conexión con el servidor (Create Team)")
