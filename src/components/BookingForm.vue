@@ -236,9 +236,9 @@ html, body {
 }
 
 .vuecal {
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(23px);
   padding: 3rem;
-  border-radius: 6rem;
+  border-radius: 3rem;
 }
 
 .success {
@@ -276,7 +276,7 @@ html, body {
   background-size: cover;
   background-position: center;
   position: relative;
-  filter: brightness(1.1);
+  filter: brightness(1);
 }
 
 #bookingForm::before {
@@ -295,6 +295,7 @@ html, body {
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: center;
+  box-shadow: rgba(0, 5, 10, 1);
 }
 
 .fieldContainer {
@@ -324,6 +325,7 @@ html, body {
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
   padding: 2rem;
+
 }
 
 .fieldContainer:hover .fieldOverlay {
