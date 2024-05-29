@@ -11,7 +11,7 @@
           :style="{ backgroundImage: `url(${field.field_img})` }"
         >
           <div class="fieldOverlay">
-            <h2>Pista {{ field.name }}</h2>
+            <h2 class="fieldNum">Pista {{ field.name }}</h2>
             <p>{{ field.description }}</p>
             <button type="button" @click="selectField(field.id)">Reservar</button>
           </div>
@@ -29,7 +29,7 @@
            xsmall />
       </div>
       <div class="res-form">
-        <h2>Reserva</h2>
+        <h2 class="resH2">Reserva</h2>
         <p>Te recomendamos con 1 día de antelación</p>
         <form @submit.prevent="submitReservation">
           <div> 
@@ -134,7 +134,7 @@ export default {
           this.message = 'Error al realizar la reserva: ' + result.message;
         }
       } catch (error) {
-        this.message = 'Error al conectar con el servidor';
+        this.message = 'Error';
       }
     },
     async reloadPage() {
@@ -225,6 +225,11 @@ html, body {
   padding: 0;
 }
 
+.resH2 {
+  color:white;
+}
+
+
 * {
   margin: 0;
   padding: 0;
@@ -235,6 +240,16 @@ html, body {
   backdrop-filter: blur(10px);
   padding: 3rem;
   border-radius: 6rem;
+}
+
+
+.vuecal__cell--today,
+.vuecal__cell--current {
+  background-color: rgba(240, 240, 255, 0.4);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  position: relative;
+  color: white
 }
 
 #bookingForm {
@@ -306,7 +321,8 @@ html, body {
 
 .fieldNameH2 {
   color:#ffeb3b;
-  font-size: 40px;
+  font-size: 50px;
+  padding: 3rem;
 }
 
 .fieldNumber {
@@ -431,8 +447,10 @@ button:hover {
 
 .res-form {
   backdrop-filter: blur(10px);
-  padding: 2rem;
-  border-radius: 6rem;
+  padding: 3rem;
+  border-radius: 4rem;
+  height: 27rem;
+  color: white
 }
 
 @media (max-width:1000px) {
@@ -446,7 +464,7 @@ button:hover {
 }
 
 .hTitle {
-  margin-bottom: 5rem;
+  margin-bottom: 3rem;
   color: #ffeb3b;
   font-size: 70px;
 }
