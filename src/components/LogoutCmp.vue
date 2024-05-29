@@ -2,9 +2,12 @@
 
     <NavCmp/>
     <h1>Logout</h1>
-    <form @submit.prevent="logout">
-        <button type="submit">Cerrar Sesión</button>
-    </form>
+    <div class="general-container">
+        
+        <form @submit.prevent="logout">
+            <button type="submit">Cerrar Sesión</button>
+        </form>
+    </div>
     <FooterCmp class="footer"></FooterCmp>
 </template>
 
@@ -43,9 +46,10 @@ h1{
     color: #333;
     margin-bottom: 20px;
     padding: 40px;
+    font-size: 60px;
 }
 body{
-    background-color: #f4f4f4;
+    background-color: #f0f0e6;
     display: flex;
     justify-content: center;
     align-items: center;

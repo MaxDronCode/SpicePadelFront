@@ -135,6 +135,7 @@ h1 {
     /* margin-bottom: 20px; */
     padding: 40px;
     background-color: #f0f0e6;
+    font-size: 60px;
 
 }
 
