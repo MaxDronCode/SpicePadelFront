@@ -85,7 +85,7 @@ export default {
                     this.idMatch = data.id;
                     this.player2_name = data.player2_name;
                 } else {
-                    console.log("no success on api");
+                    console.log("La api de torneos no devuelve nada");
                 }
             } catch (error) {
                 console.log("Error al conectar con la api: " + error);
