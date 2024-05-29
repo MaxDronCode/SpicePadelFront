@@ -300,9 +300,9 @@ html, body {
 .fieldContainer {
   background-size: cover;
   background-position: center;
-  border-radius: 20%;
+  border-radius: 999px;
   width: 250px;
-  height: 300px;
+  height: 250px;
   text-align: center;
   transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
   position: relative;
