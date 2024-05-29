@@ -227,8 +227,10 @@ h1 {
 }
 
 .join-link:hover {
-    color: #09f;
+    color: #fc0;
+    text-shadow: 0 0 1px #fc0, 0 0 2px #fc0, 0 0 5px #fc0;
 }
+
 
 
 
