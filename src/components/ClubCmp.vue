@@ -104,7 +104,7 @@ body {
 
 h1 {
     text-align: center;
-    background-color: #fc0;
+    background-color: #fc0#fc0;
     line-height: 100px;
     height: 100px;
     margin: 0 0 50px 0;

@@ -1,23 +1,23 @@
 <template>
-    <div id="card">
-        <div class="flip-card">
-            <div class="flip-card-inner">
-                <div class="flip-card-front">
-                    <p class="heading_8264">{{ user_name }}</p>
-                    <img :src=logo alt="Logo">
-                    <svg class="chip" xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 256 256"><path fill="#d9d9d9" d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24M74.08 197.5a64 64 0 0 1 107.84 0a87.83 87.83 0 0 1-107.84 0M96 120a32 32 0 1 1 32 32a32 32 0 0 1-32-32m97.76 66.41a79.66 79.66 0 0 0-36.06-28.75a48 48 0 1 0-59.4 0a79.66 79.66 0 0 0-36.06 28.75a88 88 0 1 1 131.52 0"/></svg>
-                    <p class="number">{{ dni }}</p>
-                    <p class="valid_thru" v-if="team_id">Team: {{ team_id }}</p>
-                    <p v-else class="valid_thru"> Sin equipo </p>
-                    <p class="date_8264">{{ birthday }}🥳</p>
-                </div>
-                <div class="flip-card-back">
-                    <div class="strip"><p></p></div>
-                    <div class="mstrip"><p>{{ usuMail }}</p></div>
-                </div>
-            </div>
+  <div id="card">
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <p class="heading_8264">{{ user_name }}</p>
+          <img :src=logo alt="Logo">
+          <svg class="chip" xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 256 256"><path fill="#d9d9d9" d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24M74.08 197.5a64 64 0 0 1 107.84 0a87.83 87.83 0 0 1-107.84 0M96 120a32 32 0 1 1 32 32a32 32 0 0 1-32-32m97.76 66.41a79.66 79.66 0 0 0-36.06-28.75a48 48 0 1 0-59.4 0a79.66 79.66 0 0 0-36.06 28.75a88 88 0 1 1 131.52 0"/></svg>
+          <p class="number">{{ dni }}</p>
+          <p class="valid_thru" v-if="team_id">Team: {{ team_id }}</p>
+          <p v-else class="valid_thru"> Sin equipo </p>
+          <p class="date_8264">{{ birthday }}🥳</p>
         </div>
+        <div class="flip-card-back">
+          <div class="strip"><p></p></div>
+          <div class="mstrip"><p>{{ usuMail }}</p></div>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -29,9 +29,9 @@ export default {
             usuMail: "",
             logo : Logo,
             user_name: "",
-            dni :"",
+            dni: "",
             birthday: "",
-            team_id:""
+            team_id: ""
         };
     },
     methods: {
@@ -40,59 +40,54 @@ export default {
             const spiceToken = JSON.parse(spiceTokenString);
             this.usuMail = spiceToken.user_mail;
         },
-        async obtainName(){
-          
-            try{
+        async obtainName() {
+            try {
                 const response = await fetch('http://localhost/spicepadel_api/api/getName.php', {
                     method: 'POST',
-                    headers : {'Content-Type' : 'application/json'},
+                    headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
-                        'user_email' : this.usuMail
+                        'user_email': this.usuMail
                     })
-                })
-                const data = await response.json()
-                this.user_name = data.user_name
-                this.dni = data.dni
-                this.birthday = data.birthday
-                
-            } catch (error){
-                console.log("Error al conectar con la api: " + error)
+                });
+                const data = await response.json();
+                this.user_name = data.user_name;
+                this.dni = data.dni;
+                this.birthday = data.birthday;
+            } catch (error) {
+                console.log("Error al conectar con la api: " + error);
             }
         },
-        async getTeamNames(){
-            
-            try{
+        async getTeamNames() {
+            try {
                 const response = await fetch('http://localhost/spicepadel_api/api/getTeamNames.php', {
                     method: 'POST',
                     headers: {
-                        'Content-Type' : 'application/json'
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
                         user_email: this.usuMail
                     })
-                })
-                const data = await response.json()
-                this.team_id = data.team_id
+                });
+                const data = await response.json();
+                this.team_id = data.team_id;
             } catch (error) {
-                this.errorMessage = "Error en la conexión con el servidor, ERROR : " + error
+                this.errorMessage = "Error en la conexión con el servidor, ERROR : " + error;
             }
         }
     },
-    mounted(){
-      this.obtainEmail()
-      this.obtainName()
-      this.getTeamNames()
+    mounted() {
+        this.obtainEmail();
+        this.obtainName();
+        this.getTeamNames();
     }
-    
 };
 </script>
 
 <style scoped>
-
 .flip-card {
   background-color: transparent;
-  width: 320px;
-  height: 200px; 
+  width: 280px;
+  height: 200px;
   perspective: 1000px;
   color: white;
 }
@@ -102,15 +97,18 @@ export default {
   letter-spacing: 0.2em;
   font-size: .75em;
   top: 1.5em;
-  left: 220px; 
+  left: 190px;
   font-weight:500px;
 }
 
 img {
-    height: 130px;
-    width: 130px;
-    margin-left:210px;
-    margin-top:100px; 
+  height: 130px;
+  width: 130px;
+  margin-left:180px;
+  margin-top:100px;
+}
+#card {
+  width: fit-content;
 }
 
 .chip {
@@ -135,9 +133,9 @@ img {
 .valid_thru {
   position: absolute;
   font-weight: bold;
-  font-size: 13px; /* Cambia el tamaño de fuente a 12px */
-  top: 9.3em; /* Ajusta esta posición según sea necesario */
-  left: 1.8em; /* Ajusta esta posición según sea necesario */
+  font-size: 13px;
+  top: 9.3em;
+  left: 1.8em;
 }
 
 .date_8264 {
@@ -177,10 +175,10 @@ img {
   left: 0.8em;
   border-radius: 2.5px;
 }
-.mstrip p{
-    margin-top:1px;
-    color:black;
-    font-size:16px;
+.mstrip p {
+  margin-top: 1px;
+  color: black;
+  font-size: 16px;
 }
 .sstrip {
   position: absolute;
@@ -222,7 +220,7 @@ img {
 }
 .flip-card-front {
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 2px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
-  background-color:#333333;
+  background-color: #333333;
 }
 .flip-card-back {
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 2px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -1px 0px inset;

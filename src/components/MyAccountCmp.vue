@@ -1,20 +1,28 @@
 <template>
-  <NavCmp></NavCmp>
+  <NavCmp />
   <div class="info">
-      <div class="container">
-          <div>
-              <div class="title">
-                  <h1>Hola, {{ user_name }}</h1>
-                </div>
-                <div class="components">
-                  <AccountTorneosCmp class="list"></AccountTorneosCmp>
-                    <AccountCardCmp class="card"></AccountCardCmp>
-                    <AccountMatchReservaCmp class="list"></AccountMatchReservaCmp>
-                </div>
-            </div>
+    <div class="container">
+      <div class="title">
+        <h1>Hola, {{ user_name }}</h1>
+        <p>Bienvenido a tu panel de usuario. Aquí puedes ver tus torneos, información de tu cuenta y reservas de pistas.</p>
+      </div>
+      <div class="components">
+        <div class="component-wrapper">
+          <h2>Tus Torneos</h2>
+          <AccountTorneosCmp class="list"></AccountTorneosCmp>
         </div>
+        <div class="component-wrapper">
+          <h2>Tarjeta del Club</h2>
+          <AccountCardCmp class="card"></AccountCardCmp>
+        </div>
+        <div class="component-wrapper">
+          <h2>Tus reservas</h2>
+          <AccountMatchReservaCmp class="list"></AccountMatchReservaCmp>
+        </div>
+      </div>
     </div>
-  <FooterCmp class="footer" />
+  </div>
+  <FooterCmp/>
 </template>
 
 <script>
@@ -32,11 +40,11 @@ export default {
         FooterCmp,
         AccountTorneosCmp,
         AccountMatchReservaCmp,
-  },
-  data() {
-      return {
-          usuMail: "",
-          user_name: "",
+    },
+    data() {
+        return {
+            usuMail: "",
+            user_name: "",
         };
     },
     methods: {
@@ -56,119 +64,116 @@ export default {
                             user_email: this.usuMail,
                         }),
                     }
-                    );
-                    const data = await response.json();
-                    this.user_name = data.user_name;
-                } catch (error) {
-                    console.log("Error al conectar con la api: " + error);
-                }
-            },
-  },
-  mounted() {
-    this.obtainEmail();
-    this.obtainName();
-},
+                );
+                const data = await response.json();
+                this.user_name = data.user_name;
+            } catch (error) {
+                console.log("Error al conectar con la api: " + error);
+            }
+        },
+    },
+    mounted() {
+        this.obtainEmail();
+        this.obtainName();
+    },
 };
 </script>
 
 <style scoped>
-
-.container {
-  min-height: 90vh; /* Asegura que el contenedor ocupe al menos la altura de la ventana */
-  height: 100vh; /* Asegura que el contenedor ocupe toda la altura de la pantalla */
-  padding: 1rem;
-  background-image: url("@/assets/ImgMyAccount.webp");
-  background-repeat: no-repeat;
-  background-size: cover; 
-  background-position: center; 
-  position: relative;
-  filter: brightness(1.1); /* Aumenta el brillo de la imagen */
-
+* {
+  box-sizing: border-box;
 }
 
-h1 {
-  margin: 0; /* Elimina márgenes para mejor centrado */
-  color: #ffeb3b;
-  text-shadow: 0 0 1.25px #333333, 0 0 2.5px #333333, 0 0 5px #333333;
+.container {
+  height: fit-content;
+  padding: 2rem;
+  background-image: url("@/assets/ImgMyAccount.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  filter: brightness(0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.7); /* Blanco con 50% de opacidad */
+  background-color: rgba(255, 255, 255, 0.6);
   padding: 2rem;
   border-radius: 30px;
-  width: 60vh;
-  height: 10px;
   text-align: center;
-  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+  margin-bottom: 2rem;
+}
+
+h1 {
+  margin: 0;
+  color: #fc0;
+  font-size: 50px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.title p {
+  font-size: 18px;
+  color: #333;
+  margin-top: 1rem;
 }
 
 .components {
   display: flex;
-  /* margin-left: -50px; */
+  flex-wrap: wrap;
   justify-content: space-around;
-  align-items: center;
-  margin-top:90px;
+  align-items: flex-start;
+  width: fit-content;
 }
 
-.components .card{
-  align-self: flex-start;
-  margin-top:10px;
+.component-wrapper {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 1rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  width: 30%;
+  margin: 1rem;
+  text-align: center;
+  color: black;
 }
 
-.card {
-  justify-content: left;
-  margin: 10px;
-  align-items: center;
+.component-wrapper h2 {
+  color: black;
+  margin-bottom: 1rem;
 }
 
+.card,
 .list {
-  margin-top: 20px;
-  justify-content: center;
-  align-items: center;
-  /* margin-left: 120px; */
-  box-shadow: 0 4px 8px rgba(0,0,0,0.7);
-}
-
-.footer {
-  position: absolute;
-  /* bottom: 0; */
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 1rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
 }
 
 @media (max-width: 1100px) {
   .container {
-    flex-direction: column;
-    margin: 0;
-    padding: 0;
-    margin: auto;
-    background-image: none;
+    padding: 1rem;
   }
-  .components{
-    flex-direction: column;
-    margin: 0;
-    
+
+  .title {
+    width: 100%;
+    padding: 1rem;
   }
-  .footer{
+
+  .components {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .component-wrapper {
+    width: 90%;
+  }
+
+  .footer {
     display: none;
   }
-  .title{
-    width: 300px;
-    margin: auto;
-  }
-  .title h1{
-    font-size: 18px;
-
-  }
-  .card{
-    margin: 50px auto;
-    padding: 0;
-  }
-  .list{
-    margin: 50px auto;
-    padding: 0;
-  }
-  
 }
 </style>
