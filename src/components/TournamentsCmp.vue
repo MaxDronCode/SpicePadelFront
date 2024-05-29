@@ -9,7 +9,7 @@
         <p>{{ win_player2_name }}</p>
     </div>
     <div class="general-container">
-        <TournamentTreeCmp class="calendar" v-if="alreadyInTeam"/>
+        <TournamentTreeCmp class="calendar" v-if="alreadyInTeam" />
         <!-- <div class="calendar" v-else>
             Calendar
         </div> -->
@@ -31,7 +31,7 @@
         </div>
 
     </div>
-    <FooterCmp/>
+    <FooterCmp />
 </template>
 
 
@@ -53,7 +53,7 @@ export default {
             alreadyInTeam: false,
             name_player1: "",
             name_player2: "",
-            team_id : "",
+            team_id: "",
             errorMessage: "",
             user1: "",
             winner_team: null,
@@ -88,13 +88,13 @@ export default {
             const spicetoken = JSON.parse(spicetokenString)
             this.user1 = spicetoken.user_mail
         },
-        async getTeamNames(){
-            
-            try{
+        async getTeamNames() {
+
+            try {
                 const response = await fetch('http://localhost/spicepadel_api/api/getTeamNames.php', {
                     method: 'POST',
                     headers: {
-                        'Content-Type' : 'application/json'
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
                         user_email: this.user1
@@ -108,11 +108,11 @@ export default {
                 this.errorMessage = "Error en la conexión con el servidor, ERROR : " + error
             }
         },
-        async getLastTournamentWinners(){
-            try{
+        async getLastTournamentWinners() {
+            try {
                 const response = await fetch('http://localhost/spicepadel_api/getLastTournamentWinners.php')
                 const data = await response.json()
-                if (data.success){
+                if (data.success) {
                     this.winner_team = data.winner_team
                     this.win_player1_name = data.win_player1_name
                     this.win_player2_name = data.win_player2_name
@@ -127,7 +127,7 @@ export default {
     created() {
         this.checkToken() // COmprueba que exista token
         this.getLastTournamentWinners()
-        if (this.existsToken){
+        if (this.existsToken) {
 
             this.getUser1()
             this.checkIfInTeam()
@@ -142,7 +142,7 @@ export default {
             this.getTeamNames()
         }
     }
-   
+
 }
 </script>
 
@@ -163,6 +163,7 @@ h1 {
     display: flex;
     padding: 20px;
     justify-content: space-around;
+    margin-bottom: 150px;
 }
 
 .calendar {
@@ -190,7 +191,7 @@ h1 {
     display: flex;
     align-items: center;
     margin-bottom: 30vh;
-    
+
 }
 
 
@@ -213,31 +214,40 @@ h1 {
 .join-link:hover {
     color: #09f;
 }
-.winners{
+
+.winners {
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 300px;
     border-radius: 10px;
     margin: auto;
     border-bottom: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 250px;
 }
-.team-info{
+
+.team-info {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 10px;
     height: 200px;
     border-radius: 10px;
     border-bottom: 1px solid #333;
-
-
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
-@media (max-width: 800px){
-    .general-container{
+
+@media (max-width: 800px) {
+    .general-container {
         flex-direction: column;
     }
-    .team-info{
+
+    .team-info {
         margin: auto;
         order: -1;
-        
+
     }
 }
 </style>
