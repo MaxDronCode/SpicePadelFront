@@ -7,8 +7,8 @@
                   <h1>Hola, {{ user_name }}</h1>
                 </div>
                 <div class="components">
+                  <AccountTorneosCmp class="list"></AccountTorneosCmp>
                     <AccountCardCmp class="card"></AccountCardCmp>
-                    <AccountTorneosCmp class="list"></AccountTorneosCmp>
                     <AccountMatchReservaCmp class="list"></AccountMatchReservaCmp>
                 </div>
             </div>
@@ -77,7 +77,7 @@ export default {
   min-height: 90vh; /* Asegura que el contenedor ocupe al menos la altura de la ventana */
   height: 100vh; /* Asegura que el contenedor ocupe toda la altura de la pantalla */
   padding: 1rem;
-  background-image: url("../assets/ImgMyAccount.webp");
+  background-image: url("@/assets/ImgMyAccount.webp");
   background-repeat: no-repeat;
   background-size: cover; 
   background-position: center; 
@@ -107,10 +107,15 @@ h1 {
 
 .components {
   display: flex;
-  margin-left: -50px;
-  justify-content: space-evenly;
+  /* margin-left: -50px; */
+  justify-content: space-around;
   align-items: center;
   margin-top:90px;
+}
+
+.components .card{
+  align-self: flex-start;
+  margin-top:10px;
 }
 
 .card {
@@ -123,7 +128,7 @@ h1 {
   margin-top: 20px;
   justify-content: center;
   align-items: center;
-  margin-left: 120px;
+  /* margin-left: 120px; */
   box-shadow: 0 4px 8px rgba(0,0,0,0.7);
 }
 

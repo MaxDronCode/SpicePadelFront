@@ -86,7 +86,6 @@
 }
 
 .lists {
-  margin-top: 2.5rem;
   display: flex;
   flex-direction: column;
   grid-row-gap: 0.75rem;
@@ -111,6 +110,7 @@
   margin-left: 1rem;
 }
 
+
 .action {
   margin-top: 2rem;
   width: 80%;
@@ -126,6 +126,7 @@
   transition: all .2s ease;
   text-decoration: none;
   font-weight: 500;
+  margin-bottom: 10px;
 }
 
 .action:hover {
