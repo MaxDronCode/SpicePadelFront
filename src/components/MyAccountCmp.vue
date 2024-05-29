@@ -88,14 +88,15 @@ export default {
 
 h1 {
   margin: 0; /* Elimina márgenes para mejor centrado */
-  color: #ffeb3b
+  color: #ffeb3b;
+  text-shadow: 0 0 1.25px #333333, 0 0 2.5px #333333, 0 0 5px #333333;
 }
 
 .title {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.5); /* Blanco con 50% de opacidad */
+  background-color: rgba(255, 255, 255, 0.7); /* Blanco con 50% de opacidad */
   padding: 2rem;
   border-radius: 30px;
   width: 60vh;
@@ -153,6 +154,7 @@ h1 {
   }
   .title h1{
     font-size: 18px;
+
   }
   .card{
     margin: 50px auto;

@@ -166,7 +166,7 @@ img{
   margin-left:-30px;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
   .nav-main-ul {
     flex-direction: column;
     position: absolute;
