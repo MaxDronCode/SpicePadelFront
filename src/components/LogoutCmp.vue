@@ -42,6 +42,7 @@ h1{
     text-align: center;
     color: #333;
     margin-bottom: 20px;
+    padding: 40px;
 }
 body{
     background-color: #f4f4f4;

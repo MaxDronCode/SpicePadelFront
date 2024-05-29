@@ -15,6 +15,7 @@
         <li v-if="!existsToken"><router-link to="/login" class="nav-login-li">Login</router-link></li>
         <li v-else><router-link to="/logout" class="nav-login-li">Logout</router-link></li>
         <li v-if="existsToken"><router-link to="/myAccount" class="nav-login-li">Mi Cuenta</router-link></li>
+        <li v-if="admin"><router-link to="/adminView">ADMINISTRAR</router-link></li>
       </ul>
       </div>
       <div class="hamburger" @click="toggleNav">
@@ -35,7 +36,8 @@ export default {
         return {
             isNavActive : false,
             existsToken : false,
-            logo : Logo
+            logo : Logo,
+            admin: false
         }
     },
     methods: {
@@ -44,10 +46,20 @@ export default {
         },
         checkToken() {
             this.existsToken = localStorage.getItem('spicetoken') !== null
+        },
+        checkAdmin(){
+          const spicetokenString = localStorage.getItem('spicetoken')
+          const spicetoken = JSON.parse(spicetokenString)
+          this.admin = spicetoken.admin
         }
     },
     created(){
         this.checkToken() // COmprueba que exista token
+        if (this.existsToken){
+
+          this.checkAdmin()
+        }
+
     },
     watch: {
         '$route'() { // Observar cambios en la ruta

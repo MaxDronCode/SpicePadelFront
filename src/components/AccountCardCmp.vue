@@ -102,15 +102,17 @@ export default {
   letter-spacing: 0.2em;
   font-size: .75em;
   top: .5em;
-  left: 220px; /* Puedes ajustar este valor según sea necesario */
+  left: 220px; 
   font-weight:500px;
 }
+
 img {
     height: 130px;
     width: 130px;
-    margin-left:210px; /* Puedes ajustar este valor según sea necesario */
-    margin-top:100px; /* Puedes ajustar este valor según sea necesario */
+    margin-left:210px;
+    margin-top:100px; 
 }
+
 .chip {
   position: absolute;
   top: 2.3em;

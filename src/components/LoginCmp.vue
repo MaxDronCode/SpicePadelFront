@@ -48,7 +48,7 @@ export default {
 
                     if (data.admin){
                         localStorage.setItem('spicetoken', JSON.stringify({'user_mail': data.user_mail, 'token': data.token, 'admin': true}))
-                        this.$router.push('/adminView')
+                        this.$router.push('/myAccount')
                     }else{
                         localStorage.setItem('spicetoken', JSON.stringify({'user_mail': data.user_mail, 'token': data.token, 'admin': false}))
                         this.$router.push('/') 
@@ -91,6 +91,7 @@ h1{
     text-align: center;
     color: #333;
     margin-bottom: 20px;
+    padding: 40px;
 }
 label{
     display: block;
