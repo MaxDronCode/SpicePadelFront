@@ -51,6 +51,7 @@ export default {
                 })
             });
             const data = await response.json();
+            console.log("data "+ data);
             this.startHour = data.start_hour;
             this.end_hour = data.end_hour;
             this.field_id = data.field_id;
