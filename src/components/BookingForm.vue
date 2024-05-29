@@ -211,7 +211,7 @@ export default {
 };
 </script>
 
-<style scooped>
+<style scoped>
 @import "vue-cal/dist/vuecal.css";
 @import 'animate.css';
 
@@ -222,7 +222,7 @@ html, body {
 }
 
 .resH2 {
-  color:white;
+  color: white;
 }
 
 .statusMsg {
@@ -239,6 +239,7 @@ html, body {
   backdrop-filter: blur(23px);
   padding: 3rem;
   border-radius: 3rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .success {
@@ -253,19 +254,17 @@ html, body {
   padding: 1rem;
 }
 
-
 .vuecal__cell--today,
 .vuecal__cell--current {
   background-color: rgba(240, 240, 255, 0.4);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   z-index: 10;
   position: relative;
-  color: white
+  color: white;
 }
 
 #bookingForm {
   min-height: 100vh;
-  /* height: 100vh; */
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -277,6 +276,7 @@ html, body {
   background-position: center;
   position: relative;
   filter: brightness(1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 #bookingForm::before {
@@ -308,6 +308,7 @@ html, body {
   transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .fieldOverlay {
@@ -325,7 +326,6 @@ html, body {
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
   padding: 2rem;
-
 }
 
 .fieldContainer:hover .fieldOverlay {
@@ -333,7 +333,7 @@ html, body {
 }
 
 .pista {
-  color:#ffeb3b;
+  color: #fc0;
   font-size: 50px;
   padding: 3rem;
 }
@@ -343,7 +343,7 @@ html, body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #ffeb3b;
+  color: #fc0;
   font-size: 4rem;
 }
 
@@ -463,10 +463,11 @@ button:hover {
   padding: 3rem;
   border-radius: 4rem;
   height: 30rem;
-  color: white
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-@media (max-width:1000px) {
+@media (max-width: 1000px) {
   .general-container {
     flex-direction: column;
   }
@@ -478,7 +479,9 @@ button:hover {
 
 .hTitle {
   margin-bottom: 3rem;
-  color: #ffeb3b;
+  color: #fc0;
   font-size: 70px;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 </style>

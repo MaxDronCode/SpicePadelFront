@@ -130,7 +130,7 @@ li:hover {
 
 li:hover::before {
   transform: scaleX(1);
-  background-color: #ffeb3b
+  background-color: #fc0
 }
 
 a {

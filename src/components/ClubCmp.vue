@@ -1,7 +1,6 @@
 <template>
     <NavCmp></NavCmp>
     <h1>Tarifas</h1>
-    <h2>Cuotas 2024</h2>
     <div class="quo-general-container">
         <div class="quo-banner-container">Cuotas de entrada 2024</div>
         <div class="quo-tarifa2">
@@ -13,7 +12,6 @@
             <p>1000€</p>
         </div>
     </div>
-    <h2>Cuotas Mensuales 2024</h2>
     <div class="quo-general-container">
         <div class="quo-banner-container">Cuotas mensuales</div>
         <div class="quo-tarifa2">
@@ -40,7 +38,6 @@
             <p>Cuota familiar socios +75 años</p>
             <p>45€</p>
         </div>
-
     </div>
     <h1>Instalaciones</h1>
     <div class="inst-general-container">
@@ -49,7 +46,6 @@
                 parque natural, lo que ofrece un paisaje inigualable y una atmósfera tranquila. Las extensas
                 instalaciones ocupan más de <span>35.000 m²</span> de terreno forestal, proporcionando un espacio amplio para el
                 disfrute de los visitantes.</p>
-
 
                 <p>La entrada principal al Club Spice Padel conduce directamente al edificio de la Casa Club, donde se
                 encuentran las oficinas administrativas y la recepción. Este edificio alberga <span>varias salas de uso
@@ -71,11 +67,7 @@
         </article>
         <img :src="InstImgRoute" alt="Instalaciones" class="img-installations">
     </div>
-    <p class="contacto">Tienes alguna duda? <a href="contact">Contáctanos</a></p>
-
-
-
-
+    <p class="contacto">¿Tienes alguna duda? <a href="contact">Contáctanos</a></p>
     <FooterCmp class="footer"></FooterCmp>
 </template>
 
@@ -100,41 +92,61 @@ export default {
 
 <style scoped>
 * {
-    box-sizing: content-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
 }
 
 h1 {
-    padding: 40px;
-    color: #333;
-    margin-bottom: 20px;
-    font-size: 60px;
     text-align: center;
+    background-color: #fc0;
+    line-height: 100px;
+    height: 100px;
+    margin: 0 0 50px 0;
+    font-size: 60px;
+    color: #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
     padding: 20px 40px 10px 40px;
-    color: #fc2091;
+    color: #fc0;
     margin-bottom: 20px;
+    font-size: 36px;
 }
 
 .quo-general-container {
-    margin: 0 60px;
+    margin: 20px auto;
     border: 1px solid #333;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
 }
 
 .quo-banner-container {
-    background-color: #fc2091;
+    background-color: #fc0;
     height: 100%;
     margin: 0;
     padding: 20px;
+    font-size: 24px;
+    text-align: center;
+    color: #333;
+    font-weight: bold;
+    border-radius: 10px 10px 0 0;
 }
 
 .quo-tarifa2 {
     display: flex;
     justify-content: space-between;
-    border-top: 1px solid #333;
-    padding: 5px 20px;
-
+    border-top: 1px solid #ccc;
+    padding: 10px 20px;
+    font-size: 18px;
 }
 
 .footer {
@@ -143,38 +155,66 @@ h2 {
 
 .quo-tarifa2 p:last-child {
     margin-left: 30px;
+    font-weight: bold;
 }
 
 .img-installations {
-    width: 400px;
-    height: 400px;
+    width: 100%;
+    height: auto;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.inst-general-container{
+
+.inst-general-container {
     display: flex;
     justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 40px 0;
 }
-.art-installations{
-    width: 500px;
+
+.art-installations {
+    max-width: 600px;
+    padding: 20px;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #333;
 }
-.art-installations p span{
+
+.art-installations p span {
     font-weight: bold;
+    color: #fc0;
 }
-.contacto{
+
+.contacto {
     text-align: center;
     padding: 40px;
+    font-size: 18px;
+    color: #333;
 }
-@media (max-width:950px){
-    .inst-general-container{
+
+.contacto a {
+    color: #fc0;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.contacto a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 950px) {
+    .inst-general-container {
         flex-direction: column;
+        align-items: center;
     }
-    .art-installations{
-        margin: auto;
-        width: 300px;
+    .art-installations {
+        width: 90%;
     }
-    .img-installations{
-        margin: 30px auto auto auto;
-        width: 300px;
-        height: auto;
+    .img-installations {
+        width: 90%;
+        margin-top: 20px;
     }
 }
 </style>

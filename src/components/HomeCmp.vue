@@ -67,7 +67,6 @@ html, body {
 }
 
 .home-page {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   color: #fff;
   flex: 1;
 }
@@ -103,7 +102,7 @@ section {
 .welcome-section h1 {
   font-size: 5em;
   margin-bottom: 0.5em;
-  color: #ffeb3b;
+  color: #fc0;
 }
 
 .welcome-section p {
@@ -117,7 +116,7 @@ section {
 .offer-section h2 {
   font-size: 2.5em;
   margin-bottom: 0.5em;
-  color: #ffeb3b;
+  color: #fc0;
 }
 
 .offer-section p {
@@ -134,7 +133,7 @@ section {
 .reservation-section h2 {
   font-size: 2.5em;
   margin-bottom: 0.5em;
-  color: #ffeb3b;
+  color: #fc0;
 }
 
 .reservation-section p {
@@ -151,7 +150,7 @@ section {
 .contact-section h2 {
   font-size: 2.5em;
   margin-bottom: 0.5em;
-  color: #ffeb3b;
+  color: #fc0;
 }
 
 .contact-section p {
@@ -162,7 +161,7 @@ section {
 }
 
 a {
-  color: yellow; /* Cambia el color del enlace a amarillo */
+  color: #fc0; /* Cambia el color del enlace a amarillo */
   text-decoration: none; /* Elimina el subrayado del enlace */
 }
 </style>

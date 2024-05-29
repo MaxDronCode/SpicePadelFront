@@ -53,7 +53,7 @@ export default {
 }
 
 h1 {
-    color: #ffeb3b;
+    color: #fc0;
     margin-bottom: 20px;
     font-size: 60px;
     animation: slideIn 0.5s ease-in-out;
@@ -76,14 +76,14 @@ h1 {
 }
 
 .shadow__btn {
-    background: #ffeb3b;
-    box-shadow: 0 0 25px #ffeb3b;
+    background: #fc0;
+    box-shadow: 0 0 25px #fc0;
 }
 
 .shadow__btn:hover {
-    box-shadow: 0 0 5px #ffeb3b,
-        0 0 25px #ffeb3b,
-        0 0 50px #ffeb3b,
-        0 0 100px #ffeb3b;
+    box-shadow: 0 0 5px #fc0,
+        0 0 25px #fc0,
+        0 0 50px #fc0,
+        0 0 100px #fc0;
 }
 </style>
