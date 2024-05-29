@@ -1,23 +1,22 @@
 <template>
     <NavCmp />
     <div class="super-general-div">
-
         <h1>Login</h1>
         <form @submit.prevent="login">
             <label for="dni">DNI/NIF: </label>
             <input type="text" v-model="dni" id="dni" required><br>
             <label for="password">Contraseña: </label>
-            <input type="text" v-model="password" id="password" required><br>
+            <input type="password" v-model="password" id="password" required><br>
             <button type="submit">Iniciar Sesión</button>
             <router-link to="/register" class="register-link">Inscríbete</router-link>
         </form>
         <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
     </div>
-    <FooterCmp class="footer"></FooterCmp>
+    <FooterCmp />
 </template>
 
 <script>
-import NavCmp from '@/components/NavCmp.vue'
+import NavCmp from '@/components/NavCmp.vue';
 import FooterCmp from './FooterCmp.vue';
 
 export default {
@@ -48,7 +47,6 @@ export default {
                 })
                 const data = await response.json()
                 if (data.success) {
-
                     if (data.admin) {
                         localStorage.setItem('spicetoken', JSON.stringify({ 'user_mail': data.user_mail, 'token': data.token, 'admin': true }))
                         this.$router.push('/myAccount')
@@ -63,20 +61,31 @@ export default {
                 this.errorMessage = "Error en la conexión con el servidor"
             }
         }
-
     }
 }
-
 </script>
 
 <style scoped>
-body {
-    background-color: #f4f4f4;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+}
+
+.super-general-div {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
+    background-image: url('@/assets/recepcion.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
 form {
@@ -87,16 +96,15 @@ form {
     max-width: 400px;
     width: 100%;
     box-sizing: border-box;
-    margin: auto;
 }
 
 h1 {
     text-align: center;
-    margin-bottom: 20px;
-    padding: 40px;
-    margin-bottom: 3rem;
-    color: #ffeb3b;
+    padding: 40px 0;
+    margin-bottom: 1rem;
+    color: #fc0;
     font-size: 70px;
+    
 }
 
 label {
@@ -149,17 +157,12 @@ button:hover {
 .error {
     color: red;
     text-align: center;
+    margin-top: 20px;
 }
 
 .footer {
+    width: 100%;
     position: absolute;
     bottom: 0;
-}
-
-.super-general-div {
-    min-height: 85vh;
-    background-image: url('@/assets/recepcion.png');
-    background-repeat: no-repeat;
-    background-size: cover;
 }
 </style>
