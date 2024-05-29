@@ -1,4 +1,5 @@
 <template>
+    <NavCmp/>
     <h1>Admin View</h1>
     <p>{{ errorMessage }}</p>
     <div class="general-container">
@@ -213,12 +214,11 @@
 
 
 <script>
+import NavCmp from './NavCmp.vue';
 
 export default {
     name: 'AdminView',
-    components: {
-
-    },
+    
     data() {
         return {
             existsToken: false,
@@ -262,6 +262,9 @@ export default {
             pointsTeam2: null
 
         }
+    },
+    components:{
+        NavCmp
     },
     methods: {
         getUsers() {
@@ -619,6 +622,7 @@ export default {
 <style scoped>
 h1 {
     text-align: center;
+    padding: 40px;
 }
 
 button {
