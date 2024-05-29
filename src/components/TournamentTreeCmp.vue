@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>Lista de Equipos</h1>
-        <p>{{ tieMessage }}</p>
+        <p class="errorMessage">{{ tieMessage }}</p>
         <button v-if="!isPaired" @click="pairTeams">{{ buttonText }}</button>
         <div class="teams">
             <div v-for="(pair, index) in pairedTeams" :key="index" class="pair">
@@ -27,7 +27,7 @@
             </div>
 
         </div>
-        <p v-if="errorMessage">{{ errorMessage }}</p>
+        <p v-if="errorMessage" class="errorMessage">{{ errorMessage }}</p>
     </div>
 </template>
 
@@ -306,7 +306,11 @@ button:hover {
 .end {
     width: 150px;
 }
-
+.errorMessage{
+    color: red;
+    font-weight: bold;
+    padding: 1rem;
+}
 @media (max-width: 800px) {
     .pair {
         flex-direction: column;

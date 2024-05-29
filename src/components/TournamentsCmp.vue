@@ -2,51 +2,45 @@
     <NavCmp />
     <div class="super-mega-div">
 
-    
-    <h1>Torneos</h1>
-    <div class="super-general-container" >
+
+        <h1>Torneos</h1>
+        <div class="super-general-container">
 
 
-        <div class="general-container" v-if="existsToken">
-            <TournamentTreeCmp class="calendar" v-if="alreadyInTeam" />
-            <!-- <div class="calendar" v-else>
-                Calendar
-            </div> -->
-
-
-        </div>
-        <div class="secondary-container" >
-            <div class="winners">
-                <h2>Ganadores del último anterior</h2>
-                <p>Equipo Ganador: {{ winner_team }}</p>
-                <h3>Ganadores</h3>
-                <p>{{ win_player1_name }}</p>
-                <p>{{ win_player2_name }}</p>
+            <div class="general-container" v-if="existsToken && alreadyInTeam">
+                <TournamentTreeCmp class="calendar" v-if="alreadyInTeam" />
             </div>
+            <div class="secondary-container">
+                <div class="winners">
+                    <h2>Ganadores del último anterior</h2>
+                    <p>Equipo Ganador: {{ winner_team }}</p>
+                    <h3>Ganadores</h3>
+                    <p>{{ win_player1_name }}</p>
+                    <p>{{ win_player2_name }}</p>
+                </div>
 
-            <div v-if="alreadyInTeam" class="team-info">
-                <p><b>Tu Equipo</b></p>
-                <p>{{ nextTournamentDate }}</p>
-                <p>Jugador 1 : {{ name_player1 }}</p>
-                <p>Jugador 2 : {{ name_player2 }}</p>
-                <p>Equipo : {{ team_id }}</p>
-                <p>{{ errorMessage }}</p>
-            </div>
-            <div v-else class="suscribe">
-
-                <h2>Inscribirse</h2>
-                <div class="btn-join">
-                    <router-link v-if="existsToken" to="/joinTournament" class="join-link">Entrar </router-link>
-                    <router-link v-else to="/login" class="join-link">Login</router-link>
+                <div v-if="alreadyInTeam" class="team-info">
+                    <h2>Tu Equipo</h2>
+                    <p>{{ nextTournamentDate }}</p>
+                    <p>Jugador 1 : {{ name_player1 }}</p>
+                    <p>Jugador 2 : {{ name_player2 }}</p>
+                    <p>Equipo : {{ team_id }}</p>
+                    <p class="errorMessage">{{ errorMessage }}</p>
+                </div>
+                <div v-else class="suscribe">
+                    <h2>Inscribirse</h2>
+                    <div class="btn-join">
+                        <router-link v-if="existsToken" to="/joinTournament" class="join-link">Entrar </router-link>
+                        <router-link v-else to="/login" class="join-link">Login</router-link>
+                    </div>
                 </div>
             </div>
+
+
+
+
         </div>
-
-
-
-
     </div>
-</div>
     <FooterCmp />
 </template>
 
@@ -172,11 +166,10 @@ export default {
 h1 {
     text-align: center;
     color: #333;
-    margin-bottom: 20px;
     padding: 40px;
-    margin-bottom: 5rem;
     color: #ffeb3b;
     font-size: 70px;
+    margin-top: 0;
 }
 
 .general-container {
@@ -237,40 +230,44 @@ h1 {
     color: #09f;
 }
 
+
+
 .winners {
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 300px;
     border-radius: 10px;
-    /* margin: auto; */
     border-bottom: 1px solid #333;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    height: 250px;
+    /* gap: 10px; */
+    min-height: 250px;
     background-color: #ffffffc8;
-
-
+    padding: 10px;
+    overflow: auto;
+    /* Añade scroll si es necesario */
 }
 
 .team-info {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 10px;
-    height: 200px;
+    min-height: 250px;
     border-radius: 10px;
     border-bottom: 1px solid #333;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+
     background-color: #ffffffc8;
     text-align: center;
 }
-.suscribe{
+
+.suscribe {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #ffffffc8;
     text-align: center;
-    height: 100px;
+    min-height: 100px;
+    max-height: 200px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -278,29 +275,39 @@ h1 {
     gap: 20px;
     margin-bottom: 60px;
 }
-.super-general-container{
+
+.super-general-container {
     display: flex;
     justify-content: space-around;
-    
+
 }
-.super-mega-div{
+
+.super-mega-div {
     background-image: url('@/assets/bg-tournament2.webp');
     background-repeat: no-repeat;
     background-size: cover;
 }
-.secondary-container{
+
+.secondary-container {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     gap: 30px;
     margin-bottom: 40px;
 }
-.winners p{
+
+.winners p {
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
     border-radius: 4px;
     width: 150px;
     align-self: center;
 
+}
+
+.errorMessage {
+    color: red;
+    font-weight: bold;
+    padding: 1rem;
 }
 
 @media (max-width: 800px) {
@@ -313,10 +320,12 @@ h1 {
         order: -1;
 
     }
-    .super-general-container{
+
+    .super-general-container {
         flex-direction: column;
     }
-    .secondary-container{
+
+    .secondary-container {
         align-items: center;
     }
 }
