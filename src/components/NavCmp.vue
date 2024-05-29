@@ -9,7 +9,7 @@
       <ul class="nav-main-ul" :class="{ 'nav-active': isNavActive }">
         <li><router-link to="/">Home</router-link></li>
         <li><router-link to="/club">Club</router-link></li>
-        <li><router-link to="/reserve">Reservar</router-link></li>
+        <li v-if="existsToken"><router-link to="/reserve">Reservar</router-link></li>
         <li><router-link to="/tournaments">Torneos</router-link></li>
         <li><router-link to="/contact">Contacto</router-link></li>
         <li v-if="!existsToken"><router-link to="/login" class="nav-login-li">Login</router-link></li>

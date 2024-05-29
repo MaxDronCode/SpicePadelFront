@@ -7,7 +7,7 @@
     <div class="super-general-container" >
 
 
-        <div class="general-container">
+        <div class="general-container" v-if="existsToken">
             <TournamentTreeCmp class="calendar" v-if="alreadyInTeam" />
             <!-- <div class="calendar" v-else>
                 Calendar
@@ -32,9 +32,9 @@
                 <p>Equipo : {{ team_id }}</p>
                 <p>{{ errorMessage }}</p>
             </div>
-            <div v-else>
+            <div v-else class="suscribe">
 
-                <p>Inscribirse</p>
+                <h2>Inscribirse</h2>
                 <div class="btn-join">
                     <router-link v-if="existsToken" to="/joinTournament" class="join-link">Entrar </router-link>
                     <router-link v-else to="/login" class="join-link">Login</router-link>
@@ -265,6 +265,19 @@ h1 {
     background-color: #ffffffc8;
     text-align: center;
 }
+.suscribe{
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffffc8;
+    text-align: center;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 60px;
+}
 .super-general-container{
     display: flex;
     justify-content: space-around;
@@ -281,6 +294,13 @@ h1 {
     justify-content: flex-start;
     gap: 30px;
     margin-bottom: 40px;
+}
+.winners p{
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    width: 150px;
+    align-self: center;
+
 }
 
 @media (max-width: 800px) {
