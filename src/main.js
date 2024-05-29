@@ -32,7 +32,7 @@ const router = createRouter({
         { path: '/adminView', component: AdminView },
         { path: '/contact', component: ContactCmp},
         { path: '/club', component: ClubCmp},
-        { path: '/reserve', component: BookingForm}
+        
     ],
 });
 

@@ -1,15 +1,11 @@
 <template>
   <NavCmp />
-  <div v-if="existsToken" id="bookingForm"> 
+  <div v-if="existsToken" id="bookingForm">
     <h1 class="hTitle">Reservar Pista</h1>
-    <div v-if="!selectedFieldId"> 
+    <div v-if="!selectedFieldId">
       <div class="generalFieldContainer">
-        <div 
-          v-for="field in availableFields" 
-          :key="field.id" 
-          class="fieldContainer"
-          :style="{ backgroundImage: `url(${field.field_img})` }"
-        >
+        <div v-for="field in availableFields" :key="field.id" class="fieldContainer"
+          :style="{ backgroundImage: `url(${field.field_img})` }">
           <div class="fieldOverlay">
             <h2>Pista {{ field.name }}</h2>
             <p>{{ field.description }}</p>
@@ -18,35 +14,35 @@
           <div class="fieldNumber">
             <h2>{{ field.name }}</h2>
           </div>
-        </div> 
+        </div>
       </div>
-    </div> 
-    <div v-else class="general-container"> 
+    </div>
+    <div v-else class="general-container">
       <div>
         <h2 class="pista">Pista {{ selectedFieldId }}</h2>
         <vue-cal style="height: 40rem; width: 600px" locale="es" :events="events" :time-from="8 * 60" :time-to="19 * 60"
-          :time-step="60" :disable-views="['years', 'months', 'year']" @cell-focus="selectedDate = $event.date || $event"
-           xsmall />
+          :time-step="60" :disable-views="['years', 'months', 'year']"
+          @cell-focus="selectedDate = $event.date || $event" xsmall />
       </div>
       <div class="res-form">
         <h2>Reserva</h2>
         <p>Te recomendamos con 1 día de antelación</p>
         <form @submit.prevent="submitReservation">
-          <div> 
+          <div>
             <label for="date" class="lab">Fecha: </label><br>
-            <input type="date" v-model="reservation.date" required class="inp-date"/>
-          </div> 
+            <input type="date" v-model="reservation.date" required class="inp-date" />
+          </div>
           <div>
             <label for="start_hour" class="lab">Hora de inicio: </label><br>
-            <input type="time" v-model="reservation.start_hour" required class="inp-time" >
+            <input type="time" v-model="reservation.start_hour" required class="inp-time">
           </div>
-          <button type="submit" >Reservar</button>
+          <button type="submit">Reservar</button>
         </form>
         <button @click="clearSelection">Cambiar pista</button>
         <div :class="messageClass">{{ message }}</div> <!-- Aplicar la clase dinámica -->
       </div>
     </div>
-  </div> 
+  </div>
   <FooterCmp />
 </template>
 
@@ -88,6 +84,11 @@ export default {
     this.checkToken();
     this.loadAvailableFields();
     this.fetchBookings();
+    const savedFieldId = localStorage.getItem('selectedFieldId');
+    if (savedFieldId) {
+      this.selectedFieldId = savedFieldId;
+      localStorage.removeItem('selectedFieldId'); 
+    }
   },
   watch: {
     selectedFieldId() {
@@ -126,6 +127,10 @@ export default {
           this.message = 'Reserva realizada con éxito';
           this.messageClass = 'success'; // Asigna la clase de éxito
           await this.loadAvailability();
+          localStorage.setItem('selectedFieldId', this.selectedFieldId);
+          location.href = '/reserve';
+          location.reload();
+
         } else {
           this.message = result.message;
           this.messageClass = 'error'; // Asigna la clase de error
@@ -215,7 +220,8 @@ export default {
 @import "vue-cal/dist/vuecal.css";
 @import 'animate.css';
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -418,7 +424,8 @@ button:hover {
   margin-bottom: 15px;
 }
 
-.inp-date, input[type="time"] {
+.inp-date,
+input[type="time"] {
   background-color: #f0f0f0;
   border: none;
   border-radius: 8px;
@@ -432,7 +439,8 @@ button:hover {
   margin-bottom: 20px;
 }
 
-input[type="date"]:focus, input[type="time"]:focus {
+input[type="date"]:focus,
+input[type="time"]:focus {
   outline: none;
   box-shadow: 0 0 10px rgba(30, 144, 255, 0.8);
 }
