@@ -76,6 +76,7 @@ h1{
     line-height: 100px;
     height: 100px;
     margin: 0 0 50px 0;
+    font-size: 60px;
 }
 form{
     width: 80%;
