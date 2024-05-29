@@ -88,6 +88,7 @@ export default {
 
 h1 {
   margin: 0; /* Elimina márgenes para mejor centrado */
+  color: #ffeb3b
 }
 
 .title {
@@ -115,8 +116,6 @@ h1 {
   justify-content: left;
   margin: 10px;
   align-items: center;
-  align-self:start;
-
 }
 
 .list {
