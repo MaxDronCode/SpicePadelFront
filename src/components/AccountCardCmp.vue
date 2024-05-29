@@ -101,7 +101,7 @@ export default {
   position: absolute;
   letter-spacing: 0.2em;
   font-size: .75em;
-  top: .5em;
+  top: 1.5em;
   left: 220px; 
   font-weight:500px;
 }

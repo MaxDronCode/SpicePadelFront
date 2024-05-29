@@ -1,36 +1,52 @@
 <template>
     <NavCmp />
-    <h1>Torneos</h1>
-    <div class="winners">
-        <h2>Ganadores del último anterior</h2>
-        <p>Equipo Ganador: {{ winner_team }}</p>
-        <h3>Ganadores</h3>
-        <p>{{ win_player1_name }}</p>
-        <p>{{ win_player2_name }}</p>
-    </div>
-    <div class="general-container">
-        <TournamentTreeCmp class="calendar" v-if="alreadyInTeam" />
-        <!-- <div class="calendar" v-else>
-            Calendar
-        </div> -->
-        <div v-if="alreadyInTeam" class="team-info">
-            <p><b>Tu Equipo</b></p>
-            <p>{{ nextTournamentDate }}</p>
-            <p>Jugador 1 : {{ name_player1 }}</p>
-            <p>Jugador 2 : {{ name_player2 }}</p>
-            <p>Equipo : {{ team_id }}</p>
-            <p>{{ errorMessage }}</p>
-        </div>
-        <div v-else>
+    <div class="super-mega-div">
 
-            <p>Inscribirse</p>
-            <div class="btn-join">
-                <router-link v-if="existsToken" to="/joinTournament" class="join-link">Entrar </router-link>
-                <router-link v-else to="/login" class="join-link">Login</router-link>
+    
+    <h1>Torneos</h1>
+    <div class="super-general-container" >
+
+
+        <div class="general-container">
+            <TournamentTreeCmp class="calendar" v-if="alreadyInTeam" />
+            <!-- <div class="calendar" v-else>
+                Calendar
+            </div> -->
+
+
+        </div>
+        <div class="secondary-container" >
+            <div class="winners">
+                <h2>Ganadores del último anterior</h2>
+                <p>Equipo Ganador: {{ winner_team }}</p>
+                <h3>Ganadores</h3>
+                <p>{{ win_player1_name }}</p>
+                <p>{{ win_player2_name }}</p>
+            </div>
+
+            <div v-if="alreadyInTeam" class="team-info">
+                <p><b>Tu Equipo</b></p>
+                <p>{{ nextTournamentDate }}</p>
+                <p>Jugador 1 : {{ name_player1 }}</p>
+                <p>Jugador 2 : {{ name_player2 }}</p>
+                <p>Equipo : {{ team_id }}</p>
+                <p>{{ errorMessage }}</p>
+            </div>
+            <div v-else>
+
+                <p>Inscribirse</p>
+                <div class="btn-join">
+                    <router-link v-if="existsToken" to="/joinTournament" class="join-link">Entrar </router-link>
+                    <router-link v-else to="/login" class="join-link">Login</router-link>
+                </div>
             </div>
         </div>
 
+
+
+
     </div>
+</div>
     <FooterCmp />
 </template>
 
@@ -158,6 +174,9 @@ h1 {
     color: #333;
     margin-bottom: 20px;
     padding: 40px;
+    margin-bottom: 5rem;
+    color: #ffeb3b;
+    font-size: 70px;
 }
 
 .general-container {
@@ -165,6 +184,8 @@ h1 {
     padding: 20px;
     justify-content: space-around;
     margin-bottom: 150px;
+    background-color: #ffffffc8;
+    border-radius: 10px
 }
 
 .calendar {
@@ -221,12 +242,15 @@ h1 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 300px;
     border-radius: 10px;
-    margin: auto;
+    /* margin: auto; */
     border-bottom: 1px solid #333;
     display: flex;
     flex-direction: column;
     gap: 10px;
     height: 250px;
+    background-color: #ffffffc8;
+
+
 }
 
 .team-info {
@@ -238,6 +262,25 @@ h1 {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    background-color: #ffffffc8;
+    text-align: center;
+}
+.super-general-container{
+    display: flex;
+    justify-content: space-around;
+    
+}
+.super-mega-div{
+    background-image: url('@/assets/bg-tournament2.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.secondary-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 30px;
+    margin-bottom: 40px;
 }
 
 @media (max-width: 800px) {
@@ -249,6 +292,9 @@ h1 {
         margin: auto;
         order: -1;
 
+    }
+    .super-general-container{
+        flex-direction: column;
     }
 }
 </style>

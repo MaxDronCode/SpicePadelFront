@@ -107,10 +107,12 @@ h1 {
     padding: 40px;
     color: #333;
     margin-bottom: 20px;
+    font-size: 60px;
+    text-align: center;
 }
 
 h2 {
-    padding: 0 40px;
+    padding: 20px 40px 10px 40px;
     color: #fc2091;
     margin-bottom: 20px;
 }

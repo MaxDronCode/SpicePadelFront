@@ -201,5 +201,6 @@ button:hover{
 h1 {
     text-align: center;
     color: #333;
+    padding: 40px;
 }
 </style>
