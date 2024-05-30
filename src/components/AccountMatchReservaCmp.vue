@@ -67,7 +67,7 @@ export default {
         },
         async obtainEnterHour() {
             console.log("Enviamos a la api de reserva de pista: ", this.usuMail);
-            const response = await fetch('https://localhost/spicepadel_api/api/getUserBookings.php', {
+            const response = await fetch('http://localhost/spicepadel_api/api/getUserBookings.php', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
