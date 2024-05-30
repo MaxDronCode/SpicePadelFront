@@ -10,6 +10,7 @@
         <li><router-link to="/" class="nav-login-li">Home</router-link></li>
         <li><router-link to="/club" class="nav-login-li">Club</router-link></li>
         <li v-if="existsToken" class="nav-login-li"><router-link to="/reserve">Reservar</router-link></li>
+        <li><router-link to="/class" class="nav-login-li">Clases</router-link></li>
         <li><router-link to="/tournaments" class="nav-login-li">Torneos</router-link></li>
         <li><router-link to="/contact" class="nav-login-li" >Contacto</router-link></li>
         <li v-if="!existsToken"><router-link to="/login" class="nav-login-li">Login</router-link></li>
