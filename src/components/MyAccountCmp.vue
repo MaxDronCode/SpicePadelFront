@@ -56,7 +56,7 @@ export default {
         async obtainName() {
             try {
                 const response = await fetch(
-                    "http://Test2php-env.eba-tdje93tb.us-east-1.elasticbeanstalk.com/spicepadel_api/api/getName.php",
+                    "https://Test2php-env.eba-tdje93tb.us-east-1.elasticbeanstalk.com/spicepadel_api/api/getName.php",
                     {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
