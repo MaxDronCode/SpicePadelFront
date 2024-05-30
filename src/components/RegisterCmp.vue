@@ -1,37 +1,38 @@
 <template>
     <NavCmp />
-    <h1>Inscripción</h1>
-    <div class="general-container">
-        <img :src="alicia1" alt="desc">
-        <form @submit.prevent="register">
-            <label for="name">Nombre: </label>
-            <input type="text" v-model="name" required><br>
-            <label for="surename1">Apellido: </label>
-            <input type="text" v-model="surename1" required><br>
-            <label for="surename2">Segundo Apellido</label>
-            <input type="text" v-model="surename2" required><br>
-            <label for="phone">Teléfono: </label>
-            <input type="text" v-model="phone" required><br>
-            <label for="email">Correo Electrónico: </label>
-            <input type="text" v-model="email" required><br>
-            <label for="address">Dirección:</label>
-            <input type="text" v-model="address" required><br>
-            <label for="birthday">Fecha de Nacimiento:</label>
-            <input type="date" v-model="birthday" required><br><br>
-            <label for="bank_account">IBAN:</label>
-            <input type="text" v-model="bank_account" required><br>
-            <br>
-            <br>
-            <label for="dni">DNI/NIF: </label>
-            <input type="text" v-model="dni" required><br>
-            <label for="password">Contraseña:</label>
-            <input type="text" v-model="password" required><br>
-            <button type="submit">Registrarse</button>
 
-        </form>
-        <img :src="alicia2" alt="desc">
-    </div>
-    <p class="error">{{ errorMessage }}</p>
+        <h1>Inscripción</h1>
+        <div class="general-container">
+            <img :src="alicia1" alt="desc">
+            <form @submit.prevent="register">
+                <label for="name">Nombre: </label>
+                <input type="text" v-model="name" required><br>
+                <label for="surename1">Apellido: </label>
+                <input type="text" v-model="surename1" required><br>
+                <label for="surename2">Segundo Apellido</label>
+                <input type="text" v-model="surename2" required><br>
+                <label for="phone">Teléfono: </label>
+                <input type="text" v-model="phone" required><br>
+                <label for="email">Correo Electrónico: </label>
+                <input type="text" v-model="email" required><br>
+                <label for="address">Dirección:</label>
+                <input type="text" v-model="address" required><br>
+                <label for="birthday">Fecha de Nacimiento:</label>
+                <input type="date" v-model="birthday" required><br><br>
+                <label for="bank_account">IBAN:</label>
+                <input type="text" v-model="bank_account" required><br>
+                <br>
+                <br>
+                <label for="dni">DNI/NIF: </label>
+                <input type="text" v-model="dni" required><br>
+                <label for="password">Contraseña:</label>
+                <input type="text" v-model="password" required><br>
+                <button type="submit">Registrarse</button>
+
+            </form>
+            <img :src="alicia2" alt="desc">
+        </div>
+        <p class="error">{{ errorMessage }}</p>
 
     <FooterCmp />
 
@@ -127,6 +128,7 @@ form {
     width: 100%;
     box-sizing: border-box;
     margin: auto;
+    height: 100%;
 }
 
 h1 {
@@ -136,6 +138,7 @@ h1 {
     padding: 40px;
     background-color: #f0f0e6;
     font-size: 60px;
+    margin: 0;
 
 }
 
@@ -171,13 +174,16 @@ button {
 button:hover {
     background-color: #555;
 }
-.general-container{
+
+.general-container {
     display: flex;
     justify-content: space-between;
     width: 100vw;
     background-color: #f0f0e6;
+    height: 100%;
 }
-img{
+
+img {
     width: auto;
     height: 700px;
     margin: 0;
@@ -190,5 +196,11 @@ img{
     text-align: center;
     background-color: #f0f0e6;
 
+}
+
+@media (max-width:900px){
+    img{
+        
+    }
 }
 </style>
