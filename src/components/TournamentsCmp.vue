@@ -167,7 +167,7 @@ h1 {
     text-align: center;
     color: #333;
     padding: 40px;
-    color: #ffeb3b;
+    color: #fc0;
     font-size: 70px;
     margin-top: 0;
 }
@@ -276,6 +276,7 @@ h1 {
     align-items: center;
     gap: 20px;
     margin-bottom: 60px;
+    padding: 2rem;
 }
 
 .super-general-container {
@@ -317,7 +318,7 @@ h1 {
     box-shadow: 0 4px 15px rgba(255, 215, 0, 0.75); /* Sombra dorada para destacar */
     width: 300px;
     border-radius: 10px;
-    border: 2px solid #ffeb3b; /* Borde dorado */
+    border: 2px solid #fc0; /* Borde dorado */
     display: flex;
     flex-direction: column;
     min-height: 250px;
@@ -330,7 +331,7 @@ h1 {
 
 .winners h2, .winners h3 {
     color: #333; /* Texto oscuro para más contraste */
-    text-shadow: 0 0 6px #ffeb3b; /* Sombra de texto con brillo */
+    text-shadow: 0 0 6px #fc0; /* Sombra de texto con brillo */
 }
 
 .winners p {
@@ -338,7 +339,7 @@ h1 {
     border-radius: 4px;
     width: 150px;
     align-self: center;
-    background-color: #ffeb3b; /* Fondo dorado para los nombres */
+    background-color: #fc0; /* Fondo dorado para los nombres */
     color: #333;
     margin: 5px 0;
     padding: 5px;
