@@ -66,7 +66,7 @@ export default {
             this.usuMail = spiceToken.user_mail;
         },
         async obtainEnterHour() {
-            console.log("Enviamos a la api de reserva de pista: ", this.usuMail);
+            // console.log("Enviamos a la api de reserva de pista: ", this.usuMail);
             const response = await fetch('http://localhost/spicepadel_api/api/getUserBookings.php', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -75,12 +75,12 @@ export default {
                 })
             });
             const data = await response.json();
-            console.log("data "+ data);
+            // console.log("data "+ data);
             this.startHour = data.start_hour;
             this.end_hour = data.end_hour;
             this.field_id = data.field_id;
             this.date = data.date;
-            console.log("la api de reservas de partidos nos devuelve " + this.field_id + " " + this.end_hour + " " + this.startHour);
+            // console.log("la api de reservas de partidos nos devuelve " + this.field_id + " " + this.end_hour + " " + this.startHour);
         }
     },
     mounted() {
