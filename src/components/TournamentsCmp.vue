@@ -101,7 +101,7 @@ export default {
         async getTeamNames() {
 
             try {
-                const response = await fetch('https://test2php-env.eba-tdje93tb.us-east-1.elasticbeanstalk.com/spicepadel_api/api/getTeamNames.php', {
+                const response = await fetch('http://spicepadelv1-env.eba-3r3vapjq.us-east-1.elasticbeanstalk.com/spicepadel_api/getLastTournamentWinners.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
