@@ -35,7 +35,7 @@ export default {
     methods: {
         async login() {
             try {
-                const response = await fetch('http://http://test2php-env.eba-tdje93tb.us-east-1.elasticbeanstalk.com//spicepadel_api/api/login.php', {
+                const response = await fetch('http://test2php-env.eba-tdje93tb.us-east-1.elasticbeanstalk.com//spicepadel_api/api/login.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
