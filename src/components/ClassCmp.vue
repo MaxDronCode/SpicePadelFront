@@ -1,11 +1,10 @@
 <template>
   <NavCmp />
   <div v-if="existsToken" id="bookingForm">
-    <h1 class="hTitle">Reservar Pista</h1>
+    <h1 class="hTitle">Clases</h1>
     
     <div class="general-container">
       <div>
-        <h2 class="pista">Pista {{ selectedFieldId }}</h2>
         <vue-cal style="height: 40rem; width: 600px" locale="es" :events="events" :time-from="8 * 60" :time-to="19 * 60"
           :time-step="60" :disable-views="['years', 'months', 'year']" @event-click="signUpClass"
           @cell-focus="selectedDate = $event.date || $event" xsmall />

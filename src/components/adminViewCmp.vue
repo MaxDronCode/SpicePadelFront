@@ -1,5 +1,5 @@
 <template>
-    <NavCmp/>
+    <NavCmp />
     <h1>Admin View</h1>
     <p>{{ errorMessage }}</p>
     <div class="general-container">
@@ -203,6 +203,38 @@
                 </div>
                 <button class="btn-punctuate" type="submit">Puntuar</button>
             </form>
+        </div> <br>
+
+        <button @click="createClas" class="gnrl-button">Crear clase</button><br>
+        <div v-if="creatingClass" class="modal-overlay">
+            <div class="modal-content">
+
+                <form @submit.prevent="saveClassCreation">
+                    <h2>Crear una clase</h2>
+                    <label for="teacher_name">Nombre del profesor:</label>
+                    <input type="text" v-model="createClass.teacher_name" required><br>
+                    <label for="teacher_surname1">Apellido del profesor:</label>
+                    <input type="text" v-model="createClass.teacher_surname1" required><br>
+                    <label for="students_num">Cantidad de alumnos:</label>
+                    <input type="text" v-model="createClass.students_num" required><br>
+                    <label for="start_hour">Hora que comienza la clase:</label>
+                    <input type="time" v-model="createClass.start_hour" required><br>
+                    <label for="date">Dia de la clase:</label>
+                    <input type="date" v-model="createClass.date" required><br>
+                    <label for="field_id">Pista:</label>
+                    <select id="field_id" v-model="createClass.email" required><br>
+                        <option value="1">Pista de césped natural</option>
+                        <option value="2">Pista de tierra batida</option>
+                        <option value="3">Pista cubierta con césped sintético</option>
+                        <option value="4">Pista de cemento</option>
+                        <option value="5">Pista de césped artificial</option>
+                        <option value="6">Pista de tierra batida</option>
+                    </select>
+
+                    <button type="submit">Guardar</button>
+                    <button type="button" @click="cancelCreateClass">Cancelar</button>
+                </form>
+            </div>
         </div>
 
 
@@ -218,7 +250,7 @@ import NavCmp from './NavCmp.vue';
 
 export default {
     name: 'AdminView',
-    
+
     data() {
         return {
             existsToken: false,
@@ -235,6 +267,16 @@ export default {
                 address: '',
                 password: ''
             },
+            createClass: {
+                date: "",
+                start_hour: "",
+                field_id: "",
+                end_hour: "",
+                teacher_name: "",
+                teacher_surname1: "",
+                students_num: "",
+            },
+            creatingClass: false,
             creatingUser: false,
             newUser: {
                 dni: '',
@@ -263,7 +305,7 @@ export default {
 
         }
     },
-    components:{
+    components: {
         NavCmp
     },
     methods: {
@@ -356,8 +398,11 @@ export default {
                 this.errorMessage = "No se encontró el usuario.";
             }
         },
-        createUser(){
+        createUser() {
             this.creatingUser = true
+        },
+        createClas() {
+            this.creatingClass = true
         },
         editMember(dni_m) {
             const member = this.members.find(m => m.dni_m === dni_m)
@@ -405,6 +450,18 @@ export default {
                 bank_account: ""
             }
         },
+        cancelCreateClass() {
+            this.creatingClass = null
+            this.createClass = {
+                date: "",
+                start_hour: "",
+                field_id: "",
+                end_hour: "",
+                teacher_name: "",
+                teacher_surname1: "",
+                students_num: "",
+            }
+        },
         async saveUserEdition() {
             try {
                 const response = await fetch('http://localhost/spicepadel_api/modifyUser.php', {
@@ -416,7 +473,26 @@ export default {
                 if (data.success) {
                     this.errorMessage = data.message;
                     this.cancelEditUser(); // Limpia el formulario y cierra el modal
-                    this.getUsers(); // Recarga la lista de usuarios
+                } else {
+                    this.errorMessage = data.message;
+                }
+            } catch (error) {
+                this.errorMessage = "Error de conexión con el servidor al modificar usuario, error: " + error.message;
+            }
+
+        },
+        async saveClassCreation() {
+            this.createClass.end_hour =this.calculateEndHour(this.createClass.start_hour);
+            try {
+                const response = await fetch('http://localhost/spicepadel_api/createNewClass.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(this.createClass)
+                });
+                const data = await response.json();
+                if (data.success) {
+                    this.errorMessage = data.message;
+                    this.cancelCreateClass(); // Limpia el formulario y cierra el modal
                 } else {
                     this.errorMessage = data.message;
                 }
@@ -446,14 +522,14 @@ export default {
 
         },
         async saveNewUser() {
-            try{
+            try {
                 const response = await fetch("http://localhost/spicepadel_api/adminCreateUser.php", {
                     method: 'POST',
-                    headers: {'Content-Type':'application/json'},
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(this.newUser)
                 })
                 const data = await response.json()
-                if (data.success){
+                if (data.success) {
                     this.errorMessage = data.message
                     this.cancelCreateUser()
                     this.getUsers()
@@ -568,13 +644,20 @@ export default {
                     throw new Error('Network response was not ok');
                 }
 
-                const data = await response.json(); 
+                const data = await response.json();
                 console.log('Success:', data);
 
                 this.getMatches();
             } catch (error) {
                 console.error('Error posting match results:', error);
             }
+        },
+        calculateEndHour(startHour) {
+            const [hours, minutes] = startHour.split(':').map(Number);
+            const endHour = new Date();
+            endHour.setHours(hours + 2);
+            endHour.setMinutes(minutes);
+            return `${endHour.getHours().toString().padStart(2, '0')}:${endHour.getMinutes().toString().padStart(2, '0')}`;
         },
 
         hideUsers() {
@@ -679,7 +762,8 @@ button {
     padding: 5px;
     font-size: 14px;
 }
-.gnrl-button{
+
+.gnrl-button {
     width: 30%;
     height: 60px;
     padding: 5px;
@@ -709,7 +793,7 @@ tbody tr:hover {
     justify-content: center;
     align-items: center;
     z-index: 9999;
-    overflow-y: auto; 
+    overflow-y: auto;
 }
 
 .modal-content {
@@ -779,7 +863,8 @@ input[type="text"] {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
 }
-.btn-createUser{
+
+.btn-createUser {
     width: 30%;
     margin: 0;
 }
