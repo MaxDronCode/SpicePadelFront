@@ -42,7 +42,7 @@ export default {
         },
         async obtainName() {
             try {
-                const response = await fetch('http://Test2php-env.eba-tdje93tb.us-east-1.elasticbeanstalk.com/spicepadel_api/api/getName.php', {
+                const response = await fetch('http://localhost/spicepadel_api/api/getName.php', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
@@ -59,7 +59,7 @@ export default {
         },
         async getTeamNames() {
             try {
-                const response = await fetch('http://Test2php-env.eba-tdje93tb.us-east-1.elasticbeanstalk.com/spicepadel_api/api/getTeamNames.php', {
+                const response = await fetch('http://localhost/spicepadel_api/api/getTeamNames.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

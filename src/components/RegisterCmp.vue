@@ -70,8 +70,6 @@ export default {
     methods: {
         async register() {
             try {
-                // ruta Max: http://localhost/spicepadel_api/api/register.php
-                // ruta Martí: http://localhost/PROYECTO_FINAL/SpicePadelApi/spicepadel_api/api/register.php
                 const response = await fetch('http://localhost/spicepadel_api/api/registerChat.php', {
                     method: 'POST',
                     headers: {

@@ -77,7 +77,7 @@ export default {
         },
         async checkIfInTeam() {
             try {
-                const response = await fetch('https://test2php-env.eba-tdje93tb.us-east-1.elasticbeanstalk.com/spicepadel_api/api/checkIfInTeam.php', {
+                const response = await fetch('http://localhost/spicepadel_api/api/checkIfInTeam.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -102,7 +102,7 @@ export default {
 
             try {
                 console.log("Se ejecuta getTeamNames")
-                const response = await fetch('https://spicepadelv1-env.eba-3r3vapjq.us-east-1.elasticbeanstalk.com/spicepadel_api/api/getTeamNames.php', {
+                const response = await fetch('http://localhost/spicepadel_api/api/getTeamNames.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -122,7 +122,7 @@ export default {
         },
         async getLastTournamentWinners() {
             try {
-                const response = await fetch('https://spicepadelv1-env.eba-3r3vapjq.us-east-1.elasticbeanstalk.com/spicepadel_api/getLastTournamentWinners.php')
+                const response = await fetch('http://localhost/spicepadel_api/getLastTournamentWinners.php')
                 const data = await response.json()
                 if (data.success) {
                     this.winner_team = data.winner_team
