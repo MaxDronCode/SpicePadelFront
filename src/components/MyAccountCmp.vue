@@ -56,12 +56,12 @@ export default {
         async obtainName() {
             try {
                 const response = await fetch(
-                    "https://localhost/spicepadel_api/api/getName.php",
+                    "http://localhost/spicepadel_api/api/getName.php",
                     {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
-                            user_email: this.usuMail,
+                            'user_email': this.usuMail,
                         }),
                     }
                 );
